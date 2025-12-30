@@ -8,7 +8,7 @@
 
 <script setup></script>
 
-<style scoped style lang="scss">
+<style scoped>
 .header {
   background-color: #2c3e50;
   padding: 1rem;
