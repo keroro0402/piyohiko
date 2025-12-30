@@ -16,3 +16,18 @@ main {
     }
   }
 }
+
+/* フッター共通スタイル */
+.footer {
+  background-color: #2c3e50;
+  padding: 1rem;
+  color: white;
+
+  nav {
+    a {
+      margin-right: 1rem;
+      color: white;
+      text-decoration: none;
+    }
+  }
+}
