@@ -16,6 +16,14 @@ UI と API を使った Web アプリに関する技術取得を目的とする 
 
 - mkdir ~/Desktop/work
 
+### 作業用フォルダに移動する
+
+- cd ~/Desktop/work
+
+### プロジェクトをクローンする
+
+- git clone git@github.com:keroro0402/piyohiko.git
+
 ## 技術スタック（Tech Stack）
 
 ### 使用言語
