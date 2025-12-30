@@ -1,7 +1,9 @@
 <template>
   <header class="header">
-    <nav>
-      <NuxtLink to="/">Home</NuxtLink>
-    </nav>
+    <Navi />
   </header>
 </template>
+
+<script setup>
+import Navi from '~/components/Navi.vue';
+</script>
