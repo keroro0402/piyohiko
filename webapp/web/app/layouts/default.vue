@@ -2,9 +2,12 @@
   <div>
     <Header />
     <main>
+      <!--
+      <slot />
+      親コンポーネント（app.vue）で<NuxtLayout>の中にあるコンポーネントを表示させるタグ
+      -->
       <slot />
     </main>
-    <!-- <Footer /> 必要なら追加 -->
   </div>
 </template>
 
