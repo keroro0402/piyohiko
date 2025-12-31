@@ -1,0 +1,51 @@
+services:
+  #api 側の設定
+  api:
+    #コンテナの名前を api に指定
+    container_name: api
+    build:
+      #ビルドコンテキストは ./api ディレクトリ全体（要Dockerfile）
+      context: ./api
+      #ビルドに使うDockerfileは Dockerfile.dev を指定
+      dockerfile: Dockerfile.dev
+    ports:
+      #ホスト8080番 →　コンテナ8080にマッピング（Spring Boot アプリが使うデフォルトポート番号）
+      - 8080:8080
+    tty:
+      #bashを起動しぱなっしにする
+      true
+    volumes:
+      #ローカルの ./api を編集をコンテナの中の /workspace に同期させる
+      - ./api:/workspace:cached
+      # 開発サーバ立ち上げ
+    command: ['./mvnw', 'spring-boot:run']
+    env_file:
+      - .env.dev
+
+  #web 側の設定
+  web:
+    #コンテナの名前を web に指定
+    container_name: web
+    build:
+      #ビルドコンテキストは ./web ディレクトリ全体（要Dockerfile）
+      context: ./web
+      #ビルドに使うDockerfileは Dockerfile.dev を指定
+      dockerfile: Dockerfile.dev
+    ports:
+      #ホスト3000番 →　コンテナ3000にマッピング
+      - 3000:3000
+    tty:
+      #bashを起動しぱなっしにする
+      true
+    volumes:
+      #ローカルの ./web をコンテナ内の /workspace にマウントする（同期する）→これでローカルで編集したファイルがホットリロードでコンテナ内のファイルに反映される
+      - ./web:/workspace:cached
+      # node_modules をホストと分離し、アーキテクチャ不一致を防ぐ
+      # - /usr/src/app/node_modules
+      - /workspace/node_modules
+    depends_on:
+      - api
+      #開発サーバ立ち上げ
+    command: ['npm', 'run', 'dev']
+    env_file:
+      - .env.dev

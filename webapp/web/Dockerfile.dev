@@ -1,0 +1,14 @@
+#　web開発用dockerFile
+
+FROM node:20
+
+#コンテナ内に　/workspace　を作り、以降の作業ディレクトリを　/workspace　にする
+WORKDIR /workspace
+
+COPY package*.json ./
+RUN npm install
+
+#カレントのデータ一式を　/workspace　にコピーする
+COPY . .
+
+CMD ["npm", "run", "dev"]

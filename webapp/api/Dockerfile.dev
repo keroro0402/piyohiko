@@ -1,0 +1,16 @@
+#　api開発用dockerFile
+
+FROM maven:3.9.6-eclipse-temurin-17 AS builder
+#コンテナ内に　/workspace　を作り、以降の作業ディレクトリを　/workspace　にする
+WORKDIR /workspace
+#依存関係の設定ファイルをコピー
+COPY pom.xml .
+# 環境差異を無くすためにMavenWrapperを入れる
+COPY mvnw . 
+# Mavenを使うコマンドをコピー
+COPY .mvn .mvn
+# 依存関係だけ先に解決（キャッシュ効率UP）
+RUN ./mvnw dependency:go-offline
+
+# アプリケーションを実行（開発用のspring-boot:run）
+CMD ["./mvnw", "spring-boot:run"]
