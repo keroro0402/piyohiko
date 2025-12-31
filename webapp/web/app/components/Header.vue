@@ -1,22 +1,9 @@
 <template>
   <header class="header">
-    <nav>
-      <NuxtLink to="/">Home</NuxtLink>
-    </nav>
+    <Navi />
   </header>
 </template>
 
-<script setup></script>
-
-<style scoped>
-.header {
-  background-color: #2c3e50;
-  padding: 1rem;
-  color: white;
-}
-nav a {
-  margin-right: 1rem;
-  color: white;
-  text-decoration: none;
-}
-</style>
+<script setup>
+import Navi from '~/components/Navi.vue';
+</script>
