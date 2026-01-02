@@ -4,6 +4,6 @@
   </nav>
 </template>
 
-<script setup>
-import { links } from '~/constants/links.ts';
+<script setup lang="ts">
+import { links } from '~/constants/links';
 </script>

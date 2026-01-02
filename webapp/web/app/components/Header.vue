@@ -4,6 +4,6 @@
   </header>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import Navi from '~/components/Navi.vue';
 </script>
