@@ -1,4 +1,4 @@
-import type { NavItem } from '~/types/navi';
+import type { NaviItem } from '~/types/navi';
 
 /**
  * アプリ共通ナビゲーション定義
@@ -9,7 +9,7 @@ import type { NavItem } from '~/types/navi';
  * - to は pages に存在するルートのみ
  */
 export const links: {
-  navi: readonly NavItem[];
+  navi: readonly NaviItem[];
 } = {
   navi: [
     {
