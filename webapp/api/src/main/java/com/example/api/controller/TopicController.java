@@ -18,11 +18,11 @@ public class TopicController {
     @PostMapping("/register-topic")
     /*
     * @ModelAttribute TopicRegistrationForm
-    * 入力された情報を自動でTopicRegistrationFormのフィールドにマッピング（データバインディング）されてformに格納される
+    * 入力された情報を自動で TopicRegistrationForm のフィールドにマッピング（データバインディング）されて formInfo に格納される
     * HTMLの <input name="topicTitle"> → TopicRegistrationForm.topicTitle に自動でセット
     * */
     public String registerTopic(@ModelAttribute TopicRegistrationForm formInfo){
-        System.out.println(formInfo); /* 中身を確認 */
+        System.out.println(formInfo); /* 変数 formInfo の中身を確認 */
         return "confirm-register-topic";
     }
 }
