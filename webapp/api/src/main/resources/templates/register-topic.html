@@ -1,10 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title th:text="${templateTitle}"></title>
 </head>
 <body>
-
+<h1 th:text="${templateTitle}"></h1>
+<!-- @{...} ...をURLに変換するリンク式 -->
+<form th:action="@{/register-topic}" method="POST" th:object="${topicRegistrationForm}">
+    <div>
+        <!-- th:text で変数を view の文字列に反映できる -->
+        <label for="registrationId" th:text="${templateRegistrationId}"></label><br>
+        <input type="text" name="registrationId" id="registrationId">
+    </div>
+    <div>
+        <!-- ${...} ...の変数を参照する変数式 -->
+        <label for="userId" th:text="${templateUserId}"></label><br>
+        <input type="text" name="userId" id="userId">
+    </div>
+    <div>
+        <label for="visitDate" th:text="${templateVisitDate}"></label><br>
+        <input type="date" name="visitDate" id="visitDate">
+    </div>
+    <div>
+        <label for="topicTitle" th:text="${templateTopicTitle}"></label><br>
+        <input type="text" name="topicTitle" id="topicTitle">
+    </div>
+    <div>
+        <label th:text="${templateTopicContent}"></label><br>
+        <input type="text" name="topicContent" id="topicContent">
+    </div>
+    <div>
+        <!-- th:value で変数を view の value に反映できる -->
+        <input type="submit" th:value="${templateRegister}">
+    </div>
+</form>
 </body>
 </html>
