@@ -1,6 +1,6 @@
 <template>
   <header class="header">
-    <Navi />
+    <Navi block="header-nav" />
   </header>
 </template>
 
