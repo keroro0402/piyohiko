@@ -12,6 +12,10 @@ public class TopicController {
     /* Topic登録画面表示 */
     @GetMapping("/show-topic-form")
     public String showTopicForm(Model model){
+        /* 手動で model に TopicRegistrationForm を追加する方法 */
+        model.addAttribute(
+                "topicRegistrationForm", new TopicRegistrationForm()
+        );
         model.addAttribute("templateTitle", "トピック登録");
         model.addAttribute("templateRegistrationId", "【登録ID】");
         model.addAttribute("templateUserId", "【ユーザーID】");
@@ -29,7 +33,10 @@ public class TopicController {
     * 入力された情報を自動で TopicRegistrationForm のフィールドにマッピング（データバインディング）されて formInfo に格納される
     * HTMLの <input name="topicTitle"> → TopicRegistrationForm.topicTitle に自動でセット
     * */
-    public String registerTopic(@ModelAttribute TopicRegistrationForm formInfo, Model model){
+    public String registerTopic(
+            @ModelAttribute TopicRegistrationForm formInfo, /* 自動で model に TopicRegistrationForm を追加する方法*/
+            Model model
+    ){
         model.addAttribute("templateTitle", "トピック登録内容確認");
         model.addAttribute("templateRegistrationId", "【登録ID】");
         model.addAttribute("templateUserId", "【ユーザーID】");
@@ -37,7 +44,7 @@ public class TopicController {
         model.addAttribute("templateTopicTitle", "【トピックタイトル】");
         model.addAttribute("templateTopicContent", "【内容】");
         model.addAttribute("templateToRegister", "入力ページへ");
-        System.out.println(formInfo); /* 変数 formInfo の中身を確認 */
+        System.out.println(formInfo); /* 変数 formInfo の中身をコンソール画面で確認 */
         return "confirm-register-topic";
     }
 }

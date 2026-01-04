@@ -12,6 +12,11 @@ import java.util.List;
 * registrationId は Integer　型
 * userId　は String 型で受け取ることなど定義している
 *  */
+
+/*
+* クラス名 = ファイル名
+* publicクラスは1ファイルに1つしか書けない
+* */
 public class TopicRegistrationForm {
     private Integer registrationId;
     private String userId;
