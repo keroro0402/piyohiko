@@ -8,14 +8,14 @@ main {
   padding: 1rem;
   color: white;
 
-  nav {
-    a {
+  &-nav {
+    &__link {
       margin-right: 1rem;
       color: white;
       text-decoration: none;
-    }
-    .current {
-      font-weight: bold;
+      &--current {
+        font-weight: bold;
+      }
     }
   }
 }
@@ -26,14 +26,14 @@ main {
   padding: 1rem;
   color: white;
 
-  nav {
-    a {
+  &-nav {
+    &__link {
       margin-right: 1rem;
       color: white;
       text-decoration: none;
-    }
-    .current {
-      font-weight: bold;
+      &--current {
+        font-weight: bold;
+      }
     }
   }
 }

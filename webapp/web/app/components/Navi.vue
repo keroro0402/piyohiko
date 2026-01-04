@@ -1,6 +1,6 @@
 <template>
   <nav :class="block">
-    <NuxtLink v-for="link in links.navi" :key="link.key" :to="link.to" :class="{ current: isCurrent(link) }">{{ link.label }}</NuxtLink>
+    <NuxtLink v-for="link in links.navi" :key="link.key" :to="link.to" class="" :class="[`${block}__link`, { [`${block}__link--current`]: isCurrent(link) }]">{{ link.label }}</NuxtLink>
   </nav>
 </template>
 
