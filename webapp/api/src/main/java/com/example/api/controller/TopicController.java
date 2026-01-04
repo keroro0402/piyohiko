@@ -37,7 +37,7 @@ public class TopicController {
         model.addAttribute("templateTopicTitle", "【トピックタイトル】");
         model.addAttribute("templateTopicContent", "【内容】");
         model.addAttribute("templateToRegister", "入力ページへ");
-        System.out.println(formInfo); /* 変数 formInfo の中身を確認 */
+        System.out.println(formInfo); /* 変数 formInfo の中身をコンソール画面で確認 */
         return "confirm-register-topic";
     }
 }
