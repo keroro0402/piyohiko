@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${templateTitle}"></title>
+</head>
+<body>
+<h1 th:text="${templateTitle}"></h1>
+<p>以下の内容を登録します</p>
+
+<div>
+    <p th:text="${templateRegistrationId}"></p>
+    <p th:text="${topicRegistrationForm.registrationId}"></p>
+</div>
+<div>
+    <p th:text="${templateUserId}"></p>
+    <p th:text="${topicRegistrationForm.userId}"></p>
+</div>
+<div>
+    <p th:text="${templateVisitDate}"></p>
+    <p th:text="${topicRegistrationForm.visitDate}"></p>
+</div>
+<div>
+    <p th:text="${templateTopicTitle}"></p>
+    <p th:text="${topicRegistrationForm.topicTitle}"></p>
+</div>
+<div>
+    <p th:text="${templateTopicContent}"></p>
+    <p th:text="${topicRegistrationForm.topicContent}"></p>
+</div>
+<div>
+    <a th:href="@{/show-topic-form}" th:text="${templateToRegister}"></a>
+</div>
+</body>
+</html>
