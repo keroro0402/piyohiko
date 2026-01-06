@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1 th:text="${templateTitle}"></h1>
-<p>以下の内容を登録します</p>
+<p>登録実行ボタン押下で以下の内容を登録します</p>
 
 <div>
     <p th:text="${templateRegistrationId}"></p>
@@ -28,8 +28,21 @@
     <p th:text="${templateTopicContent}"></p>
     <p th:text="${topicRegistrationForm.topicContent}"></p>
 </div>
-<div>
-    <a th:href="@{/show-topic-form}" th:text="${templateToRegister}"></a>
-</div>
+<form th:action="@{/confirm-register-topic}" method="POST" th:object="${topicRegistrationForm}">
+    <input type="hidden" th:field="*{registrationId}">
+    <input type="hidden" th:field="*{userId}">
+    <input type="hidden" th:field="*{visitDate}">
+    <input type="hidden" th:field="*{topicTitle}">
+    <input type="hidden" th:field="*{topicContent}">
+    <input type="submit" value="登録実行">
+</form>
+<form th:action="@{/show-topic-form-re}" method="POST" th:object="${topicRegistrationForm}">
+    <input type="hidden" th:field="*{registrationId}">
+    <input type="hidden" th:field="*{userId}">
+    <input type="hidden" th:field="*{visitDate}">
+    <input type="hidden" th:field="*{topicTitle}">
+    <input type="hidden" th:field="*{topicContent}">
+    <input type="submit" value="戻る">
+</form>
 </body>
 </html>
