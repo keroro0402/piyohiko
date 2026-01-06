@@ -14,10 +14,10 @@ public class TopicController {
     public String showTopicForm(Model model){
         /* 手動で model に TopicRegistrationForm を追加する方法 */
         /* TopicRegistrationForm 型の変数 form を宣言して、その中に新しい TopicRegistrationForm オブジェクトを格納する */
-        TopicRegistrationForm form = new TopicRegistrationForm();
+        TopicRegistrationForm formInfo = new TopicRegistrationForm();
         /* Thymeleafから、 attributeName で参照できるように、 attributeValue を Model 詰める作業 */
         model.addAttribute(
-                "topicRegistrationForm", form
+                "topicRegistrationForm", formInfo
         );
         model.addAttribute("templateTitle", "トピック登録");
         model.addAttribute("templateRegistrationId", "【登録ID】");
