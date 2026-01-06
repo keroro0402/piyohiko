@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class TopicController {
-    /* Topic登録画面表示 */
+    /* Topic登録画面表示リクエスト */
     @GetMapping("/show-topic-form")
     public String showTopicForm(Model model){
         /* 手動で model に TopicRegistrationForm を追加する方法 */
@@ -29,7 +29,7 @@ public class TopicController {
         return "register-topic";
     }
 
-    /* Topic登録画面表示（登録確認画面からの戻り） */
+    /* Topic登録画面表示リクエスト（登録確認画面からの戻り） */
     @PostMapping("/show-topic-form-re")
     public String showTopicFormRe(@ModelAttribute TopicRegistrationForm formInfo){
         return "register-topic";
