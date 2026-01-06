@@ -28,7 +28,7 @@
     <p th:text="${templateTopicContent}"></p>
     <p th:text="${topicRegistrationForm.topicContent}"></p>
 </div>
-<form th:action="@{/confirm-register-topic}" method="POST" th:object="${topicRegistrationForm}">
+<form th:action="@{/complete-register-topic}" method="POST" th:object="${topicRegistrationForm}">
     <input type="hidden" th:field="*{registrationId}">
     <input type="hidden" th:field="*{userId}">
     <input type="hidden" th:field="*{visitDate}">

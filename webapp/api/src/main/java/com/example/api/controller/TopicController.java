@@ -43,7 +43,7 @@ public class TopicController {
     }
 
     /* Topic登録リクエスト（トピック登録画面から遷移） */
-    @PostMapping("/register-topic")
+    @PostMapping("/confirm-register-topic")
     /*
     * @ModelAttribute TopicRegistrationForm
     * 入力された情報を自動で TopicRegistrationForm のフィールドにマッピング（データバインディング）されて formInfo に格納される
@@ -65,7 +65,7 @@ public class TopicController {
     }
 
     /* Topic登録リクエスト（トピック登録内容確認画面から遷移） */
-    @PostMapping("confirm-register-topic")
+    @PostMapping("complete-register-topic")
     /* formInfo をDBに登録するために引数として受け取る、model経由で complete-register-topic に登録完了を通知するため model を入れる*/
     public String confirmRegisterTopic(TopicRegistrationForm formInfo, Model model){
         //
