@@ -8,7 +8,7 @@
 <h1 th:text="${templateTitle}"></h1>
 <!-- @{...} ...をURLに変換するリンク式 -->
 <!-- th:object="${Modelに格納されているオブジェクト名}" 指定したオブジェクトを、子要素の th:field で参照できるようにする -->
-<form th:action="@{/register-topic}" method="POST" th:object="${topicRegistrationForm}">
+<form th:action="@{/confirm-register-topic}" method="POST" th:object="${topicRegistrationForm}">
     <div>
         <!--
         th:text で変数を view の文字列へ動的に反映できる
