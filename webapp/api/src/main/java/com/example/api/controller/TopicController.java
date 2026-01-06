@@ -29,13 +29,13 @@ public class TopicController {
         return "register-topic";
     }
 
-    /* Topic登録画面表示リクエスト（登録確認画面からの戻り） */
+    /* Topic登録画面表示リクエスト（トピック登録内容確認画面からの戻り） */
     @PostMapping("/show-topic-form-re")
     public String showTopicFormRe(@ModelAttribute TopicRegistrationForm formInfo){
         return "register-topic";
     }
 
-    /* Topic登録リクエスト（Topic登録画面から遷移） */
+    /* Topic登録リクエスト（トピック登録画面から遷移） */
     @PostMapping("/register-topic")
     /*
     * @ModelAttribute TopicRegistrationForm
@@ -57,7 +57,7 @@ public class TopicController {
         return "confirm-register-topic";
     }
 
-    /* Topic登録リクエスト（登録確認画面から遷移） */
+    /* Topic登録リクエスト（トピック登録内容確認画面から遷移） */
     @PostMapping("confirm-register-topic")
     public String confirmRegisterTopic(TopicRegistrationForm formInfo, Model model){
         //
