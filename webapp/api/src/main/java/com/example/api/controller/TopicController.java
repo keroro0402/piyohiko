@@ -56,4 +56,13 @@ public class TopicController {
         System.out.println(formInfo); /* 変数 formInfo の中身をコンソール画面で確認 */
         return "confirm-register-topic";
     }
+
+    /* Topic登録リクエスト（登録確認画面から遷移） */
+    @PostMapping("confirm-register-topic")
+    public String confirmRegisterTopic(TopicRegistrationForm formInfo, Model model){
+        //
+        //  ここにDb登録処理を書く
+        //
+        return "complete-register-topic";
+    }
 }
