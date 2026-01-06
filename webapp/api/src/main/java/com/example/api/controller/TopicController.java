@@ -29,6 +29,12 @@ public class TopicController {
         return "register-topic";
     }
 
+    /* Topic登録画面表示（登録確認画面からの戻り） */
+    @PostMapping("/show-topic-form-re")
+    public String showTopicFormRe(@ModelAttribute TopicRegistrationForm formInfo){
+        return "register-topic";
+    }
+
     /* Topic登録リクエスト（Topic登録画面から遷移） */
     @PostMapping("/register-topic")
     /*
