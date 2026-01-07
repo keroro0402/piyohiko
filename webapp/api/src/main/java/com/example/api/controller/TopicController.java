@@ -73,6 +73,7 @@ public class TopicController {
         //
         model.addAttribute("templateTitle", "トピック登録完了");
         model.addAttribute("templateCompleteMessage", "トピックの登録が完了しました");
+        model.addAttribute("templateToRegister", "入力ページへ");
         return "complete-register-topic";
     }
 }
