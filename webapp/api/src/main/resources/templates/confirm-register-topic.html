@@ -34,7 +34,7 @@
     <input type="hidden" th:field="*{visitDate}">
     <input type="hidden" th:field="*{topicTitle}">
     <input type="hidden" th:field="*{topicContent}">
-    <input type="submit" value="登録実行">
+    <input type="submit" th:value="${messageToCompleteRegister}">
 </form>
 <form th:action="@{/show-topic-form-re}" method="POST" th:object="${topicRegistrationForm}">
     <input type="hidden" th:field="*{registrationId}">
@@ -42,7 +42,7 @@
     <input type="hidden" th:field="*{visitDate}">
     <input type="hidden" th:field="*{topicTitle}">
     <input type="hidden" th:field="*{topicContent}">
-    <input type="submit" value="戻る">
+    <input type="submit" th:value="${messageToRegister}">
 </form>
 </body>
 </html>

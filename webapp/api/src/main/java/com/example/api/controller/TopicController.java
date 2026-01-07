@@ -25,7 +25,7 @@ public class TopicController {
         model.addAttribute("visitDate", "【登録日時】");
         model.addAttribute("topicTitle", "【トピックタイトル】");
         model.addAttribute("topicContent", "【内容】");
-        model.addAttribute("messageRegister", "登録する");
+        model.addAttribute("messageToConfirmRegister", "登録内容を確認する");
         return "register-topic";
     }
 
@@ -38,7 +38,7 @@ public class TopicController {
         model.addAttribute("visitDate", "【登録日時】");
         model.addAttribute("topicTitle", "【トピックタイトル】");
         model.addAttribute("topicContent", "【内容】");
-        model.addAttribute("messageRegister", "登録する");
+        model.addAttribute("messageToConfirmRegister", "登録内容を確認する");
         return "register-topic";
     }
 
@@ -59,7 +59,8 @@ public class TopicController {
         model.addAttribute("visitDate", "【登録日時】");
         model.addAttribute("topicTitle", "【トピックタイトル】");
         model.addAttribute("topicContent", "【内容】");
-        model.addAttribute("messageToRegister", "入力ページへ");
+        model.addAttribute("messageToCompleteRegister", "登録を実行する");
+        model.addAttribute("messageToRegister", "入力ページへ戻る");
         System.out.println(formInfo); /* 変数 formInfo の中身をコンソール画面で確認 */
         return "confirm-register-topic";
     }
