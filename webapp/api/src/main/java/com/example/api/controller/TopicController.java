@@ -19,26 +19,26 @@ public class TopicController {
         model.addAttribute(
                 "topicRegistrationForm", formInfo
         );
-        model.addAttribute("templateTitle", "トピック登録");
-        model.addAttribute("templateRegistrationId", "【登録ID】");
-        model.addAttribute("templateUserId", "【ユーザーID】");
-        model.addAttribute("templateVisitDate", "【登録日時】");
-        model.addAttribute("templateTopicTitle", "【トピックタイトル】");
-        model.addAttribute("templateTopicContent", "【内容】");
-        model.addAttribute("templateRegister", "登録する");
+        model.addAttribute("title", "トピック登録");
+        model.addAttribute("registrationId", "【登録ID】");
+        model.addAttribute("userId", "【ユーザーID】");
+        model.addAttribute("visitDate", "【登録日時】");
+        model.addAttribute("topicTitle", "【トピックタイトル】");
+        model.addAttribute("topicContent", "【内容】");
+        model.addAttribute("messageRegister", "登録する");
         return "register-topic";
     }
 
     /* Topic登録画面表示リクエスト（トピック登録内容確認画面からの戻り） */
     @PostMapping("/show-topic-form-re")
     public String showTopicFormRe(@ModelAttribute TopicRegistrationForm formInfo, Model model){
-        model.addAttribute("templateTitle", "トピック登録");
-        model.addAttribute("templateRegistrationId", "【登録ID】");
-        model.addAttribute("templateUserId", "【ユーザーID】");
-        model.addAttribute("templateVisitDate", "【登録日時】");
-        model.addAttribute("templateTopicTitle", "【トピックタイトル】");
-        model.addAttribute("templateTopicContent", "【内容】");
-        model.addAttribute("templateRegister", "登録する");
+        model.addAttribute("title", "トピック登録");
+        model.addAttribute("registrationId", "【登録ID】");
+        model.addAttribute("userId", "【ユーザーID】");
+        model.addAttribute("visitDate", "【登録日時】");
+        model.addAttribute("topicTitle", "【トピックタイトル】");
+        model.addAttribute("topicContent", "【内容】");
+        model.addAttribute("messageRegister", "登録する");
         return "register-topic";
     }
 
@@ -53,13 +53,13 @@ public class TopicController {
             @ModelAttribute TopicRegistrationForm formInfo, /* 自動で model に TopicRegistrationForm を追加する方法*/
             Model model
     ){
-        model.addAttribute("templateTitle", "トピック登録内容確認");
-        model.addAttribute("templateRegistrationId", "【登録ID】");
-        model.addAttribute("templateUserId", "【ユーザーID】");
-        model.addAttribute("templateVisitDate", "【登録日時】");
-        model.addAttribute("templateTopicTitle", "【トピックタイトル】");
-        model.addAttribute("templateTopicContent", "【内容】");
-        model.addAttribute("templateToRegister", "入力ページへ");
+        model.addAttribute("title", "トピック登録内容確認");
+        model.addAttribute("registrationId", "【登録ID】");
+        model.addAttribute("userId", "【ユーザーID】");
+        model.addAttribute("visitDate", "【登録日時】");
+        model.addAttribute("topicTitle", "【トピックタイトル】");
+        model.addAttribute("topicContent", "【内容】");
+        model.addAttribute("messageToRegister", "入力ページへ");
         System.out.println(formInfo); /* 変数 formInfo の中身をコンソール画面で確認 */
         return "confirm-register-topic";
     }
@@ -71,9 +71,9 @@ public class TopicController {
         //
         //  ここにDB登録処理を書く
         //
-        model.addAttribute("templateTitle", "トピック登録完了");
-        model.addAttribute("templateCompleteMessage", "トピックの登録が完了しました");
-        model.addAttribute("templateToRegister", "入力ページへ");
+        model.addAttribute("title", "トピック登録完了");
+        model.addAttribute("messageComplete", "トピックの登録が完了しました");
+        model.addAttribute("messageToRegister", "入力ページへ");
         return "complete-register-topic";
     }
 }

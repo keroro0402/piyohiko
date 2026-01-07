@@ -2,30 +2,30 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${templateTitle}"></title>
+    <title th:text="${title}"></title>
 </head>
 <body>
-<h1 th:text="${templateTitle}"></h1>
+<h1 th:text="${title}"></h1>
 <p>登録実行ボタン押下で以下の内容を登録します</p>
 
 <div>
-    <p th:text="${templateRegistrationId}"></p>
+    <p th:text="${registrationId}"></p>
     <p th:text="${topicRegistrationForm.registrationId}"></p>
 </div>
 <div>
-    <p th:text="${templateUserId}"></p>
+    <p th:text="${userId}"></p>
     <p th:text="${topicRegistrationForm.userId}"></p>
 </div>
 <div>
-    <p th:text="${templateVisitDate}"></p>
+    <p th:text="${visitDate}"></p>
     <p th:text="${topicRegistrationForm.visitDate}"></p>
 </div>
 <div>
-    <p th:text="${templateTopicTitle}"></p>
+    <p th:text="${topicTitle}"></p>
     <p th:text="${topicRegistrationForm.topicTitle}"></p>
 </div>
 <div>
-    <p th:text="${templateTopicContent}"></p>
+    <p th:text="${topicContent}"></p>
     <p th:text="${topicRegistrationForm.topicContent}"></p>
 </div>
 <form th:action="@{/complete-register-topic}" method="POST" th:object="${topicRegistrationForm}">
