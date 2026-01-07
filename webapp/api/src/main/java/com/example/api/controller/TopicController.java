@@ -13,7 +13,8 @@ public class TopicController {
     @GetMapping("/show-topic-form")
     public String showTopicForm(Model model){
         /* 手動で model に TopicRegistrationForm を追加する方法 */
-        /* TopicRegistrationForm 型の変数 form を宣言して、その中に新しい TopicRegistrationForm オブジェクトを格納する */
+        /* TopicRegistrationForm 型の変数 formInfo を宣言して、その中に新しい TopicRegistrationForm オブジェクトを格納する */
+        /*  */
         TopicRegistrationForm formInfo = new TopicRegistrationForm();
         /* Thymeleafから、 attributeName で参照できるように、 attributeValue を Model 詰める作業 */
         model.addAttribute(
