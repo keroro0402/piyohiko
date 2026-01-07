@@ -59,6 +59,7 @@ public class TopicController {
         model.addAttribute("visitDate", "【登録日時】");
         model.addAttribute("topicTitle", "【トピックタイトル】");
         model.addAttribute("topicContent", "【内容】");
+        model.addAttribute("messageExplanation", "登録を実行するボタンの押下で以下の内容を登録します");
         model.addAttribute("messageToCompleteRegister", "登録を実行する");
         model.addAttribute("messageToRegister", "入力ページへ戻る");
         System.out.println(formInfo); /* 変数 formInfo の中身をコンソール画面で確認 */
@@ -66,7 +67,7 @@ public class TopicController {
     }
 
     /* Topic登録リクエスト（トピック登録内容確認画面から遷移） */
-    @PostMapping("complete-register-topic")
+    @PostMapping("/complete-register-topic")
     /* formInfo をDBに登録するために引数として受け取る、model経由で complete-register-topic に登録完了を通知するため model を入れる*/
     public String confirmRegisterTopic(TopicRegistrationForm formInfo, Model model){
         //
