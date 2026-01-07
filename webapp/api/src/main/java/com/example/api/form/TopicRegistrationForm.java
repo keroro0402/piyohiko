@@ -3,7 +3,6 @@ package com.example.api.form;
 import lombok.Data;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Data
 /*  formクラス作成
