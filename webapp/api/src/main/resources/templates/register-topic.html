@@ -2,10 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${templateTitle}"></title>
+    <title th:text="${title}"></title>
 </head>
 <body>
-<h1 th:text="${templateTitle}"></h1>
+<h1 th:text="${title}"></h1>
 <!-- @{...} ...をURLに変換するリンク式 -->
 <!-- th:object="${Modelに格納されているオブジェクト名}" 指定したオブジェクトを、子要素の th:field で参照できるようにする -->
 <form th:action="@{/confirm-register-topic}" method="POST" th:object="${topicRegistrationForm}">
@@ -13,7 +13,7 @@
         <!--
         th:text で変数を view の文字列へ動的に反映できる
         -->
-        <label for="registrationId" th:text="${templateRegistrationId}"></label><br>
+        <label for="registrationId" th:text="${registrationId}"></label><br>
         <!-- th:field="*{フィールド名}"
         とすると、input に入力された値が
         topicRegistrationForm オブジェクトのフィールドに自動バインディングされ、
@@ -30,24 +30,24 @@
     </div>
     <div>
         <!-- ${...} ...の変数を参照する変数式 -->
-        <label for="userId" th:text="${templateUserId}"></label><br>
+        <label for="userId" th:text="${userId}"></label><br>
         <input type="text" th:field="*{userId}" id="userId">
     </div>
     <div>
-        <label for="visitDate" th:text="${templateVisitDate}"></label><br>
+        <label for="visitDate" th:text="${visitDate}"></label><br>
         <input type="date" th:field="*{visitDate}" id="visitDate">
     </div>
     <div>
-        <label for="topicTitle" th:text="${templateTopicTitle}"></label><br>
+        <label for="topicTitle" th:text="${topicTitle}"></label><br>
         <input type="text" th:field="*{topicTitle}" id="topicTitle">
     </div>
     <div>
-        <label for="topicContent" th:text="${templateTopicContent}"></label><br>
+        <label for="topicContent" th:text="${topicContent}"></label><br>
         <input type="text" th:field="*{topicContent}" id="topicContent">
     </div>
     <div>
         <!-- th:value で変数を view の value に反映できる -->
-        <input type="submit" th:value="${templateRegister}">
+        <input type="submit" th:value="${messageToConfirmRegister}">
     </div>
 </form>
 </body>
