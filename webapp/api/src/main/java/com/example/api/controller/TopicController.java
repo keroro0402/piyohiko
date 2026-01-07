@@ -69,7 +69,7 @@ public class TopicController {
     /* formInfo をDBに登録するために引数として受け取る、model経由で complete-register-topic に登録完了を通知するため model を入れる*/
     public String confirmRegisterTopic(TopicRegistrationForm formInfo, Model model){
         //
-        //  ここにDb登録処理を書く
+        //  ここにDB登録処理を書く
         //
         model.addAttribute("templateTitle", "トピック登録完了");
         model.addAttribute("templateCompleteMessage", "トピックの登録が完了しました");
