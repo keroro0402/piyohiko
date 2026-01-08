@@ -3,6 +3,8 @@ package com.example.api.controller;
 import com.example.api.form.TopicRegistrationForm;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -51,9 +53,28 @@ public class TopicController {
     * HTMLの <input name="topicTitle"> → TopicRegistrationForm.topicTitle に自動でセット
     * */
     public String registerTopic(
+            /* @Validated
+            * TopicRegistrationForm に設定された バリデーション（@NotNull, @Size など）を実行
+            * バリデーション結果は BindingResult 型のオブジェクトの中に格納される
+            * */
+            @Validated
             @ModelAttribute TopicRegistrationForm formInfo, /* 自動で model に TopicRegistrationForm を追加する方法*/
+            BindingResult result, // バリデーションの結果を result に格納
             Model model
     ){
+        /* 入力エラーがある場合の処理：トピック入力画面へ遷移 */
+        if(result.hasErrors()){
+            model.addAttribute("title", "トピック登録内容確認");
+            model.addAttribute("registrationId", "【登録ID】");
+            model.addAttribute("userId", "【ユーザーID】");
+            model.addAttribute("visitDate", "【登録日時】");
+            model.addAttribute("topicTitle", "【トピックタイトル】");
+            model.addAttribute("topicContent", "【内容】");
+            model.addAttribute("messageToConfirmRegister", "登録内容を確認する");
+            return "register-topic";
+        }
+
+        /* 入力エラーがない場合の処理：トピック登録内容確認ページへ遷移 */
         model.addAttribute("title", "トピック登録内容確認");
         model.addAttribute("registrationId", "【登録ID】");
         model.addAttribute("userId", "【ユーザーID】");
@@ -70,7 +91,15 @@ public class TopicController {
     /* Topic登録リクエスト（トピック登録内容確認画面から遷移） */
     @PostMapping("/complete-register-topic")
     /* formInfo をDBに登録するために引数として受け取る、model経由で complete-register-topic に登録完了を通知するため model を入れる*/
-    public String confirmRegisterTopic(TopicRegistrationForm formInfo, Model model){
+    public String confirmRegisterTopic(
+            @Validated TopicRegistrationForm formInfo,
+            BindingResult result, // バリデーションの結果を result に格納
+            Model model){
+
+        /* 入力エラーがある場合の処理：トピック入力画面へ遷移 */
+        if(result.hasErrors()){
+            return "register-topic";
+        }
         //
         //  ここにDB登録処理を書く
         //
