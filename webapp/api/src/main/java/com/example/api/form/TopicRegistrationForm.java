@@ -44,7 +44,7 @@ public class TopicRegistrationForm {
     * */
     @Past(message = "今日以前の日付を選択してください")
     /* @DateTimeFormat
-    * L<input type="date"> と合わせるために ocalDate と文字列を ISO形式（yyyy-MM-dd）で相互変換する
+    * <input type="date"> と合わせるために LocalDate と文字列を ISO形式（yyyy-MM-dd）で相互変換する
     * 今回例：yyyy/MM/dd を ISO形式の yyyy-MM-dd に変換する
     * */
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
