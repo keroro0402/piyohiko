@@ -37,6 +37,7 @@ public class TopicRegistrationForm {
     * */
     @Pattern(regexp = "\\S{4,10}", message = "4~10文字で入力してください（スペース不可）")
     private String userId;
+    @NotNull(message = "入力してください")
     /* @Past
     * 現在より前の日付になっているかをチェックする
     * */
