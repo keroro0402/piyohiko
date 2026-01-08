@@ -35,7 +35,7 @@ public class TopicRegistrationForm {
     /* @Pattern
     * 正規表現をつかってチェックするときに使う
     * */
-    @Pattern(regexp = "\\S{4,10}", message = "4~10文字で入力してください（スペース不可）")
+    @Pattern(regexp = "\\S{4,10}", message = "4から10文字で入力してください（スペース不可）")
     private String userId;
     @NotNull(message = "入力してください")
     /* @Past
@@ -46,7 +46,7 @@ public class TopicRegistrationForm {
     /* @Size
      * スペースを含めたmin ~ max 間の文字数（桁数）をチェックするときに使う
      * */
-    @Size(min = 1, max = 50, message = "1~50文字で入力してください（スペース可）")
+    @Size(min = 1, max = 50, message = "1から50文字で入力してください（スペース可）")
     private String topicTitle;
     /* @NotBlank
      * 必須入力チェック（Stringの時は@NotBlankでスペースのみの入力をチェック）
