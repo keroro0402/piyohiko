@@ -98,6 +98,13 @@ public class TopicController {
 
         /* 入力エラーがある場合の処理：トピック入力画面へ遷移 */
         if(result.hasErrors()){
+            model.addAttribute("title", "トピック登録内容確認");
+            model.addAttribute("registrationId", "【登録ID】");
+            model.addAttribute("userId", "【ユーザーID】");
+            model.addAttribute("visitDate", "【登録日時】");
+            model.addAttribute("topicTitle", "【トピックタイトル】");
+            model.addAttribute("topicContent", "【内容】");
+            model.addAttribute("messageToConfirmRegister", "登録内容を確認する");
             return "register-topic";
         }
         //
