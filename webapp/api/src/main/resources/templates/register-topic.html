@@ -27,23 +27,29 @@
         topicRegistrationForm オブジェクトのフィールドに自動バインディングされないので、
         @RequestParam で手動取得する必要がある
         -->
+        <!-- エラー表示 -->
+        <div th:if="${#fields.hasErrors('registrationId')}" th:errors="*{registrationId}" style="color:red"></div>
     </div>
     <div>
         <!-- ${...} ...の変数を参照する変数式 -->
         <label for="userId" th:text="${userId}"></label><br>
         <input type="text" th:field="*{userId}" id="userId">
+        <div th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}" style="color:red"></div>
     </div>
     <div>
         <label for="visitDate" th:text="${visitDate}"></label><br>
         <input type="date" th:field="*{visitDate}" id="visitDate">
+        <div th:if="${#fields.hasErrors('visitDate')}" th:errors="*{visitDate}" style="color:red"></div>
     </div>
     <div>
         <label for="topicTitle" th:text="${topicTitle}"></label><br>
         <input type="text" th:field="*{topicTitle}" id="topicTitle">
+        <div th:if="${#fields.hasErrors('topicTitle')}" th:errors="*{topicTitle}" style="color:red"></div>
     </div>
     <div>
         <label for="topicContent" th:text="${topicContent}"></label><br>
         <input type="text" th:field="*{topicContent}" id="topicContent">
+        <div th:if="${#fields.hasErrors('topicContent')}" th:errors="*{topicContent}" style="color:red"></div>
     </div>
     <div>
         <!-- th:value で変数を view の value に反映できる -->
