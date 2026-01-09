@@ -25,3 +25,8 @@ export const links: {
   ],
   // 型アサーションで定数と明示する
 } as const;
+
+export const pageTitles: Record<string, string> = {
+  index: 'HOME',
+  about: 'ABOUT',
+};

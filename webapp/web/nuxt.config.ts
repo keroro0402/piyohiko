@@ -1,5 +1,14 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  app: {
+    head: {
+      /**
+       * ページタイトルの固定値を設定
+       * %s の部分が各ページ中の useHead(title : xxx) のxxxと入れ替わって表示される
+       */
+      titleTemplate: `%s | piyohiko`,
+    },
+  },
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
   css: ['~/assets/styles/main.scss'],

@@ -7,4 +7,11 @@
 
 <script setup lang="ts">
 import { images } from '~/constants/images';
+import { pageTitles } from '~/constants/links';
+
+const route = useRoute();
+
+useHead({
+  title: pageTitles[route.name?.toString() || ''] ?? '',
+});
 </script>
