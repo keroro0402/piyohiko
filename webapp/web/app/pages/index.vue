@@ -7,7 +7,7 @@
 
 <script setup lang="ts">
 import { images } from '~/constants/images';
-import { pageTitles } from '~/constants/links';
+import { pageTitles } from '~/constants/pages';
 
 const route = useRoute();
 

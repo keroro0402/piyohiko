@@ -2,7 +2,7 @@
   <h1>About page</h1>
 </template>
 <script setup lang="ts">
-import { pageTitles } from '~/constants/links';
+import { pageTitles } from '~/constants/pages';
 
 const route = useRoute();
 

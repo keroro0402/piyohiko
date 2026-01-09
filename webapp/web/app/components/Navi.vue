@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import { links } from '~/constants/links';
+import { links } from '~/constants/pages';
 import { useRoute } from 'vue-router';
 import type { NaviItem } from '~/types/navi';
 
