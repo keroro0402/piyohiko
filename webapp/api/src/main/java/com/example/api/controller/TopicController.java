@@ -1,6 +1,8 @@
 package com.example.api.controller;
 
 import com.example.api.form.TopicRegistrationForm;
+import com.example.api.service.RegisterService;
+import com.example.api.service.RegisterServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -124,8 +126,12 @@ public class TopicController {
         //
         //  ここにDB登録処理を書く
         //
+
+        RegisterService service = new RegisterServiceImpl();
+         String messageComplete = service.register();
+
         model.addAttribute("title", "トピック登録完了");
-        model.addAttribute("messageComplete", "トピックの登録が完了しました");
+        model.addAttribute("messageComplete", messageComplete);
         model.addAttribute("messageToRegister", "入力ページへ");
         return "complete-register-topic";
     }
