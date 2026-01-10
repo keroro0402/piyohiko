@@ -1,6 +1,8 @@
 package com.example.api.controller;
 
 import com.example.api.form.TopicRegistrationForm;
+import com.example.api.service.RegisterService;
+import com.example.api.service.RegisterServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,6 +21,18 @@ public class TopicController {
         /*  */
         TopicRegistrationForm formInfo = new TopicRegistrationForm();
         /* Thymeleafから、 attributeName で参照できるように、 attributeValue を Model 詰める作業 */
+        /*
+        * 作成する model オブジェクトのイメージ
+        * model
+             ├─ "topicRegistrationForm" -> TopicRegistrationForm インスタンス
+             ├─ "title" -> "トピック登録"
+             ├─ "registrationId" -> "【登録ID】"
+             ├─ "userId" -> "【ユーザーID】"
+             ├─ "visitDate" -> "【登録日時】"
+             ├─ "topicTitle" -> "【トピックタイトル】"
+             ├─ "topicContent" -> "【内容】"
+             └─ "messageToConfirmRegister" -> "登録内容を確認する"
+         * */
         model.addAttribute(
                 "topicRegistrationForm", formInfo
         );
@@ -35,6 +49,7 @@ public class TopicController {
     /* Topic登録画面表示リクエスト（トピック登録内容確認画面からの戻り） */
     @PostMapping("/show-topic-form-re")
     public String showTopicFormRe(@ModelAttribute TopicRegistrationForm formInfo, Model model){
+        model.addAttribute("topicRegistrationForm", formInfo); // この記述は不要だが、formInfo未使用の警告を消すため、明記する
         model.addAttribute("title", "トピック登録");
         model.addAttribute("registrationId", "【登録ID】");
         model.addAttribute("userId", "【ユーザーID】");
@@ -98,6 +113,7 @@ public class TopicController {
 
         /* 入力エラーがある場合の処理：トピック入力画面へ遷移 */
         if(result.hasErrors()){
+            model.addAttribute("topicRegistrationForm", formInfo); // この記述は不要だが、formInfo未使用の警告を消すため、明記する
             model.addAttribute("title", "トピック登録内容確認");
             model.addAttribute("registrationId", "【登録ID】");
             model.addAttribute("userId", "【ユーザーID】");
@@ -110,8 +126,12 @@ public class TopicController {
         //
         //  ここにDB登録処理を書く
         //
+
+        RegisterService service = new RegisterServiceImpl();
+         String messageComplete = service.register();
+
         model.addAttribute("title", "トピック登録完了");
-        model.addAttribute("messageComplete", "トピックの登録が完了しました");
+        model.addAttribute("messageComplete", messageComplete);
         model.addAttribute("messageToRegister", "入力ページへ");
         return "complete-register-topic";
     }
