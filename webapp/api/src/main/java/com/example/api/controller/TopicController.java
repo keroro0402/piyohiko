@@ -128,7 +128,7 @@ public class TopicController {
         //
 
         RegisterService service = new RegisterServiceImpl();
-         String messageComplete = service.register();
+        String messageComplete = service.register();
 
         model.addAttribute("title", "トピック登録完了");
         model.addAttribute("messageComplete", messageComplete);
