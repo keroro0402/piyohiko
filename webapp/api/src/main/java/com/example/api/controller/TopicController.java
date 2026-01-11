@@ -127,6 +127,10 @@ public class TopicController {
         //  ここにDB登録処理を書く
         //
 
+        /* 依存する実装クラスを作成
+        * new 実装クラス名 で依存する実装クラスを作成(インスタンス化)し、
+        * 結果をRegisterService インターフェース型の変数 service に代入する
+        *  */
         RegisterService service = new RegisterServiceImpl();
         String messageComplete = service.register();
 
