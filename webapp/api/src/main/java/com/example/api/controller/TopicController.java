@@ -3,9 +3,7 @@ package com.example.api.controller;
 import com.example.api.dto.TopicDto;
 import com.example.api.form.TopicRegistrationForm;
 import com.example.api.service.RegisterService;
-// import com.example.api.service.RegisterServiceImpl;
 import lombok.RequiredArgsConstructor;
-// import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,49 +13,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-/* @RequiredArgsConstructor
- * Lombok のアノテーションでfinal フィールドに対して 自動でコンストラクタを作ってくれる
- * private final RegisterService registerService; が自動で DI される（31~34 行目が不要）
-* */
 @RequiredArgsConstructor
 public class TopicController {
-
-    // 自動でDI = Controller 自身はどの実装クラスか知らなくても外から渡されて動く
     private final RegisterService registerService;
-    /* @Autowired + コンストラクタ
-    * Spring に対して「このコンストラクタの引数に、Spring コンテナが管理している RegisterService（Bean） を入れてね」
-    * と指示するアノテーション
-    * コンストラクタインジェクションで DI するときに使う
-    * */
-//    @Autowired
-    /*
-    * DIが実際に行われる箇所
-    * Spring が 自動で引数に RegisterService の Bean を探す　→
-    * */
-//    public TopicController(RegisterService registerService) {
-//        this.registerService = registerService;
-//    }
 
     /* Topic登録画面表示リクエスト */
     @GetMapping("/show-topic-form")
     public String showTopicForm(Model model){
-        /* 手動で model に TopicRegistrationForm を追加する方法 */
-        /* TopicRegistrationForm 型の変数 formInfo を宣言して、その中に新しい TopicRegistrationForm オブジェクトを格納する */
-        /*  */
         TopicRegistrationForm formInfo = new TopicRegistrationForm();
-        /* Thymeleafから、 attributeName で参照できるように、 attributeValue を Model 詰める作業 */
-        /*
-        * 作成する model オブジェクトのイメージ
-        * model
-             ├─ "topicRegistrationForm" -> TopicRegistrationForm インスタンス
-             ├─ "title" -> "トピック登録"
-             ├─ "registrationId" -> "【登録ID】"
-             ├─ "userId" -> "【ユーザーID】"
-             ├─ "visitDate" -> "【登録日時】"
-             ├─ "topicTitle" -> "【トピックタイトル】"
-             ├─ "topicContent" -> "【内容】"
-             └─ "messageToConfirmRegister" -> "登録内容を確認する"
-         * */
         model.addAttribute(
                 "topicRegistrationForm", formInfo
         );
@@ -87,19 +50,10 @@ public class TopicController {
 
     /* Topic登録リクエスト（トピック登録画面から遷移） */
     @PostMapping("/confirm-register-topic")
-    /*
-    * @ModelAttribute TopicRegistrationForm
-    * 入力された情報を自動で TopicRegistrationForm のフィールドにマッピング（データバインディング）されて formInfo に格納される
-    * HTMLの <input name="topicTitle"> → TopicRegistrationForm.topicTitle に自動でセット
-    * */
     public String registerTopic(
-            /* @Validated
-            * TopicRegistrationForm に設定された バリデーション（@NotNull, @Size など）を実行
-            * バリデーション結果は BindingResult 型のオブジェクトの中に格納される
-            * */
             @Validated
-            @ModelAttribute TopicRegistrationForm formInfo, /* 自動で model に TopicRegistrationForm を追加する方法*/
-            BindingResult result, // バリデーションの結果を result に格納
+            @ModelAttribute TopicRegistrationForm formInfo,
+            BindingResult result,
             Model model
     ){
         /* 入力エラーがある場合の処理：トピック入力画面へ遷移 */
@@ -124,21 +78,20 @@ public class TopicController {
         model.addAttribute("messageExplanation", "登録を実行するボタンの押下で以下の内容を登録します");
         model.addAttribute("messageToCompleteRegister", "登録を実行する");
         model.addAttribute("messageToRegister", "入力ページへ戻る");
-        System.out.println(formInfo); /* 変数 formInfo の中身をコンソール画面で確認 */
+        System.out.println(formInfo);
         return "confirm-register-topic";
     }
 
     /* Topic登録リクエスト（トピック登録内容確認画面から遷移） */
     @PostMapping("/complete-register-topic")
-    /* formInfo をDBに登録するために引数として受け取る、model経由で complete-register-topic に登録完了を通知するため model を入れる*/
     public String confirmRegisterTopic(
             @Validated TopicRegistrationForm formInfo,
-            BindingResult result, // バリデーションの結果を result に格納
+            BindingResult result,
             Model model){
 
         /* 入力エラーがある場合の処理：トピック入力画面へ遷移 */
         if(result.hasErrors()){
-            model.addAttribute("topicRegistrationForm", formInfo); // この記述は不要だが、formInfo未使用の警告を消すため、明記する
+            model.addAttribute("topicRegistrationForm", formInfo);
             model.addAttribute("title", "トピック登録内容確認");
             model.addAttribute("registrationId", "【登録ID】");
             model.addAttribute("userId", "【ユーザーID】");
@@ -158,13 +111,6 @@ public class TopicController {
         t.setTopicTitle(formInfo.getTopicTitle());
         t.setTopicContent(formInfo.getTopicContent());
         registerService.register(t);
-        /* 依存する実装クラスを作成
-        * new 実装クラス名 で依存する実装クラスを作成(インスタンス化)し、
-        * 結果をRegisterService インターフェース型の変数 service に代入する = 手動でDI
-        *  */
-//        RegisterService service = new RegisterServiceImpl();
-//        String messageComplete = registerService.register();
-
         model.addAttribute("title", "トピック登録完了");
         model.addAttribute("messageComplete", "登録完了しました");
         model.addAttribute("messageToRegister", "入力ページへ");
