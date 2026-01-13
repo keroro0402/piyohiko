@@ -1,5 +1,6 @@
 package com.example.api.controller;
 
+import com.example.api.dto.TopicDto;
 import com.example.api.form.TopicRegistrationForm;
 import com.example.api.service.RegisterService;
 // import com.example.api.service.RegisterServiceImpl;
@@ -150,16 +151,22 @@ public class TopicController {
         //
         //  ここにDB登録処理を書く
         //
-
+        TopicDto t = new TopicDto();
+        t.setRegistrationId(formInfo.getRegistrationId());
+        t.setUserId(formInfo.getUserId());
+        t.setVisitDate(formInfo.getVisitDate());
+        t.setTopicTitle(formInfo.getTopicTitle());
+        t.setTopicContent(formInfo.getTopicContent());
+        registerService.register(t);
         /* 依存する実装クラスを作成
         * new 実装クラス名 で依存する実装クラスを作成(インスタンス化)し、
         * 結果をRegisterService インターフェース型の変数 service に代入する = 手動でDI
         *  */
 //        RegisterService service = new RegisterServiceImpl();
-        String messageComplete = registerService.register();
+//        String messageComplete = registerService.register();
 
         model.addAttribute("title", "トピック登録完了");
-        model.addAttribute("messageComplete", messageComplete);
+        model.addAttribute("messageComplete", "登録完了しました");
         model.addAttribute("messageToRegister", "入力ページへ");
         return "complete-register-topic";
     }
