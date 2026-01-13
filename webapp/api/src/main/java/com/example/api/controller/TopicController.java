@@ -2,7 +2,9 @@ package com.example.api.controller;
 
 import com.example.api.form.TopicRegistrationForm;
 import com.example.api.service.RegisterService;
-import com.example.api.service.RegisterServiceImpl;
+// import com.example.api.service.RegisterServiceImpl;
+import lombok.RequiredArgsConstructor;
+// import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,7 +14,29 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
+/* @RequiredArgsConstructor
+ * Lombok のアノテーションでfinal フィールドに対して 自動でコンストラクタを作ってくれる
+ * private final RegisterService registerService; が自動で DI される（31~34 行目が不要）
+* */
+@RequiredArgsConstructor
 public class TopicController {
+
+    // 自動でDI = Controller 自身はどの実装クラスか知らなくても外から渡されて動く
+    private final RegisterService registerService;
+    /* @Autowired + コンストラクタ
+    * Spring に対して「このコンストラクタの引数に、Spring コンテナが管理している RegisterService（Bean） を入れてね」
+    * と指示するアノテーション
+    * コンストラクタインジェクションで DI するときに使う
+    * */
+//    @Autowired
+    /*
+    * DIが実際に行われる箇所
+    * Spring が 自動で引数に RegisterService の Bean を探す　→
+    * */
+//    public TopicController(RegisterService registerService) {
+//        this.registerService = registerService;
+//    }
+
     /* Topic登録画面表示リクエスト */
     @GetMapping("/show-topic-form")
     public String showTopicForm(Model model){
@@ -129,10 +153,10 @@ public class TopicController {
 
         /* 依存する実装クラスを作成
         * new 実装クラス名 で依存する実装クラスを作成(インスタンス化)し、
-        * 結果をRegisterService インターフェース型の変数 service に代入する
+        * 結果をRegisterService インターフェース型の変数 service に代入する = 手動でDI
         *  */
-        RegisterService service = new RegisterServiceImpl();
-        String messageComplete = service.register();
+//        RegisterService service = new RegisterServiceImpl();
+        String messageComplete = registerService.register();
 
         model.addAttribute("title", "トピック登録完了");
         model.addAttribute("messageComplete", messageComplete);

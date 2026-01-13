@@ -1,6 +1,16 @@
 package com.example.api.service;
 // 実装クラス ：interface の「約束（メソッド名・戻り値・引数）」を実際にどう動くか具体的に書いたクラスのこと
 
+import org.springframework.stereotype.Service;
+
+/* @Service
+* ステレオタイプアノテーションの一種。これが付くとそのクラスは Bean になる
+* */
+
+/* Bean
+* DI（依存性注入）をするために Spring が管理するインスタンス。
+* */
+@Service
 /*
  * interface を使う（実装した）クラス RegisterServiceImpl を定義
  * implements キーワードで RegisterService インターフェイスに定義されたメソッドを必ず実装することを宣言している

@@ -1,9 +1,14 @@
 package com.example.api.mock;
 // 別パッケージにある別クラスを使用するために import する
 import com.example.api.service.RegisterService;
+import org.springframework.stereotype.Service;
 
 // 実装クラス ：interface の「約束（メソッド名・戻り値・引数）」を実際にどう動くか具体的に書いたクラスのこと
 
+/* @Service
+ * ステレオタイプアノテーションの一種。これが付くとそのクラスは Bean になる
+ * */
+//@Service
 /*
  * interface を使う（実装した）クラス RegisterServiceMock を定義
  * implements キーワードで RegisterService インターフェイスに定義されたメソッドを必ず実装することを宣言している
