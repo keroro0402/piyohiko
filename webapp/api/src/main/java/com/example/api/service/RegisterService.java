@@ -1,8 +1,7 @@
 package com.example.api.service;
 
+import com.example.api.dto.TopicDto;
+
 public interface RegisterService {
-    /* 抽象メソッドを定義
-    *
-    * */
-    String register();
+    void register(TopicDto topic);
 }
