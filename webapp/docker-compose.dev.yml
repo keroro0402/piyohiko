@@ -11,6 +11,7 @@ services:
     ports:
       #ホスト8080番 →　コンテナ8080にマッピング（Spring Boot アプリが使うデフォルトポート番号）
       - 8080:8080
+      - 5005:5005 # デバッグ用ポート
     tty:
       #bashを起動しぱなっしにする
       true
@@ -18,7 +19,9 @@ services:
       #ローカルの ./api を編集をコンテナの中の /workspace に同期させる
       - ./api:/workspace:cached
       # 開発サーバ立ち上げ
-    command: ['./mvnw', 'spring-boot:run']
+    command: >
+      ./mvnw spring-boot:run
+      -Dspring-boot.run.jvmArguments="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005"
     env_file:
       - .env.dev
 
