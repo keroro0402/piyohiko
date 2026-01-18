@@ -100,7 +100,9 @@ USE topic_db
 /* トピックマスタ作成 */
 CREATE TABLE m_topic (
     registration_id INT         NOT NULL AUTO_INCREMENT,
-    topic_title     VARCHAR(50) NOT NULL,
+    category_title  VARCHAR(20) NOT NULL,
+    CHECK (CHAR_LENGTH(topic_title) >= 1),
+    catch_phrase    VARCHAR(50) NOT NULL,
     CHECK (CHAR_LENGTH(topic_title) >= 1),
     PRIMARY KEY(registration_id)
     );
@@ -111,6 +113,8 @@ CREATE TABLE t_topic (
     user_id         VARCHAR(10) NOT NULL,
     CHECK (CHAR_LENGTH(user_id) >= 4),
     register_date     DATE      NOT NULL,
+    topic_title     VARCHAR(50) NOT NULL,
+    CHECK (CHAR_LENGTH(topic_title) >= 1),
     topic_content   TEXT        NOT NULL,
     PRIMARY KEY(topic_id),
     FOREIGN KEY(registration_id) REFERENCES m_topic (registration_id)
