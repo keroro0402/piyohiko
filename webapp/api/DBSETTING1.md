@@ -101,9 +101,9 @@ USE topic_db
 CREATE TABLE m_topic (
     registration_id INT         NOT NULL AUTO_INCREMENT,
     category_title  VARCHAR(20) NOT NULL,
-    CHECK (CHAR_LENGTH(topic_title) >= 1),
+    CHECK (CHAR_LENGTH(category_title) >= 1),
     catch_phrase    VARCHAR(50) NOT NULL,
-    CHECK (CHAR_LENGTH(topic_title) >= 1),
+    CHECK (CHAR_LENGTH(catch_phrase) >= 1),
     PRIMARY KEY(registration_id)
     );
 /* トピックテーブル作成 */
@@ -115,6 +115,52 @@ CREATE TABLE t_topic (
     register_date     DATE      NOT NULL,
     topic_title     VARCHAR(50) NOT NULL,
     CHECK (CHAR_LENGTH(topic_title) >= 1),
+    topic_content   TEXT        NOT NULL,
+    PRIMARY KEY(topic_id),
+    FOREIGN KEY(registration_id) REFERENCES m_topic (registration_id)
+    );
+ ````
+3. 以下のコマンドで、作成した テーブル の存在を確認する
+````
+SHOW TABLES;
+````
+
+### 達成条件
+表示された テーブル 一覧に作成した テーブル が存在すること
+````
++--------------------+
+| Tables_in_topic_db |
++--------------------+
+| m_topic            |　<-- 作成したテーブル
+| t_topic            |　<-- 作成したテーブル
++--------------------+
+````
+
+## 6. データ 登録（DML）
+
+テーブル に データ を登録する
+
+### 手順
+1. MySQL に 作成した DBユーザ でログイン後、以下のコマンドで DB を選択する
+````
+USE topic_db
+````
+2. 以下コマンドで テーブル を作成する
+````
+/* m_topic にデータ登録 */
+CREATE TABLE m_topic (
+    registration_id INT         NOT NULL AUTO_INCREMENT,
+    topic_title     VARCHAR(50) NOT NULL,
+    CHECK (CHAR_LENGTH(topic_title) >= 1),
+    PRIMARY KEY(registration_id)
+    );
+/* トピックテーブル作成 */
+CREATE TABLE t_topic (
+    topic_id        INT         NOT NULL AUTO_INCREMENT,
+    registration_id INT         NOT NULL,
+    user_id         VARCHAR(10) NOT NULL,
+    CHECK (CHAR_LENGTH(user_id) >= 4),
+    register_date     DATE      NOT NULL,
     topic_content   TEXT        NOT NULL,
     PRIMARY KEY(topic_id),
     FOREIGN KEY(registration_id) REFERENCES m_topic (registration_id)
