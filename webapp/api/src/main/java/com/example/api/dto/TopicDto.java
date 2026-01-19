@@ -7,7 +7,7 @@ import java.time.LocalDate;
 public class TopicDto {
     private Integer registrationId;
     private String userId;
-    private LocalDate visitDate;
+    private LocalDate registrationDate;
     private String topicTitle;
     private String topicContent;
 }
