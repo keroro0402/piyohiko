@@ -27,7 +27,7 @@ public class TopicController {
         model.addAttribute("title", "トピック登録");
         model.addAttribute("registrationId", "【登録ID】");
         model.addAttribute("userId", "【ユーザーID】");
-        model.addAttribute("visitDate", "【登録日時】");
+        model.addAttribute("registrationDate", "【登録日時】");
         model.addAttribute("topicTitle", "【トピックタイトル】");
         model.addAttribute("topicContent", "【内容】");
         model.addAttribute("messageToConfirmRegister", "登録内容を確認する");
@@ -41,7 +41,7 @@ public class TopicController {
         model.addAttribute("title", "トピック登録");
         model.addAttribute("registrationId", "【登録ID】");
         model.addAttribute("userId", "【ユーザーID】");
-        model.addAttribute("visitDate", "【登録日時】");
+        model.addAttribute("registrationDate", "【登録日時】");
         model.addAttribute("topicTitle", "【トピックタイトル】");
         model.addAttribute("topicContent", "【内容】");
         model.addAttribute("messageToConfirmRegister", "登録内容を確認する");
@@ -61,7 +61,7 @@ public class TopicController {
             model.addAttribute("title", "トピック登録内容確認");
             model.addAttribute("registrationId", "【登録ID】");
             model.addAttribute("userId", "【ユーザーID】");
-            model.addAttribute("visitDate", "【登録日時】");
+            model.addAttribute("registrationDate", "【登録日時】");
             model.addAttribute("topicTitle", "【トピックタイトル】");
             model.addAttribute("topicContent", "【内容】");
             model.addAttribute("messageToConfirmRegister", "登録内容を確認する");
@@ -72,7 +72,7 @@ public class TopicController {
         model.addAttribute("title", "トピック登録内容確認");
         model.addAttribute("registrationId", "【登録ID】");
         model.addAttribute("userId", "【ユーザーID】");
-        model.addAttribute("visitDate", "【登録日時】");
+        model.addAttribute("registrationDate", "【登録日時】");
         model.addAttribute("topicTitle", "【トピックタイトル】");
         model.addAttribute("topicContent", "【内容】");
         model.addAttribute("messageExplanation", "登録を実行するボタンの押下で以下の内容を登録します");
@@ -95,7 +95,7 @@ public class TopicController {
             model.addAttribute("title", "トピック登録内容確認");
             model.addAttribute("registrationId", "【登録ID】");
             model.addAttribute("userId", "【ユーザーID】");
-            model.addAttribute("visitDate", "【登録日時】");
+            model.addAttribute("registrationDate", "【登録日時】");
             model.addAttribute("topicTitle", "【トピックタイトル】");
             model.addAttribute("topicContent", "【内容】");
             model.addAttribute("messageToConfirmRegister", "登録内容を確認する");
@@ -107,7 +107,7 @@ public class TopicController {
         TopicDto t = new TopicDto();
         t.setRegistrationId(formInfo.getRegistrationId());
         t.setUserId(formInfo.getUserId());
-        t.setVisitDate(formInfo.getVisitDate());
+        t.setRegistrationDate(formInfo.getRegistrationDate());
         t.setTopicTitle(formInfo.getTopicTitle());
         t.setTopicContent(formInfo.getTopicContent());
         registerService.register(t);

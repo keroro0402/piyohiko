@@ -17,8 +17,8 @@
     <p th:text="${topicRegistrationForm.userId}"></p>
 </div>
 <div>
-    <p th:text="${visitDate}"></p>
-    <p th:text="${topicRegistrationForm.visitDate}"></p>
+    <p th:text="${registrationDate}"></p>
+    <p th:text="${topicRegistrationForm.registrationDate}"></p>
 </div>
 <div>
     <p th:text="${topicTitle}"></p>
@@ -31,7 +31,7 @@
 <form th:action="@{/complete-register-topic}" method="POST" th:object="${topicRegistrationForm}">
     <input type="hidden" th:field="*{registrationId}">
     <input type="hidden" th:field="*{userId}">
-    <input type="hidden" th:field="*{visitDate}">
+    <input type="hidden" th:field="*{registrationDate}">
     <input type="hidden" th:field="*{topicTitle}">
     <input type="hidden" th:field="*{topicContent}">
     <input type="submit" th:value="${messageToCompleteRegister}">
@@ -39,7 +39,7 @@
 <form th:action="@{/show-topic-form-re}" method="POST" th:object="${topicRegistrationForm}">
     <input type="hidden" th:field="*{registrationId}">
     <input type="hidden" th:field="*{userId}">
-    <input type="hidden" th:field="*{visitDate}">
+    <input type="hidden" th:field="*{registrationDate}">
     <input type="hidden" th:field="*{topicTitle}">
     <input type="hidden" th:field="*{topicContent}">
     <input type="submit" th:value="${messageToRegister}">
