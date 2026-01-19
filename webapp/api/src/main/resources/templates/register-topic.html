@@ -13,7 +13,7 @@
         <!--
         th:text で変数を view の文字列へ動的に反映できる
         -->
-        <label for="registrationId" th:text="${registrationId}"></label><br>
+        <label for="registrationId" th:text="${registrationId} ?: ''"></label><br>
         <!-- th:field="*{フィールド名}"
         とすると、input に入力された値が
         topicRegistrationForm オブジェクトのフィールドに自動バインディングされ、
@@ -37,9 +37,9 @@
         <div th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}" style="color:red"></div>
     </div>
     <div>
-        <label for="visitDate" th:text="${visitDate}"></label><br>
-        <input type="date" th:field="*{visitDate}" id="visitDate">
-        <div th:if="${#fields.hasErrors('visitDate')}" th:errors="*{visitDate}" style="color:red"></div>
+        <label for="registrationDate" th:text="${registrationDate}"></label><br>
+        <input type="date" th:field="*{registrationDate}" id="registrationDate">
+        <div th:if="${#fields.hasErrors('registrationDate')}" th:errors="*{registrationDate}" style="color:red"></div>
     </div>
     <div>
         <label for="topicTitle" th:text="${topicTitle}"></label><br>
