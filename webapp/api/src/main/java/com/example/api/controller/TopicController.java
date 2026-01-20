@@ -110,7 +110,7 @@ public class TopicController {
         registerService.register(t);
         model.addAttribute("title", "トピック登録完了");
         model.addAttribute("messageComplete", "登録完了しました");
-        model.addAttribute("messageToRegister", "入力ページへ");
+        model.addAttribute("messageToRegister", "入力ページへ戻る");
         return "complete-register-topic";
     }
 }
