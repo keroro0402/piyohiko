@@ -101,9 +101,6 @@ public class TopicController {
             model.addAttribute("messageToConfirmRegister", "登録内容を確認する");
             return "register-topic";
         }
-        //
-        //  ここにDB登録処理を書く
-        //
         TopicDto t = new TopicDto();
         t.setRegistrationId(formInfo.getRegistrationId());
         t.setUserId(formInfo.getUserId());
