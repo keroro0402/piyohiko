@@ -17,7 +17,6 @@ public class RegisterRepositoryImpl implements RegisterRepository {
                      "(category_id, user_id, registration_date, topic_title, topic_content) " +
                      "VALUES (?, ?, ?, ?, ?)";
 
-        String sql2 = "INSERT INTO sdd" +
         jdbcTemplate.update(
                 sql,
                 topic.getRegistrationId(),
