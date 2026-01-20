@@ -11,6 +11,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequiredArgsConstructor
@@ -108,9 +109,7 @@ public class TopicController {
         t.setTopicTitle(formInfo.getTopicTitle());
         t.setTopicContent(formInfo.getTopicContent());
         registerService.register(t);
-        model.addAttribute("title", "トピック登録完了");
-        model.addAttribute("messageComplete", "登録完了しました");
-        model.addAttribute("messageToRegister", "入力ページへ");
-        return "complete-register-topic";
+
+        return "redirect:/complete-register-topic";
     }
 }
