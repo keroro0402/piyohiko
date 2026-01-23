@@ -78,16 +78,23 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- JDBC -->
+		<!-- JDBC:Java から直接 SQL を実行して DB を操作するための API -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jdbc</artifactId>
 		</dependency>
 
+		<!-- MySQL -->
 		<dependency>
 			<groupId>com.mysql</groupId>
 			<artifactId>mysql-connector-j</artifactId>
 			<scope>runtime</scope>
+		</dependency>
+
+		<!-- Flyway: アプリ起動時に db/migration 配下の SQL を順番に実行して DDL や DML を自動で行う -->
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
 		</dependency>
 	</dependencies>
 
