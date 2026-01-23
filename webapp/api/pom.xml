@@ -90,12 +90,6 @@
 			<artifactId>mysql-connector-j</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-
-		<!-- Flyway: アプリ起動時に db/migration 配下の SQL を順番に実行して DDL や DML を自動で行う -->
-		<dependency>
-			<groupId>org.flywaydb</groupId>
-			<artifactId>flyway-core</artifactId>
-		</dependency>
 	</dependencies>
 
 	<build>
