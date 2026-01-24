@@ -108,14 +108,14 @@ CREATE TABLE m_category (
     );
 /* トピックテーブル作成 */
 CREATE TABLE t_topic (
-    registration_id INT         NOT NULL AUTO_INCREMENT,
-    category_id     INT         NOT NULL,
-    user_id         VARCHAR(10) NOT NULL,
+    registration_id     INT         NOT NULL AUTO_INCREMENT,
+    category_id         INT         NOT NULL,
+    user_id             VARCHAR(10) NOT NULL,
     CHECK (CHAR_LENGTH(user_id) >= 4),
     registration_date   DATE        NOT NULL,
-    topic_title     VARCHAR(50) NOT NULL,
+    topic_title         VARCHAR(50) NOT NULL,
     CHECK (CHAR_LENGTH(topic_title) >= 1),
-    topic_content   TEXT        NOT NULL,
+    topic_content       TEXT        NOT NULL,
     PRIMARY KEY(registration_id),
     FOREIGN KEY(category_id) REFERENCES m_category (category_id)
     );
