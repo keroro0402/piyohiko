@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>レビュー登録</h2>
+<form th:action="@{/register-review}" th:object="${reviewRegisterForm}" method="POST">
+    <div>
+        <label for="restaurantId">【店舗ID】</label><br>
+        <input id="restaurantId" th:field="*{restaurantId}" type="text">
+    </div>
+    <div>
+        <label for="userId">【利用者ID】</label><br>
+        <input id="userId" th:field="*{userId}" type="text">
+    </div>
+    <div>
+        <label for="visitDate">【来店日】</label><br>
+        <input id="visitDate" th:field="*{visitDate}" type="date">
+    </div>
+    <div>
+        <label for="rating">【評価】</label><br>
+        <input id="rating" th:field="*{rating}" type="text">
+    </div>
+    <div>
+        <label for="comment">【コメント】</label><br>
+        <input id="comment" th:field="*{comment}" type="text">
+    </div>
+    <input type="submit" value="送信">
+</form>
+
+</body>
+</html>
