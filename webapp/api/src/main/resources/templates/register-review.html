@@ -10,22 +10,32 @@
     <div>
         <label for="restaurantId">【店舗ID】</label><br>
         <input id="restaurantId" th:field="*{restaurantId}" type="text">
+        <!-- エラー表示 -->
+        <div th:if="${#fields.hasErrors('restaurantId')}" th:errors="*{restaurantId}" style="color:red"></div>
     </div>
     <div>
         <label for="userId">【利用者ID】</label><br>
         <input id="userId" th:field="*{userId}" type="text">
+        <!-- エラー表示 -->
+        <div th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}" style="color:red"></div>
     </div>
     <div>
         <label for="visitDate">【来店日】</label><br>
         <input id="visitDate" th:field="*{visitDate}" type="date">
+        <!-- エラー表示 -->
+        <div th:if="${#fields.hasErrors('visitDate')}" th:errors="*{visitDate}" style="color:red"></div>
     </div>
     <div>
         <label for="rating">【評価】</label><br>
         <input id="rating" th:field="*{rating}" type="text">
+        <!-- エラー表示 -->
+        <div th:if="${#fields.hasErrors('rating')}" th:errors="*{rating}" style="color:red"></div>
     </div>
     <div>
         <label for="comment">【コメント】</label><br>
         <input id="comment" th:field="*{comment}" type="text">
+        <!-- エラー表示 -->
+        <div th:if="${#fields.hasErrors('comment')}" th:errors="*{comment}" style="color:red"></div>
     </div>
     <input type="submit" value="送信">
 </form>
