@@ -1,10 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-<p>登録完了</p>
+<h2>レビュ登録確認</h2>
+<div th:object="${reviewRegisterForm}">
+    <div>
+        <p>【店舗ID】</p>
+        <p th:text="*{restaurantId}"></p>
+    </div>
+    <div>
+        <p>【利用者ID】</p>
+        <p th:text="*{userId}"></p>
+    </div>
+    <div>
+        <p>【来店日】</p>
+        <p th:text="*{visitDate}"></p>
+    </div>
+    <div>
+        <p>【評価】</p>
+        <p th:text="*{rating}"></p>
+    </div>
+    <div>
+        <p>【コメント】</p>
+        <p th:text="*{comment}"></p>
+    </div>
+</div>
+<form th:action="@{/register-review-ret}" th:object="${reviewRegisterForm}" method="POST">
+        <input th:field="*{restaurantId}" type="hidden">
+        <input th:field="*{userId}" type="hidden">
+        <input th:field="*{visitDate}" type="hidden">
+        <input th:field="*{rating}" type="hidden">
+        <input th:field="*{comment}" type="hidden">
+    <input type="submit" value="再入力ページへ">
+</form>
 </body>
 </html>
