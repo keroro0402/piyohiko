@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class ReviewController {
     @GetMapping("/show-review-form")
-    public String showReviewForm(){
+    public String showReviewForm(@ModelAttribute ReviewRegisterForm form){
         return "register-review";
     }
 

@@ -6,26 +6,26 @@
 </head>
 <body>
 <h2>レビュー登録</h2>
-<form th:action="@{/register-review}" method="POST">
+<form th:action="@{/register-review}" th:object="${reviewRegisterForm}" method="POST">
     <div>
         <label for="restaurantId">【店舗ID】</label><br>
-        <input id="restaurantId" name="restaurantId" type="text">
+        <input id="restaurantId" th:field="*{restaurantId}" type="text">
     </div>
     <div>
         <label for="userId">【利用者ID】</label><br>
-        <input id="userId" name="userId" type="text">
+        <input id="userId" th:field="*{userId}" type="text">
     </div>
     <div>
         <label for="visitDate">【来店日】</label><br>
-        <input id="visitDate" name="visitDate" type="date">
+        <input id="visitDate" th:field="*{visitDate}" type="date">
     </div>
     <div>
         <label for="rating">【評価】</label><br>
-        <input id="rating" name="rating" type="text">
+        <input id="rating" th:field="*{rating}" type="text">
     </div>
     <div>
         <label for="comment">【コメント】</label><br>
-        <input id="comment" name="comment" type="text">
+        <input id="comment" th:field="*{comment}" type="text">
     </div>
     <input type="submit" value="送信">
 </form>
