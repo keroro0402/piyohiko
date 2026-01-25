@@ -13,6 +13,11 @@ public class ReviewController {
         return "register-review";
     }
 
+    @PostMapping("/register-review-ret")
+    public String registerReviewRet(@ModelAttribute ReviewRegisterForm form){
+        System.out.println(form);
+        return "register-review";
+    }
 
     @PostMapping("/register-review")
     public String registerReview(@ModelAttribute ReviewRegisterForm form){
@@ -20,4 +25,4 @@ public class ReviewController {
         return "confirm-register-review";
     }
 
-}
+    }
