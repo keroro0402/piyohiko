@@ -28,6 +28,14 @@
         <p th:text="*{comment}"></p>
     </div>
 </div>
+<form th:action="@{/confirm-register-review}" th:object="${reviewRegisterForm}" method="POST">
+    <input th:field="*{restaurantId}" type="hidden">
+    <input th:field="*{userId}" type="hidden">
+    <input th:field="*{visitDate}" type="hidden">
+    <input th:field="*{rating}" type="hidden">
+    <input th:field="*{comment}" type="hidden">
+    <input type="submit" value="登録する">
+</form>
 <form th:action="@{/register-review-ret}" th:object="${reviewRegisterForm}" method="POST">
         <input th:field="*{restaurantId}" type="hidden">
         <input th:field="*{userId}" type="hidden">
