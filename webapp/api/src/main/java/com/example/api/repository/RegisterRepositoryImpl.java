@@ -1,29 +1,13 @@
 package com.example.api.repository;
 
-import com.example.api.dto.TopicDto;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
-import org.springframework.jdbc.core.JdbcTemplate;
+import com.example.api.entity.Review;
+import org.springframework.stereotype.Service;
 
-@Repository
-@RequiredArgsConstructor
-public class RegisterRepositoryImpl implements RegisterRepository {
-
-    private final JdbcTemplate jdbcTemplate;
-
+@Service
+public class RegisterRepositoryImpl implements RegisterRepository{
     @Override
-    public void add(TopicDto topic){
-        String sql = "INSERT INTO t_topic " +
-                     "(category_id, user_id, registration_date, topic_title, topic_content) " +
-                     "VALUES (?, ?, ?, ?, ?)";
-
-        jdbcTemplate.update(
-                sql,
-                topic.getRegistrationId(),
-                topic.getUserId(),
-                topic.getRegistrationDate(),
-                topic.getTopicTitle(),
-                topic.getTopicContent()
-                );
+    public void add(Review review){
+        System.out.println("--登録--");
+        System.out.println(review);
     }
 }

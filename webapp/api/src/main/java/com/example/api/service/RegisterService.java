@@ -1,7 +1,8 @@
 package com.example.api.service;
 
-import com.example.api.dto.TopicDto;
+
+import com.example.api.entity.Review;
 
 public interface RegisterService {
-    void register(TopicDto topic);
+    void register(Review review);
 }

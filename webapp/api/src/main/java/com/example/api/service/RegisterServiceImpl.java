@@ -1,6 +1,6 @@
 package com.example.api.service;
 
-import com.example.api.dto.TopicDto;
+import com.example.api.entity.Review;
 import com.example.api.repository.RegisterRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -10,8 +10,9 @@ import org.springframework.stereotype.Service;
 public class RegisterServiceImpl implements RegisterService {
 
     private final RegisterRepository repository;
+
     @Override
-    public void register(TopicDto topic) {
-        repository.add(topic);
+    public void register(Review review){
+        repository.add(review);
     }
 }

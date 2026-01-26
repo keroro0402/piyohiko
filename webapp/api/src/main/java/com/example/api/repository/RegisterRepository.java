@@ -1,7 +1,7 @@
 package com.example.api.repository;
 
-import com.example.api.dto.TopicDto;
+import com.example.api.entity.Review;
 
 public interface RegisterRepository {
-    void add(TopicDto topic);
+    void add(Review review);
 }
