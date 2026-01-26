@@ -1,5 +1,8 @@
 package com.example.api.service;
 
+
+import com.example.api.entity.Review;
+
 public interface RegisterService {
-    String regist();
+    void register(Review review);
 }
