@@ -1,6 +1,8 @@
 package com.example.api.controller;
 
 import com.example.api.form.ReviewRegisterForm;
+import com.example.api.service.RegisterService;
+import com.example.api.service.RegisterServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -43,7 +45,12 @@ public class ReviewController {
         if(result.hasErrors()){
             return "register-review";
         }
-        model.addAttribute("msg", "レビュー登録完了しました");
+
+        RegisterService service = new RegisterServiceImpl();
+        String msg = service.regist();
+
+        model.addAttribute("msg", msg);
+//        model.addAttribute("msg", "レビュー登録完了しました");
         System.out.println(form + ":登録完了");
         return "complete-register-review";
     }
