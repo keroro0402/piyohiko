@@ -2,7 +2,6 @@ package com.example.api.controller;
 
 import com.example.api.dto.TopicDto;
 import com.example.api.form.TopicRegistrationForm;
-import com.example.api.service.OldRegisterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
