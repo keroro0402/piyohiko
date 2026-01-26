@@ -1,9 +1,6 @@
 package com.example.api.controller;
 
 import com.example.api.form.ReviewRegisterForm;
-import com.example.api.service.RegisterService;
-import com.example.api.service.RegisterServiceImpl;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,10 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-@RequiredArgsConstructor
 public class ReviewController {
-
-    private final RegisterService service;
 
     @GetMapping("/show-review-form")
     public String showReviewForm(@ModelAttribute ReviewRegisterForm form){
@@ -51,11 +45,7 @@ public class ReviewController {
             return "register-review";
         }
 
-//        RegisterService service = new RegisterServiceImpl();
-        String msg = service.regist();
-
-        model.addAttribute("msg", msg);
-//        model.addAttribute("msg", "レビュー登録完了しました");
+        model.addAttribute("msg", "レビュー登録完了しました");
         System.out.println(form + ":登録完了");
         return "complete-register-review";
     }
