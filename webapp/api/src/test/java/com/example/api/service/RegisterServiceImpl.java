@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
  * 依存先は interface
  * */
 @RequiredArgsConstructor
-public class RegisterServiceImpl implements RegisterService {
+public class RegisterServiceImpl implements OldRegisterService {
 
     private final RegisterRepository repository;
     /* @Override

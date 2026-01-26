@@ -2,7 +2,7 @@ package com.example.api.mock;
 // 別パッケージにある別クラスを使用するために import する
 import com.example.api.dto.TopicDto;
 import com.example.api.repository.RegisterRepository;
-import com.example.api.service.RegisterService;
+import com.example.api.service.OldRegisterService;
 import lombok.RequiredArgsConstructor;
 
 // 実装クラス ：interface の「約束（メソッド名・戻り値・引数）」を実際にどう動くか具体的に書いたクラスのこと
@@ -17,7 +17,7 @@ import lombok.RequiredArgsConstructor;
  * 依存先は interface
  * */
 @RequiredArgsConstructor
-public class RegisterServiceMock implements RegisterService {
+public class RegisterServiceMock implements OldRegisterService {
     private final RegisterRepository repository;
     /* @Override
      * interface に定義された register() メソッドを

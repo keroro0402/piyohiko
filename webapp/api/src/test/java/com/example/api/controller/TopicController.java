@@ -2,7 +2,7 @@ package com.example.api.controller;
 
 import com.example.api.dto.TopicDto;
 import com.example.api.form.TopicRegistrationForm;
-import com.example.api.service.RegisterService;
+import com.example.api.service.OldRegisterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class TopicController {
 
     // 自動でDI = Controller 自身はどの実装クラスか知らなくても外から渡されて動く
-    private final RegisterService registerService;
+    private final OldRegisterService registerService;
     /* @Autowired + コンストラクタ
     * Spring に対して「このコンストラクタの引数に、Spring コンテナが管理している RegisterService（Bean） を入れてね」
     * と指示するアノテーション

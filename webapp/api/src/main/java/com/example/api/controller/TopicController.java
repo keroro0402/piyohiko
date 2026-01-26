@@ -2,7 +2,7 @@ package com.example.api.controller;
 
 import com.example.api.dto.TopicDto;
 import com.example.api.form.TopicRegistrationForm;
-import com.example.api.service.RegisterService;
+import com.example.api.service.OldRegisterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,12 +11,11 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequiredArgsConstructor
 public class TopicController {
-    private final RegisterService registerService;
+    private final OldRegisterService registerService;
 
     /* Topic登録画面表示リクエスト */
     @GetMapping("/show-topic-form")
