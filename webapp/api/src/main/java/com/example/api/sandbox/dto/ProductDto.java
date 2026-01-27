@@ -3,12 +3,12 @@ package com.example.api.sandbox.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-@Data
+//@Data
 /*@AllArgsConstructor:全フィールドを初期化するコンストラクタを作成してくれる。引数は必須。
 *インスタンス化する時にsetterで値をコンストラクタに入れなくて良い
 * JSON デシリアライズ時には使われない
 * */
-@AllArgsConstructor
+//@AllArgsConstructor
 public class ProductDto {
     private int id;
     private String name;
