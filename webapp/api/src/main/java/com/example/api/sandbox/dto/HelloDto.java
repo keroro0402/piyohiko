@@ -2,7 +2,7 @@ package com.example.api.sandbox.dto;
 
 import lombok.Data;
 
-//@Data
+@Data
 public class HelloDto {
     /*フィールド確保：このDTOが保持するmessageフィールドを確保する*/
     private String message;
