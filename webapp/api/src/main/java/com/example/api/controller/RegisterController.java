@@ -11,6 +11,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequiredArgsConstructor
@@ -45,6 +46,7 @@ public class RegisterController {
     public String confirmRegisterReview(
             @Validated ReviewRegisterForm form,
             BindingResult result,
+            RedirectAttributes redirectAttributes,
             Model model
     ){
         if(result.hasErrors()){
@@ -59,7 +61,8 @@ public class RegisterController {
         r.setComment(form.getComment());
         service.register(r);
 
-        model.addAttribute("msg", "aji_dbにレビュー登録完了");
-        return "complete";
+        /*フラッシュスコープにmsg登録*/
+        redirectAttributes.addFlashAttribute("msg", "aji_dbにレビュー登録完了");
+        return "redirect:/complete";
     }
 }
