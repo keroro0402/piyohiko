@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class Hello2Controller {
 
-//    private final Hello2Service hello2Service;
+    private final Hello2Service hello2Service;
 
 //    @GetMapping("/hello2")
     public Hello2Dto getHello2(

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class ProductController {
     
-//    private final ProductService productService;
+    private final ProductService productService;
 
     @GetMapping("/product")
     /*戻り値はProductDto*/

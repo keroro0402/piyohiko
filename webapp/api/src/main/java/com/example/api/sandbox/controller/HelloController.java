@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class HelloController {
 
     /*HelloService型のhelloServiceフィールド確保*/
-//    private final HelloService helloService;
+    private final HelloService helloService;
 
     /*コンストラクタインジェクション：SpringがHelloServiceのBeanを自動的に渡してくれる
     *DIするとも言う
