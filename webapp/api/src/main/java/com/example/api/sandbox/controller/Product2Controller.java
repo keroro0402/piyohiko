@@ -7,17 +7,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-//@RestController
-//@RequiredArgsConstructor
+@RestController
+@RequiredArgsConstructor
 public class Product2Controller {
 
     private final Product2Service product2Service;
 
-//    @GetMapping("/product2")
+    @GetMapping("/product2")
     /*戻り値はProduct2Dto*/
     public Product2Dto getProduct(
-//            @RequestParam int id,
-//            @RequestParam String name
+            @RequestParam int id,
+            @RequestParam String name
     ){
         /*product2Serviceが引数を使って、getProduct2を実行*/
         return product2Service.getProduct2(id, name);

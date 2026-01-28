@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 @RequiredArgsConstructor
-public class ReviewController {
+public class RegisterController {
 
     private final RegisterService service;
 
@@ -59,10 +59,7 @@ public class ReviewController {
         r.setComment(form.getComment());
         service.register(r);
 
-        model.addAttribute("msg", "レビュー登録完了しました");
-        System.out.println(form + ":登録完了");
-        return "complete-register-review";
+        model.addAttribute("msg", "aji_dbにレビュー登録完了");
+        return "complete";
     }
-
-
-    }
+}
