@@ -3,7 +3,7 @@ package com.example.api.form;
 import lombok.Data;
 
 @Data
-public class RestaurantSerachForm {
+public class RestaurantSearchForm {
 
     private String restaurantName;
 }
