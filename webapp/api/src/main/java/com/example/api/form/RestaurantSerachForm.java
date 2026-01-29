@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class RestaurantSerachForm {
 
-    private String restaurantNam;
+    private String restaurantName;
 }
