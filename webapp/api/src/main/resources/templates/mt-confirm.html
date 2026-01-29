@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<h2>レビュ登録確認</h2>
+<div th:object="${mtTopForm}">
+  <div>
+    <p>【店舗名】</p>
+    <p th:text="*{name}"></p>
+  </div>
+  <div>
+    <p>【キャッチフレーズ】</p>
+    <p th:text="*{catchPhrase}"></p>
+  </div>
+</div>
+<form th:action="@{/confirm-register-mttop}" th:object="${mtTopForm}" method="POST">
+  <input th:field="*{name}" type="hidden">
+  <input th:field="*{catchPhrase}" type="hidden">
+  <input type="submit" value="登録する">
+</form>
+<form th:action="@{/mt-top}" th:object="${mtTopForm}" method="POST">
+  <input th:field="*{name}" type="hidden">
+  <input th:field="*{catchPhrase}" type="hidden">
+  <input type="submit" value="再入力ページへ">
+</form>
+</body>
+</html>

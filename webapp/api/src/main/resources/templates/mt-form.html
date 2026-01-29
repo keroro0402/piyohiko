@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{/register-mttop}" th:object="${mtTopForm}" method="POST">
+  <div>
+    <label for="name">店舗名</label>
+    <input th:field="*{name}" type="text" id="name">
+    <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color:red"></div>
+  </div>
+  <div>
+    <label for="catchPhrase">キャッチフレーズ</label>
+    <input th:field="*{catchPhrase}" type="text" id="catchPhrase">
+    <div th:if="${#fields.hasErrors('catchPhrase')}" th:errors="*{catchPhrase}" style="color:red"></div>
+  </div>
+  <input type="submit" value="送信">
+</form>
+</body>
+</html>
