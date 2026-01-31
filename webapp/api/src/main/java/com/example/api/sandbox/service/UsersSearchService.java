@@ -8,7 +8,7 @@ import java.util.List;
 
 @Service
 public class UsersSearchService {
-    public UsersSearchDto serchUser(int id){
+    public UsersSearchDto searchUser(int id){
         UsersSearchDto user1 = new UsersSearchDto(1,"user1", "test@test.com");
         UsersSearchDto user2 = new UsersSearchDto(2,"user2", "test@test.com");
         UsersSearchDto user3 = new UsersSearchDto(3,"user3", "test@test.com");

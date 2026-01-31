@@ -17,6 +17,6 @@ public class UsersSearchController {
     public UsersSearchDto getUser(
             @RequestParam int id
     ){
-        return usersSearchService.serchUser(id);
+        return usersSearchService.searchUser(id);
     }
 }
