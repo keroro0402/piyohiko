@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>入力内容確認</h2>
+<div th:object="${validatedForm}">
+    <p>名前<p>
+    <p th:text="*{name}"></p>
+</div>
+</body>
+</html>
