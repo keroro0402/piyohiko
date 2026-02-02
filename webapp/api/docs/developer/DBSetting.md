@@ -79,7 +79,7 @@ GRANT ALL PRIVILEGES ON topic_db.* TO 'topic_user';
 ### 達成条件
 以下コマンドで、作成した DBユーザ で 作成したDB にログインできること
 ````
-mysql -u topic_user -p topic_db
+mysql -u topic_user -p topic_db;
 ````
 ログインした後は、ターミナルが以下の形になること
 ````
@@ -93,7 +93,7 @@ mysql>
 ### 手順
 1. MySQL に 作成した DBユーザ でログイン後、以下のコマンドで DB を選択する
 ````
-USE topic_db
+USE topic_db;
 ````
 2. 以下コマンドで テーブル を作成する
 ````
@@ -143,7 +143,7 @@ SHOW TABLES;
 ### 手順
 1. MySQL に 作成した DBユーザ でログイン後、以下のコマンドで DB を選択する
 ````
-USE topic_db
+USE topic_db;
 ````
 2. 以下コマンドで テーブル を作成する
 ````
