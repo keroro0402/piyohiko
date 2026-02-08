@@ -2,6 +2,8 @@ package com.example.api.controller;
 
 import com.example.api.entity.Restaurant;
 import com.example.api.form.RestaurantSearchForm;
+import com.example.api.service.RestaurantListService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class RestaurantListController {
+
+    private final RestaurantListService service;
+
     @GetMapping("/top")
     private String restaurantList(
             @ModelAttribute RestaurantSearchForm form
@@ -25,10 +31,8 @@ public class RestaurantListController {
             @ModelAttribute RestaurantSearchForm form,
             Model model
     ){
-        List<Restaurant> list = new ArrayList<Restaurant>();
-        list.add(new Restaurant(1,"店舗1", "キャッチ1", 3.5));
-        list.add(new Restaurant(2,"店舗2", "キャッチ2", 0.0));
-        list.add(new Restaurant(3,"店舗3", "キャッチ3", 4.4444));
+
+        List<Restaurant> list = service.findByNameWildcard(form.getRestaurantName());
 
         model.addAttribute("restaurantList", list);
 
