@@ -11,6 +11,7 @@ public class ReviewRegisterForm {
     @NotNull(message = "必須入力です")
     @Min(value = 1, message = "正の整数を入力してください")
     private Integer restaurantId;
+    private String restaurantName;
     @Size(min = 4, max = 16, message = "4~6文字で入力してください")
     private String userId;
     @NotNull(message = "必須入力です")
