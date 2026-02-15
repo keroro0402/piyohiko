@@ -19,7 +19,7 @@ public class RegisterController {
 
     private final RegisterService service;
 
-    @GetMapping("/show-review-form")
+    @PostMapping("/show-review-form")
     public String showReviewForm(@ModelAttribute ReviewRegisterForm form){
         return "register-review";
     }
