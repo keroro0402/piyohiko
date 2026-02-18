@@ -1,7 +1,6 @@
 package com.example.api.service;
 
 import com.example.api.entity.Restaurant;
-import com.example.api.sandbox.repository.RestaurantRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
