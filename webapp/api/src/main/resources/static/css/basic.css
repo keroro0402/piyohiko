@@ -1,6 +1,5 @@
 h2 {
 font-size : 20px;
-color : red;
 }
 
 table {
@@ -14,4 +13,8 @@ border : 1px solid black;
 td{
 padding : 3px;
 text-align : center;
+}
+
+.error-msg {
+color : red;
 }
