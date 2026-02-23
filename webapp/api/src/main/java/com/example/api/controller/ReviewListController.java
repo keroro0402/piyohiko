@@ -41,7 +41,7 @@ public class ReviewListController {
         list.add(review);
 
         if(list.size() > 0){
-            model.addAttribute("review", list);
+            model.addAttribute("reviewList", list);
         }
 
         return "review-list";
