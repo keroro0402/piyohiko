@@ -8,7 +8,7 @@
 <body>
 <h2>エラー</h2>
 <p class="error-msg">エラーが発生しました</p>
-<p class="error-msg" th:text="${status} + '' + ${error}"></p>
+<p class="error-msg" th:text="${status} + ' ' + ${error}"></p>
 <p>
     <a th:href="@{/top}">トップページへ戻る</a>
 </p>
