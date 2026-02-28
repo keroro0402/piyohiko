@@ -2,6 +2,6 @@ package com.example.api.repository;
 
 import com.example.api.entity.Review;
 
-public interface RegisterRepository {
+public interface ReviewRepository {
     void add(Review review);
 }
