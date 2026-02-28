@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
-public class RegisterRepositoryImpl implements RegisterRepository{
+public class ReviewRepositoryImpl implements ReviewRepository {
 
     /*JDBCテンプレート用フィールド作成*/
     private final JdbcTemplate jdbcTemplate;
