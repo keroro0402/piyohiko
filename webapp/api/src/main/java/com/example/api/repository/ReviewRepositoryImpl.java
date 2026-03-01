@@ -5,9 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -55,7 +54,7 @@ public class ReviewRepositoryImpl implements ReviewRepository {
                 "WHERE                      " +
                     "restaurant_id = ?      " +
                 "ORDER BY                   " +
-                    "visit_date DESC        " +
+                    "visit_date DESC,       " +
                     "review_id ASC          ";
         List<Map<String, Object>> list = jdbcTemplate.queryForList(sql, restaurantId);
 
@@ -65,7 +64,7 @@ public class ReviewRepositoryImpl implements ReviewRepository {
             review.setReviewId((int)one.get("review_id"));
             review.setRestaurantId((int)one.get("restaurant_id"));
             review.setUserId((String)one.get("user_id"));
-            review.setVisitDate((LocalDate)one.get("visit_date"));
+            review.setVisitDate(((Date) one.get("visit_date")).toLocalDate());
             review.setRating((int)one.get("rating"));
             review.setComment((String)one.get("comment"));
             result.add(review);
