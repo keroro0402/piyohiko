@@ -8,4 +8,4 @@ ai：アクセント無視
 ci：大文字小文字無視
 例：SQLで SELECT は select と同じ扱いになる
 */
-CREATE DATABASE t_user CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+CREATE DATABASE api_db CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
