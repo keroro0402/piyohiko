@@ -22,7 +22,9 @@ public class UserRepositoryImpl implements UserRepository {
                      "WHERE         " +
                         "login_id = ?";
         /*queryForObject：DB照合して 1個のオブジェクト を得るメソッド
-        * 引数は SQL、RowMapper、SQLに渡す値 の順に3つで固定
+        * 引数は SQL、RowMapper、SQLの?に渡す値 の順
+        * RowMapper：DBの1行（ResultSet）をUser オブジェクトに変換する方法
+        * 引数は rs（DBの1レコード）、rowNum（結果セット内の行番号。通常は使わない）の順に2つで固定
         * */
         return jdbcTemplate.queryForObject(
                 sql,
