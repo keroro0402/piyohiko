@@ -1,0 +1,1 @@
+INSERT INTO `api_db`.`t_user` (login_id, password) VALUES ('test', 'test');

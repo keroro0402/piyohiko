@@ -15,8 +15,8 @@ public class UserRepositoryImpl implements UserRepository {
     public User findByLoginId(String loginId) {
         String sql = "SELECT        " +
                         "user_id,   " +
-                        "login_id,, " +
-                        "password,  " +
+                        "login_id, " +
+                        "password  " +
                      "FROM          " +
                         "t_user     " +
                      "WHERE         " +
