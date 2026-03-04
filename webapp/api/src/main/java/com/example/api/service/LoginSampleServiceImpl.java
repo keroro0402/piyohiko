@@ -1,18 +1,18 @@
 package com.example.api.service;
 
 import com.example.api.entity.User;
-import com.example.api.repository.UserRepository;
+import com.example.api.repository.UserSampleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class LoginServiceImpl implements LoginService{
+public class LoginSampleServiceImpl implements LoginSampleService {
     /*
      * Spring が LoginServiceImpl をインスタンス化する際に、
      * UserRepository 型のBeanをコンストラクタ経由で注入する
      */
-    private final UserRepository userRepository;
+    private final UserSampleRepository userRepository;
 
     /*
     * @Override

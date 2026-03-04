@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
-public class UserRepositoryImpl implements UserRepository {
+public class UserSampleRepositoryImpl implements UserSampleRepository {
     /*JdbcTemplate:SQLを書くためのクラス*/
     private final JdbcTemplate jdbcTemplate;
 
