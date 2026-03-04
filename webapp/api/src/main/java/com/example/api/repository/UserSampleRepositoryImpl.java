@@ -1,6 +1,6 @@
 package com.example.api.repository;
 
-import com.example.api.entity.User;
+import com.example.api.entity.UserSample;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -12,7 +12,7 @@ public class UserSampleRepositoryImpl implements UserSampleRepository {
     private final JdbcTemplate jdbcTemplate;
 
     @Override
-    public User findByLoginId(String loginId) {
+    public UserSample findByLoginId(String loginId) {
         String sql = "SELECT        " +
                         "user_id,   " +
                         "login_id, " +
@@ -29,11 +29,11 @@ public class UserSampleRepositoryImpl implements UserSampleRepository {
         return jdbcTemplate.queryForObject(
                 sql,
                 (rs, rowNum) -> {
-                    User user = new User();
-                    user.setUserId(rs.getInt("user_id"));
-                    user.setLoginId(rs.getString("login_id"));
-                    user.setPassword(rs.getString("password"));
-                    return user;
+                    UserSample userSample = new UserSample();
+                    userSample.setUserId(rs.getInt("user_id"));
+                    userSample.setLoginId(rs.getString("login_id"));
+                    userSample.setPassword(rs.getString("password"));
+                    return userSample;
                 }, loginId
         );
     }

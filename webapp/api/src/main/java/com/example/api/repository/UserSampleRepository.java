@@ -1,7 +1,7 @@
 package com.example.api.repository;
 
-import com.example.api.entity.User;
+import com.example.api.entity.UserSample;
 
 public interface UserSampleRepository {
-    User findByLoginId(String loginId);
+    UserSample findByLoginId(String loginId);
 }

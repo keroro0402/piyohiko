@@ -3,7 +3,7 @@ package com.example.api.entity;
 import lombok.Data;
 
 @Data
-public class User {
+public class UserSample {
     private Integer userId;
     private String loginId;
     private String password;
