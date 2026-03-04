@@ -1,6 +1,6 @@
 package com.example.api.controller;
 
-import com.example.api.entity.User;
+import com.example.api.entity.UserSample;
 import com.example.api.service.LoginSampleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,7 +14,7 @@ public class LoginSampleController {
     private final LoginSampleService loginSampleService;
 
     @PostMapping("/login")
-    public User login(
+    public UserSample login(
             @RequestParam String loginId,
             @RequestParam String password
     ){

@@ -1,7 +1,7 @@
 package com.example.api.service;
 
-import com.example.api.entity.User;
+import com.example.api.entity.UserSample;
 
 public interface LoginSampleService {
-    User login(String loginId, String password);
+    UserSample login(String loginId, String password);
 }
