@@ -13,7 +13,7 @@ public class LoginSampleController {
 
     private final LoginSampleService loginSampleService;
 
-    @PostMapping("/login")
+    @PostMapping("/loginSample")
     public UserSample login(
             @RequestParam String loginId,
             @RequestParam String password
