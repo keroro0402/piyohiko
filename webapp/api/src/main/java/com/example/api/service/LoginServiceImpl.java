@@ -20,7 +20,6 @@ public class LoginServiceImpl implements LoginService{
 
         if(!user.getPassword().equals(password)){
             throw new LoginException("ログイン失敗");
-//            throw new RuntimeException("ログイン失敗");
         }
 
         return user;
