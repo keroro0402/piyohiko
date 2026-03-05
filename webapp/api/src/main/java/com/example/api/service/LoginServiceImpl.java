@@ -1,6 +1,7 @@
 package com.example.api.service;
 
 import com.example.api.entity.User;
+import com.example.api.exception.LoginException;
 import com.example.api.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +19,8 @@ public class LoginServiceImpl implements LoginService{
         User user = userRepository.findByLoginId(loginId);
 
         if(!user.getPassword().equals(password)){
-            throw new RuntimeException("ログイン失敗");
+            throw new LoginException("ログイン失敗");
+//            throw new RuntimeException("ログイン失敗");
         }
 
         return user;
