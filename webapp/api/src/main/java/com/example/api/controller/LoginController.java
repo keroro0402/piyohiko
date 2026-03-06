@@ -1,6 +1,7 @@
 package com.example.api.controller;
 
 import com.example.api.dto.LoginRequestDto;
+import com.example.api.dto.LoginResponseDto;
 import com.example.api.entity.User;
 import com.example.api.service.LoginService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,9 +18,13 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public User login(
+    public LoginResponseDto login(
             @RequestBody LoginRequestDto loginRequestDto
             ){
-        return loginService.login(loginRequestDto.getLoginId(), loginRequestDto.getPassword());
+        User user = loginService.login(loginRequestDto.getLoginId(), loginRequestDto.getPassword());
+        LoginResponseDto dto = new LoginResponseDto();
+        dto.setUserId(user.getUserId());
+        dto.setLoginId(user.getLoginId());
+        return dto;
     }
 }
