@@ -1,9 +1,10 @@
 package com.example.api.controller;
 
+import com.example.api.dto.LoginRequestDto;
 import com.example.api.entity.User;
 import com.example.api.service.LoginService;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -16,10 +17,9 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    User login(
-            @RequestParam String loginId,
-            @RequestParam String password
-    ){
-        return loginService.login(loginId, password);
+    public User login(
+            @RequestBody LoginRequestDto loginRequestDto
+            ){
+        return loginService.login(loginRequestDto.getLoginId(), loginRequestDto.getPassword());
     }
 }
