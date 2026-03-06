@@ -15,14 +15,16 @@ public class LoginServiceImpl implements LoginService{
 
     @Override
     public User login(String loginId, String password) {
-
         User user = userRepository.findByLoginId(loginId);
+
+        if(user == null){
+            throw new LoginException("ログイン失敗");
+        }
 
         if(!user.getPassword().equals(password)){
             throw new LoginException("ログイン失敗");
         }
-
+        
         return user;
     }
-
 }
