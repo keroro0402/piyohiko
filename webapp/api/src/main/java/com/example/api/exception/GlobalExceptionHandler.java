@@ -4,8 +4,6 @@ import com.example.api.dto.LoginErrorDto;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.util.Map;
-
 /*@RestControllerAdvice：アプリ内の例外をこのクラスで処理する*/
 @RestControllerAdvice
 public class GlobalExceptionHandler {
