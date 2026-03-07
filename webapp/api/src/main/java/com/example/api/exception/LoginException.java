@@ -1,10 +1,8 @@
 package com.example.api.exception;
 
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
 public class LoginException extends RuntimeException{
 
     private String errorCode;
@@ -14,7 +12,4 @@ public class LoginException extends RuntimeException{
         this.errorCode = errorCode;
     }
 
-    public String getErrorCode() {
-        return errorCode;
-    }
 }
