@@ -18,11 +18,11 @@ public class LoginServiceImpl implements LoginService{
         User user = userRepository.findByLoginId(loginId);
 
         if(user == null){
-            throw new LoginException("ログイン失敗");
+            throw new LoginException("LOGIN_FAILED", "ユーザーが存在しません");
         }
 
         if(!user.getPassword().equals(password)){
-            throw new LoginException("ログイン失敗");
+            throw new LoginException("LOGIN_FAILED", "ログイン失敗");
         }
         
         return user;

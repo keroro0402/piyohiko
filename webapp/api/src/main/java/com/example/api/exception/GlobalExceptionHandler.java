@@ -11,8 +11,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(LoginException.class)
     public LoginErrorDto handleLoginException(LoginException e){
         LoginErrorDto loginErrorDto = new LoginErrorDto();
-        loginErrorDto.setErrorCode("LOGIN_FAILED");
-        loginErrorDto.setMessage("ログイン失敗");
+        loginErrorDto.setErrorCode(e.getErrorCode());
+        loginErrorDto.setMessage(e.getMessage());
         return loginErrorDto;
     }
 }
