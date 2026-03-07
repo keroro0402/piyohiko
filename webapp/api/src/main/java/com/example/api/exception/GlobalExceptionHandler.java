@@ -11,9 +11,10 @@ import java.util.Map;
 public class GlobalExceptionHandler {
     /*@ExceptionHandler：引数のクラスでエラーが起きたら後述のメソッドで対応する*/
     @ExceptionHandler(LoginException.class)
-    public Map<String, String> handleLoginException(LoginException e){
-        return Map.of(
-                "message", e.getMessage()
-        );
+    public LoginErrorDto handleLoginException(LoginException e){
+        LoginErrorDto loginErrorDto = new LoginErrorDto();
+        loginErrorDto.setErrorCode("LOGIN_FAILED");
+        loginErrorDto.setMessage("ログイン失敗");
+        return loginErrorDto;
     }
 }
