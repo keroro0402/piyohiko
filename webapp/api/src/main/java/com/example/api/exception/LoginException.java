@@ -5,7 +5,7 @@ import lombok.Getter;
 @Getter
 public class LoginException extends RuntimeException{
 
-    private String errorCode;
+    private final String errorCode;
 
     public LoginException(String errorCode, String message){
         super(message);
