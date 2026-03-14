@@ -30,7 +30,7 @@
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
-		<!-- JDBC:Java から直接 SQL を実行して DB を操作するための API -->
+		<!-- JDBC（SQLでDB操作） -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jdbc</artifactId>
@@ -63,7 +63,7 @@
 			<artifactId>mysql-connector-j</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-		<!-- Lombok -->
+		<!-- Lombok（Getter / Setter 自動生成） -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -74,7 +74,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-aop</artifactId>
 		</dependency>
-		<!-- Springアプリのテスト用ライブラリ -->
+		<!-- Springアプリのテスト用ライブラリ（JUnit / Mockito など） -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
