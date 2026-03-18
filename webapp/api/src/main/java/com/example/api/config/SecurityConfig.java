@@ -12,11 +12,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SecurityConfig {
 
     @Bean
+    /*
+    * asswordEncoder という型で、BCryptアルゴリズムを使う実体を返却
+    * */
     public PasswordEncoder passwordEncoder(){
         /*
         * BCryptPasswordEncoder：パスワード専用の安全な変換用クラス
         * */
-        return new BCryptPasswordEncoder();
+        return new BCryptPasswordEncoder(); // BCryptアルゴリズム（ハッシュ化用クラス）を実体化
     }
 
 }
