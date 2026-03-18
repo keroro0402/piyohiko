@@ -3,25 +3,37 @@ package com.example.api.service;
 import com.example.api.entity.User;
 import com.example.api.exception.LoginException;
 import com.example.api.repository.UserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class LoginServiceImpl implements LoginService{
-    private final UserRepository userRepository;
 
-    public LoginServiceImpl(UserRepository userRepository){
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+
+    public LoginServiceImpl(
+            UserRepository userRepository,
+            PasswordEncoder passwordEncoder
+            ){
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     public User login(String loginId, String password) {
+
         User user = userRepository.findByLoginId(loginId);
 
         if(user == null){
             throw new LoginException("LOGIN_FAILED", "ユーザーが存在しません");
         }
-
-        if(!user.getPassword().equals(password)){
+        /*
+        * passwordEncoder は入力された平文 password を BCryptアルゴリズムでハッシュ化
+        * 生成されたハッシュと DBに保存されているハッシュ (user.getPassword()) を照合
+        * 一致すれば true、一致しなければ false を返す
+        * */
+        if(!passwordEncoder.matches(password, user.getPassword())){
             throw new LoginException("LOGIN_FAILED", "ログイン失敗");
         }
         
