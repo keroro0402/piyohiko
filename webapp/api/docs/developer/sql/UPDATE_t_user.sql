@@ -1,0 +1,1 @@
+UPDATE `api_db`.`t_user` SET password = "$2a$10$0nw.rkb0avPOIr2d9Vpb5OjYZqVWMB5xxAZGmnMwr2lqYGmpcm/k6" WHERE login_id = "test";
