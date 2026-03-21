@@ -13,7 +13,7 @@ public class SecurityFilterConfig {
         http
                 .csrf(csrf -> csrf.disable()) // CSRF（Cross-Site Request Forgery）保護を無効化
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/login").permitAll() // Controller の /login 使用を許可（これを入れないと Security が勝手にブロックする）
+                        .requestMatchers("*").permitAll() // Controller の /login 使用を許可（これを入れないと Security が勝手にブロックする）
                         .anyRequest().authenticated() // "/login" 以外の URL は ログイン済み（認証済み）でなければアクセス不可
                 )
                 /*
