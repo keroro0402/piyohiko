@@ -1,5 +1,6 @@
 package com.example.api.service;
 
+import com.example.api.dto.LoginResponseDto;
 import com.example.api.entity.User;
 import com.example.api.exception.LoginException;
 import com.example.api.repository.UserRepository;
@@ -21,7 +22,7 @@ public class LoginServiceImpl implements LoginService{
     }
 
     @Override
-    public User login(String loginId, String password) {
+    public LoginResponseDto login(String loginId, String password) {
 
         User user = userRepository.findByLoginId(loginId);
 
@@ -33,7 +34,9 @@ public class LoginServiceImpl implements LoginService{
         if(user == null || !passwordEncoder.matches(password, user.getPassword()) ){
             throw new LoginException("LOGIN_FAILED", "ログインidまたはパスワードが不正です");
         }
-        
-        return user;
+        LoginResponseDto dto = new LoginResponseDto();
+        dto.setUserId(user.getUserId());
+        dto.setLoginId(user.getLoginId());
+        return dto;
     }
 }
