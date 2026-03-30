@@ -2,7 +2,6 @@ package com.example.api.controller;
 
 import com.example.api.dto.LoginRequestDto;
 import com.example.api.dto.LoginResponseDto;
-import com.example.api.entity.User;
 import com.example.api.service.LoginService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,10 +20,6 @@ public class LoginController {
     public LoginResponseDto login(
             @RequestBody LoginRequestDto loginRequestDto
             ){
-        User user = loginService.login(loginRequestDto.getLoginId(), loginRequestDto.getPassword());
-        LoginResponseDto dto = new LoginResponseDto();
-        dto.setUserId(user.getUserId());
-        dto.setLoginId(user.getLoginId());
-        return dto;
+        return loginService.login(loginRequestDto.getLoginId(), loginRequestDto.getPassword());
     }
 }
