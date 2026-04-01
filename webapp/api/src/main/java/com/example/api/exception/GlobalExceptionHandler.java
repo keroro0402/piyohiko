@@ -1,6 +1,7 @@
 package com.example.api.exception;
 
 import com.example.api.dto.LoginErrorDto;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -9,10 +10,10 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalExceptionHandler {
     /*@ExceptionHandler：引数のクラスでエラーが起きたら後述のメソッドで対応する*/
     @ExceptionHandler(LoginException.class)
-    public LoginErrorDto handleLoginException(LoginException e){
+    public ResponseEntity<LoginErrorDto> handleLoginException(LoginException e){
         LoginErrorDto loginErrorDto = new LoginErrorDto();
         loginErrorDto.setErrorCode(e.getErrorCode());
         loginErrorDto.setMessage(e.getMessage());
-        return loginErrorDto;
+        return ResponseEntity.status(401).body(loginErrorDto);
     }
 }
