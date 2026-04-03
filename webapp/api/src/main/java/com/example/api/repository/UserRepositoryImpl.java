@@ -29,4 +29,13 @@ public class UserRepositoryImpl implements UserRepository{
             return null;
         }
     }
+
+    @Override
+    public void save(User user) {
+        String sql = "INSERT INTO `api_db`.`t_user` (login_id, password) VALUES (?,?)";
+         jdbcTemplate.update(sql,
+                 user.getLoginId(),
+                 user.getPassword()
+                 );
+    }
 }

@@ -2,8 +2,10 @@ package com.example.api.dto;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class LoginErrorDto {
     private String errorCode;
-    private String message;
+    private List<String> message;
 }
