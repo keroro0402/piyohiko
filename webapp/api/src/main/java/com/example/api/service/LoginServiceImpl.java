@@ -1,9 +1,11 @@
 package com.example.api.service;
 
 import com.example.api.dto.LoginResponseDto;
+import com.example.api.dto.UserDto;
 import com.example.api.entity.User;
 import com.example.api.exception.LoginException;
 import com.example.api.repository.UserRepository;
+import com.example.api.security.JwUtil;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -34,9 +36,16 @@ public class LoginServiceImpl implements LoginService{
         if(user == null || !passwordEncoder.matches(password, user.getPassword()) ){
             throw new LoginException("LOGIN_FAILED", "ログインidまたはパスワードが不正です");
         }
+
+        String token = JwUtil.generateToken(user.getLoginId());
+
+        UserDto userDto = new UserDto();
+        userDto.setUserId(user.getUserId());
+        userDto.setLoginId(user.getLoginId());
+
         LoginResponseDto dto = new LoginResponseDto();
-        dto.setUserId(user.getUserId());
-        dto.setLoginId(user.getLoginId());
+        dto.setUser(userDto);
+        dto.setAccessToken(token);
         return dto;
     }
 }
