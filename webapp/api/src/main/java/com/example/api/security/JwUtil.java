@@ -8,7 +8,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
 public class JwUtil {
-    private static final String SECRET_KEY = "secret-key";
+    private static final String SECRET_KEY = "my-super-secret-key-that-is-very-long-123412256";
 
     public static String generateToken(String loginId){
         SecretKey key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes(StandardCharsets.UTF_8)); // 文字列の秘密鍵を署名用のSecretKeyに変換
