@@ -2,6 +2,7 @@ package com.example.api.exception;
 
 import com.example.api.dto.LoginErrorDto;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -33,5 +34,13 @@ public class GlobalExceptionHandler {
         loginErrorDto.setErrorCode("VALIDATION_ERROR");
         loginErrorDto.setMessage(messageList);
         return ResponseEntity.status(400).body(loginErrorDto);
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<LoginErrorDto> handleJsonParseError(HttpMessageNotReadableException e){
+        LoginErrorDto dto = new LoginErrorDto();
+        dto.setErrorCode("INVALID_JSON");
+        dto.setMessage(List.of("JSONの形式が不正です"));
+        return ResponseEntity.status(400).body(dto);
     }
 }
