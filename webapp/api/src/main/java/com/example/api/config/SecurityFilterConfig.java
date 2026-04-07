@@ -22,6 +22,8 @@ public class SecurityFilterConfig {
                 .authorizeHttpRequests(auth -> auth
 //                        .anyRequest().permitAll()
                                 .requestMatchers("/login").permitAll()
+                                .requestMatchers("/admin").hasRole("ADMIN")
+                                .requestMatchers("/users").hasRole("USER")
                                 .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
