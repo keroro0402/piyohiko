@@ -16,13 +16,15 @@ public class UserRepositoryImpl implements UserRepository{
     @Override
     public User findByLoginId(String loginId) {
 
-        String sql = "SELECT user_id, login_id, password FROM t_user WHERE login_id = ?";
+        String sql = "SELECT user_id, login_id, password, role FROM t_user WHERE login_id = ?";
+
         try {
             return jdbcTemplate.queryForObject(sql,(rs, rowNum) -> {
                 User user = new User();
                 user.setUserId(rs.getInt("user_id"));
                 user.setLoginId(rs.getString("login_id"));
                 user.setPassword(rs.getString("password"));
+                user.setRole(rs.getString("role"));
                 return user;
             }, loginId);
         } catch (EmptyResultDataAccessException e){
