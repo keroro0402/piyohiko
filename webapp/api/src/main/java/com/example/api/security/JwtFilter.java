@@ -1,9 +1,12 @@
 package com.example.api.security;
 
+import com.example.api.entity.User;
+import com.example.api.repository.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -15,7 +18,11 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import java.util.List;
 
 @Component
+@RequiredArgsConstructor
 public class JwtFilter extends OncePerRequestFilter {
+
+    private final UserRepository userRepository;
+
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
@@ -30,15 +37,12 @@ public class JwtFilter extends OncePerRequestFilter {
             try {
                 String loginId = JwtUtil.getLoginIdFromToken(token);
 
-                List<SimpleGrantedAuthority> authorities;
+                User user = userRepository.findByLoginId(loginId);
 
-                if(loginId.equals("admin")){
-                    authorities = List.of(new SimpleGrantedAuthority("ROLE_ADMIN"));
-                } else {
-                    authorities = List.of(new SimpleGrantedAuthority("ROLE_USER"));
-                }
+                List<SimpleGrantedAuthority> authorities  = List.of(new SimpleGrantedAuthority(user.getRole()));
 
                 System.out.println("認証OK:" + loginId);
+                System.out.println("認証OK:" + authorities);
 
                 UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
                         loginId,
