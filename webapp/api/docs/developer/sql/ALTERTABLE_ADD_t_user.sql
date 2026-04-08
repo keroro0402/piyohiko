@@ -1,0 +1,1 @@
+ALTER TABLE `api_db`.`t_user` ADD COLUMN role VARCHAR(20);
