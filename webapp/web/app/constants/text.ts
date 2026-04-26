@@ -10,5 +10,7 @@ export const TEXT = {
     LOGINLABEL: 'ログイン',
     MAILLABEL: 'メールアドレス',
     PASSWORDLABEL: 'パスワード',
+    REMEMBERME: 'ログイン状態を保持する',
+    FORGOTPASSWORD: 'パスワードを忘れた方はこちら',
   },
 } as const;
