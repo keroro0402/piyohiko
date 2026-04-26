@@ -1,9 +1,11 @@
 // 色定義
-$color-white: #ffffff;
-$color-orange: #fbbc28;
-$color-warm-orange: #db8234;
-$color-light-gray: #ececec;
-$color-dark-gray: #343434;
+$color-white: rgb(255, 255, 255, 1);
+$color-thin-black: rgb(0, 0, 0, 0.5);
+$color-dark-brown: rgb(148, 131, 104, 1);
+$color-orange: rgb(255, 204, 128, 1);
+$color-warm-orange: rgb(219, 130, 52, 1);
+$color-light-gray: rgb(236, 236, 236, 1);
+$color-dark-gray: rgb(52, 52, 52, 1);
 
 main {
   padding: 2rem;
