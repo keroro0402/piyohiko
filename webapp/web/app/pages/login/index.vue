@@ -34,7 +34,7 @@
 <script setup lang="ts">
 import { TEXT } from '~/constants/text';
 import { ref } from 'vue';
-import apiClient from '~/api/apiClient';
+import { login } from '~/api/apiClient';
 
 definePageMeta({
   layout: 'blank',
@@ -50,7 +50,7 @@ const rememberMe = ref(false);
 
 const handleSubmit = async () => {
   // TODO: 認証ロジックを実装
-  const res = await apiClient.login.post('', { email: email.value, password: password.value });
+  const res = await login(email.value, password.value);
   console.log(res.data);
   console.log('login submit', { email: email.value, password: password.value });
 };
@@ -58,6 +58,7 @@ const handleSubmit = async () => {
 
 <style lang="scss" scoped>
 @use '~/assets/styles/main.scss' as *;
+@use 'sass:color';
 
 .login-page {
   display: flex;
@@ -113,7 +114,7 @@ const handleSubmit = async () => {
         cursor: pointer;
         transition: background-color 0.3s ease;
         &:hover {
-          background-color: darken($color-warm-orange, 10%);
+          background-color: color.adjust($color-warm-orange, $lightness: -10%);
         }
       }
       .login-form__forgot-password {
