@@ -64,7 +64,7 @@ const handleSubmit = async () => {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: $color-orange;
+  background-color: $color-dark-brown;
   .login-page__content {
     max-width: 400px;
     margin: 0 auto;
