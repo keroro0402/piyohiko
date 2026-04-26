@@ -71,7 +71,7 @@ const handleSubmit = async () => {
     padding: 2rem;
     background: $color-light-gray;
     border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 30px $color-thin-black;
     h1 {
       text-align: center;
       margin-bottom: 2rem;
