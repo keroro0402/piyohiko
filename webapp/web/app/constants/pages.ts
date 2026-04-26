@@ -10,6 +10,7 @@ export const links = {
   navi: [
     { key: 'home', label: 'HOME', to: '/' },
     { key: 'about', label: 'ABOUT', to: '/about' },
+    { key: 'login', label: 'LOGIN', to: '/login' },
   ] as const,
 } as const;
 
@@ -23,4 +24,5 @@ export const links = {
 export const pageTitles: Record<string, string> = {
   index: links.navi[0].label,
   about: links.navi[1].label,
+  login: links.navi[2].label,
 };
