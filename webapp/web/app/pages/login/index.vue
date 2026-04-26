@@ -12,7 +12,7 @@
         <div>
           <label class="login-form__field">
             <span>{{ TEXT.LOGIN.PASSWORDLABEL }}</span>
-            <input v-model="password" type="password" required minlength="8" placeholder="********" />
+            <input v-model="password" type="password" required minlength="1" placeholder="********" />
           </label>
         </div>
         <div>
@@ -26,6 +26,7 @@
 <script setup lang="ts">
 import { TEXT } from '~/constants/text';
 import { ref } from 'vue';
+import apiClient from '~/api/apiClient';
 
 definePageMeta({
   layout: 'blank',
@@ -38,8 +39,10 @@ useHead({
 const email = ref('');
 const password = ref('');
 
-const handleSubmit = () => {
+const handleSubmit = async () => {
   // TODO: 認証ロジックを実装
+  const res = await apiClient.login.post('', { email: email.value, password: password.value });
+  console.log(res.data);
   console.log('login submit', { email: email.value, password: password.value });
 };
 </script>
