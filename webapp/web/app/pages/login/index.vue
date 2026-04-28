@@ -4,16 +4,16 @@
       <h1>{{ TEXT.LOGIN.LOGINLABEL }}</h1>
       <form class="login-form" @submit.prevent="handleSubmit">
         <div class="login-form__group">
-          <label class="login-form__label" for="email">
+          <label class="login-form__label" for="loginId">
             {{ TEXT.LOGIN.MAILLABEL }}
           </label>
-          <input id="email" v-model="email" class="login-form__input" type="email" required placeholder="example@mail.com" />
+          <input id="loginId" v-model="loginId" class="login-form__input" required placeholder="test" />
         </div>
         <div class="login-form__group">
           <label class="login-form__label" for="password">
             {{ TEXT.LOGIN.PASSWORDLABEL }}
           </label>
-          <input id="password" v-model="password" class="login-form__input" type="password" minlength="1" placeholder="********" />
+          <input id="password" v-model="password" class="login-form__input" type="password" minlength="1" placeholder="test" />
         </div>
         <div class="login-form__check">
           <input id="rememberMe" v-model="rememberMe" class="login-form__checkbox" type="checkbox" />
@@ -34,8 +34,7 @@
 <script setup lang="ts">
 import { TEXT } from '~/constants/text';
 import { ref } from 'vue';
-// import { login } from '~/api/apiClient';
-import { getAccess, postAccess } from '~/api/apiClient';
+import { login } from '~/api/apiClient';
 import { pageTitles } from '~/constants/pages';
 
 definePageMeta({
@@ -43,7 +42,7 @@ definePageMeta({
 });
 
 const route = useRoute();
-const email = ref('');
+const loginId = ref('');
 const password = ref('');
 const rememberMe = ref(false);
 
@@ -52,11 +51,10 @@ useHead({
 });
 
 const handleSubmit = async () => {
-  // TODO: 認証ロジックを実装
-  // const res = await login(email.value, password.value);
-  const res = await postAccess({ email: email.value, password: password.value });
+  // login API呼び出し
+  const res = await login(loginId.value, password.value);
   console.log(res.data);
-  console.log('login submit', { email: email.value, password: password.value });
+  console.log('login submit', { loginId: loginId.value, password: password.value });
 };
 </script>
 
