@@ -1,7 +1,6 @@
 package com.example.api.config;
 
 import com.example.api.security.JwtFilter;
-import org.apache.tomcat.util.http.parser.Authorization;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -58,18 +57,22 @@ public class SecurityFilterConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable()) // CSRF（Cross-Site Request Forgery）保護を無効化
+                .csrf(csrf -> csrf.disable()) // API専用のため、CSRF保護を無効化
+                .anonymous(anon -> anon.disable()) // 未認証ユーザーを許さないため、「匿名ユーザー」として扱う機能を無効化
+                .formLogin(form -> form.disable()) // ログイン画面は自作のため、デフォルトのログインフォーム使用を無効化
+                .httpBasic( basic -> basic.disable()) // より強化なトークン認証を使うため、Basic認証を無効化
+                // リクエストに対して、どのページにアクセスさせるかを設定
                 .authorizeHttpRequests(auth -> auth
 //                        .anyRequest().permitAll()
-                                .requestMatchers("/login").permitAll()
-                                .requestMatchers("/admin").hasRole("ADMIN")
-                                .requestMatchers("/users").hasRole("USER")
-                                .anyRequest().authenticated()
+                                .requestMatchers("/login").permitAll() // 全リクエストでアクセス許可
+                                .requestMatchers("/admin").hasRole("ADMIN") // roleに ADMIN があれば許可
+                                .requestMatchers("/users").hasRole("USER") // roleに USER があれば許可
+                                .anyRequest().authenticated() // 上記以外のページへアクセスにはログイン必須を宣言
                 )
                 .cors(Customizer.withDefaults()) // CORSの設定を反映
-                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
-                .anonymous(anon -> anon.disable())
-                .formLogin(form -> form.disable());
+                // JWT認証フィルターを、標準のユーザー名/パスワード認証の前に実行するよう設定（認証開始前にJWT認証フィルターをかけたいため）
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+        // これまでの設定をすべて統合して、SecurityFilterChainの実体を作成して返却する
         return http.build();
     }
 }
