@@ -7,7 +7,7 @@
           <label class="login-form__label" for="email">
             {{ TEXT.LOGIN.MAILLABEL }}
           </label>
-          <input id="email" class="login-form__input" type="email" required placeholder="example@mail.com" />
+          <input id="email" v-model="email" class="login-form__input" type="email" required placeholder="example@mail.com" />
         </div>
         <div class="login-form__group">
           <label class="login-form__label" for="password">
@@ -34,7 +34,8 @@
 <script setup lang="ts">
 import { TEXT } from '~/constants/text';
 import { ref } from 'vue';
-import { login } from '~/api/apiClient';
+// import { login } from '~/api/apiClient';
+import { getAccess, postAccess } from '~/api/apiClient';
 import { pageTitles } from '~/constants/pages';
 
 definePageMeta({
@@ -52,7 +53,8 @@ useHead({
 
 const handleSubmit = async () => {
   // TODO: 認証ロジックを実装
-  const res = await login(email.value, password.value);
+  // const res = await login(email.value, password.value);
+  const res = await postAccess({ email: email.value, password: password.value });
   console.log(res.data);
   console.log('login submit', { email: email.value, password: password.value });
 };
