@@ -8,9 +8,9 @@ function getApiClient() {
   });
 }
 
-export const login = async (email: string, password: string) => {
+const login = async (loginId: string, password: string) => {
   const apiClient = getApiClient();
-  return apiClient.post('/login', { email, password });
+  return apiClient.post('/login', { loginId, password });
 };
 
-export default getApiClient;
+export { login };
