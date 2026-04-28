@@ -35,18 +35,20 @@
 import { TEXT } from '~/constants/text';
 import { ref } from 'vue';
 import { login } from '~/api/apiClient';
+import { pageTitles } from '~/constants/pages';
 
 definePageMeta({
   layout: 'blank',
 });
 
-useHead({
-  title: 'LOGIN',
-});
-
+const route = useRoute();
 const email = ref('');
 const password = ref('');
 const rememberMe = ref(false);
+
+useHead({
+  title: pageTitles[route.name?.toString() || ''] ?? '',
+});
 
 const handleSubmit = async () => {
   // TODO: 認証ロジックを実装
