@@ -52,9 +52,20 @@ useHead({
 
 const handleSubmit = async () => {
   // login API呼び出し
-  const res = await login(loginId.value, password.value);
-  console.log(res.data);
-  console.log('login submit', { loginId: loginId.value, password: password.value });
+  const response = await login(loginId.value, password.value);
+  if (response.data) {
+    // Cookieの設定
+    const cookie = useCookie(
+      'accessToken', // クッキー名
+      {
+        maxAge: rememberMe.value ? 60 * 60 * 24 * 30 : 60 * 60 * 24, // 30日間有効（rememberMeがtrueの場合）、1日間有効（falseの場合）
+        sameSite: 'lax', // CSRF対策のためにSameSite属性を設定
+        secure: true, // HTTPSを使用している場合はtrueに設定
+      },
+    );
+    cookie.value = response.data.accessToken; // Cookieにアクセストークンを保存
+    await navigateTo('/'); // TOPページへ遷移
+  }
 };
 </script>
 
