@@ -4,6 +4,10 @@
 <script setup lang="ts">
 import { pageTitles } from '~/constants/pages';
 
+definePageMeta({
+  middleware: 'auth',
+});
+
 const route = useRoute();
 
 useHead({
