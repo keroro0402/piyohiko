@@ -4,6 +4,7 @@ import com.example.api.security.JwtFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -41,10 +42,10 @@ public class SecurityFilterConfig {
         ));
         // 許可するメソッドの設定
         config.setAllowedMethods(List.of(
-                "GET",                  // 取得を許可
-                "POST",                 // 登録を許可
-                "PUT",                  // 更新を許可
-                "DELETE"                // 削除を許可
+                HttpMethod.GET.name(),                  // 取得を許可
+                HttpMethod.POST.name(),                 // 登録を許可
+                HttpMethod.PUT.name(),                  // 更新を許可
+                HttpMethod.DELETE.name()                // 削除を許可
         ));
         // クッキーや認証情報（JWTトークン等）を含むリクエストの設定
         config.setAllowCredentials(true); // 許可
