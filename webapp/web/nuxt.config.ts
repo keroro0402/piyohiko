@@ -1,5 +1,11 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  devServer: {
+    https: {
+      key: './localhost-key.pem',
+      cert: './localhost.pem',
+    },
+  },
   runtimeConfig: {
     public: {
       apiUrl: process.env.API_URL || 'http://localhost:8080',
