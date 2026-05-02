@@ -8,7 +8,7 @@
 export const TEXT = {
   LOGIN: {
     LOGINLABEL: 'ログイン',
-    MAILLABEL: 'メールアドレス',
+    LOGINIDLABEL: 'ログインID',
     PASSWORDLABEL: 'パスワード',
     REMEMBERME: 'ログイン状態を保持する',
     FORGOTPASSWORD: 'パスワードを忘れた方はこちら',

@@ -5,15 +5,15 @@
       <form class="login-form" @submit.prevent="handleSubmit">
         <div class="login-form__group">
           <label class="login-form__label" for="loginId">
-            {{ TEXT.LOGIN.MAILLABEL }}
+            {{ TEXT.LOGIN.LOGINIDLABEL }}
           </label>
-          <input id="loginId" v-model="loginId" class="login-form__input" required placeholder="test" />
+          <input id="loginId" v-model="loginId" class="login-form__input" required placeholder="test" autocomplete="loginId" />
         </div>
         <div class="login-form__group">
           <label class="login-form__label" for="password">
             {{ TEXT.LOGIN.PASSWORDLABEL }}
           </label>
-          <input id="password" v-model="password" class="login-form__input" type="password" minlength="1" placeholder="test" />
+          <input id="password" v-model="password" class="login-form__input" type="password" minlength="1" placeholder="test" autocomplete="password" />
         </div>
         <div class="login-form__check">
           <input id="rememberMe" v-model="rememberMe" class="login-form__checkbox" type="checkbox" />
