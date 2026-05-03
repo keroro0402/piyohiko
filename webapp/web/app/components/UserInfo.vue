@@ -7,12 +7,14 @@
 
 <script setup lang="ts">
 import { TEXT } from '~/constants/text';
+import { useUserInfoStore } from '#imports';
 
 const { block } = defineProps<{
   block: string;
 }>();
 
-const userName = ref('ささささ');
+const userInfoStore = useUserInfoStore();
+const userName = computed(() => userInfoStore.userName || 'ゲスト');
 
 const handleLogout = () => {
   const cookie = useCookie('accessToken');

@@ -1,17 +1,20 @@
 import { defineStore } from 'pinia';
+import type { UserInfo } from '~/types/userInfo';
 
-export const useUserInfoStore = defineStore('userInfo', {
-  state: () => ({
-    topics: 1,
+const useUserInfoStore = defineStore('userInfo', {
+  state: (): UserInfo => ({
+    userName: null,
   }),
   getters: {
-    db: (state) => {
-      return state.topics * 2;
+    displayName: (state) => {
+      return state.userName || 'Guest';
     },
   },
   actions: {
-    increment() {
-      this.topics++;
+    setUserName(name: string) {
+      this.userName = name;
     },
   },
 });
+
+export { useUserInfoStore };
