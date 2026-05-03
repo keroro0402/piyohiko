@@ -6,6 +6,13 @@
  */
 
 export const TEXT = {
+  COMMON: {
+    HOME: 'HOME',
+    ABOUT: 'ABOUT',
+    LOGIN: 'LOGIN',
+    LOGOUT: 'LOGOUT',
+    USERNAME: 'ユーザー名',
+  },
   LOGIN: {
     LOGINLABEL: 'ログイン',
     LOGINIDLABEL: 'ログインID',

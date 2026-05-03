@@ -6,11 +6,12 @@
  * - 並び順 = 表示順
  * - to は pages に存在するルートのみ
  */
+import { TEXT } from './text';
 export const links = {
   navi: [
-    { key: 'home', label: 'HOME', to: '/' },
-    { key: 'about', label: 'ABOUT', to: '/about' },
-    { key: 'login', label: 'LOGIN', to: '/login' },
+    { key: 'home', label: TEXT.COMMON.HOME, to: '/' },
+    { key: 'about', label: TEXT.COMMON.ABOUT, to: '/about' },
+    { key: 'login', label: TEXT.COMMON.LOGIN, to: '/login' },
   ] as const,
 } as const;
 
