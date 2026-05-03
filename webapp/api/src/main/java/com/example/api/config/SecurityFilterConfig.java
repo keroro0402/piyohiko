@@ -51,7 +51,7 @@ public class SecurityFilterConfig {
                 HttpMethod.DELETE.name()                // 削除を許可
         ));
         // クッキーや認証情報（JWTトークン等）を含むリクエストの設定
-        config.setAllowCredentials(true); // 許可
+        config.setAllowCredentials(true); // リクエストを許可する
         // URLごとにどのCORS設定を適用するか管理するオブジェクトを用意
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         // 「すべてのURL（/**）」に対して、作成したCORS設定（config）を適用
