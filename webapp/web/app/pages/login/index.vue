@@ -1,7 +1,7 @@
 <template>
   <main class="login-page">
     <section class="login-page__content">
-      <h1>{{ TEXT.LOGIN.LOGINLABEL }}</h1>
+      <h1 class="login-page__title">{{ TEXT.LOGIN.LOGINLABEL }}</h1>
       <form class="login-form" @submit.prevent="handleSubmit">
         <div class="login-form__group">
           <label class="login-form__label" for="loginId">
@@ -24,7 +24,7 @@
 
         <button class="login-form__submit" type="submit">{{ TEXT.LOGIN.LOGINLABEL }}</button>
         <div class="login-form__forgot-password">
-          <a href="#">{{ TEXT.LOGIN.FORGOTPASSWORD }}</a>
+          <a class="login-form__forgot-link" href="#">{{ TEXT.LOGIN.FORGOTPASSWORD }}</a>
         </div>
       </form>
     </section>
@@ -83,69 +83,62 @@ const handleSubmit = async () => {
   align-items: center;
   height: 100vh;
   background-color: $color-dark-brown;
-  .login-page__content {
+  &__content {
     max-width: 400px;
     margin: 0 auto;
     padding: 2rem;
     background: $color-light-gray;
     border-radius: 12px;
     box-shadow: 0 10px 30px $color-thin-black;
-    h1 {
-      text-align: center;
-      margin-bottom: 2rem;
-      color: $color-dark-gray;
-      font-weight: 600;
+  }
+  &__title {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: $color-dark-gray;
+    font-weight: 600;
+  }
+}
+.login-form {
+  &__group {
+    margin-bottom: 1.5rem;
+  }
+  &__label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: $color-dark-gray;
+  }
+  &__input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.5rem;
+    border: 1px solid $color-white;
+    border-radius: 4px;
+  }
+  &__check {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+  &__checkbox {
+    margin-right: 0.5rem;
+  }
+  &__submit {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: $color-warm-orange;
+    color: $color-white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    &:hover {
+      background-color: color.adjust($color-warm-orange, $lightness: -10%);
     }
-    .login-form {
-      .login-form__group {
-        margin-bottom: 1.5rem;
-        .login-form__label {
-          display: block;
-          margin-bottom: 0.5rem;
-          color: $color-dark-gray;
-        }
-        .login-form__input {
-          width: 100%;
-          box-sizing: border-box;
-          padding: 0.5rem;
-          border: 1px solid $color-white;
-          border-radius: 4px;
-        }
-      }
-      .login-form__check {
-        display: flex;
-        align-items: center;
-        margin-bottom: 1.5rem;
-        .login-form__checkbox {
-          margin-right: 0.5rem;
-        }
-      }
-      .login-form__submit {
-        width: 100%;
-        padding: 0.75rem;
-        background-color: $color-warm-orange;
-        color: $color-white;
-        border: none;
-        border-radius: 4px;
-        font-size: 1rem;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-        &:hover {
-          background-color: color.adjust($color-warm-orange, $lightness: -10%);
-        }
-      }
-      .login-form__forgot-password {
-        text-align: center;
-        margin-top: 1rem;
-        a {
-          color: $color-warm-orange;
-          text-decoration: none;
-          &:hover {
-            text-decoration: underline;
-          }
-        }
-      }
-    }
+  }
+  &__forgot-password {
+    text-align: center;
+    margin-top: 1rem;
   }
 }
 </style>

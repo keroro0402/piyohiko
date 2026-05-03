@@ -27,3 +27,8 @@ const isCurrent = (link: NaviItem): boolean => {
   return route.name === link.key;
 };
 </script>
+<style lang="scss" scoped>
+.header-nav {
+  text-align: left;
+}
+</style>
