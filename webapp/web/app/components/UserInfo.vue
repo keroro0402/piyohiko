@@ -1,8 +1,8 @@
 <template>
   <div :class="block">
-    <p class="user-name">{{ TEXT.COMMON.USERNAME }}：{{ userName }}</p>
+    <p :class="`${block}__user-name`">{{ userName }}</p>
+    <button :class="`${block}__logout-button`" @click="handleLogout">{{ TEXT.COMMON.LOGOUT }}</button>
   </div>
-  <button class="logout-button" @click="handleLogout">{{ TEXT.COMMON.LOGOUT }}</button>
 </template>
 
 <script setup lang="ts">
@@ -22,3 +22,23 @@ const handleLogout = () => {
   navigateTo('/login'); // ログインページへリダイレクト
 };
 </script>
+<style lang="scss" scoped>
+.header-user-info {
+  &__user-name {
+    margin: 0;
+  }
+  &__logout-button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #d32f2f;
+    }
+  }
+}
+</style>
