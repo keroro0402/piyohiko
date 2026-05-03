@@ -24,9 +24,12 @@ public class JwtFilter extends OncePerRequestFilter {
     private final UserRepository userRepository;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    FilterChain filterChain)
+    protected void doFilterInternal(
+            HttpServletRequest request, // リクエストデータを取り出す用オブジェクト
+            HttpServletResponse response, // レスポンスデータを設定する用オブジェクト
+            FilterChain filterChain // チェックを次々に続けるためのオブジェクト
+    )
+            // サーバエラー（ServletException）と通信エラー（IOException）発生時にSpringにエラー処理を委ねる
             throws ServletException, IOException {
 
         String authHeader = request.getHeader("Authorization");

@@ -3,6 +3,8 @@ package com.example.api.config;
 import com.example.api.security.JwtFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -29,21 +31,24 @@ public class SecurityFilterConfig {
         // CORSの設定情報を保持するオブジェクト（ルールブック）を生成
         CorsConfiguration config = new CorsConfiguration();
         // 許可するドメインの設定
-        config.setAllowedOrigins(List.of("http://localhost:3000"));
+        config.setAllowedOrigins(List.of(
+                "http://localhost:3000",
+                "https://localhost:3000"
+        ));
         // 許可するヘッダーの設定
         config.setAllowedHeaders(List.of(
-                "Origin",               // リクエスト元のドメイン特定のため（setAllowedOriginsを設定したら必須）
-                "Content-Type",         // リクエスト（往路）のデータ形式指定を許可するため（axios使用するなら必須。application/jsonの通信を許可する）
-                "Accept",               // レスポンス（復路）のデータ形式指定を許可するため（JSONを希望する等）
-                "Authorization",        // JWTトークンなどの認証情報をヘッダーに載せることを許可するため
-                "X-Requested-With"      // Ajax通信（axios等）であることを示す
+                HttpHeaders.ORIGIN,             // リクエスト元のドメイン特定のため（setAllowedOriginsを設定したら必須）
+                HttpHeaders.CONTENT_TYPE,       // リクエスト（往路）のデータ形式指定を許可するため（axios使用するなら必須。application/jsonの通信を許可する）
+                HttpHeaders.ACCEPT,             // レスポンス（復路）のデータ形式指定を許可するため（JSONを希望する等）
+                HttpHeaders.AUTHORIZATION,      // JWTトークンなどの認証情報をヘッダーに載せることを許可するため
+                "X-Requested-With"              // Ajax通信（axios等）であることを示す
         ));
         // 許可するメソッドの設定
         config.setAllowedMethods(List.of(
-                "GET",                  // 取得を許可
-                "POST",                 // 登録を許可
-                "PUT",                  // 更新を許可
-                "DELETE"                // 削除を許可
+                HttpMethod.GET.name(),                  // 取得を許可
+                HttpMethod.POST.name(),                 // 登録を許可
+                HttpMethod.PUT.name(),                  // 更新を許可
+                HttpMethod.DELETE.name()                // 削除を許可
         ));
         // クッキーや認証情報（JWTトークン等）を含むリクエストの設定
         config.setAllowCredentials(true); // 許可
