@@ -36,6 +36,7 @@ import { TEXT } from '~/constants/text';
 import { ref } from 'vue';
 import { login } from '~/api/apiClient';
 import { pageTitles } from '~/constants/pages';
+import { COOKIE_EXPIRATION } from '~/constants/cookie';
 import { useUserInfoStore } from '~/stores/userInfo';
 
 const userInfoStore = useUserInfoStore();
@@ -55,13 +56,14 @@ useHead({
 
 const handleSubmit = async () => {
   // login API呼び出し
-  const response = await login(loginId.value, password.value);
+  const response = await login(loginId.value, password.value, rememberMe.value ? COOKIE_EXPIRATION.REMEMBER_ME : COOKIE_EXPIRATION.DEFAULT);
+  console.log(response);
   if (response.data) {
     // Cookieの設定
     const cookie = useCookie(
       'accessToken', // クッキー名
       {
-        maxAge: rememberMe.value ? 60 * 60 * 24 * 30 : 60 * 60 * 24, // 30日間有効（rememberMeがtrueの場合）、1日間有効（falseの場合）
+        maxAge: response.data.user.expiration / 1000, // APIのexpirationはミリ秒（ms）なので1000で割る（useCookie の maxAge: 単位は 「秒（s）」）
         sameSite: 'lax', // CSRF対策のためにSameSite属性を設定
         secure: true, // HTTPSを使用している場合はtrueに設定
       },
