@@ -7,6 +7,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -22,6 +24,7 @@ import java.util.List;
 public class JwtFilter extends OncePerRequestFilter {
 
     private final UserRepository userRepository;
+    private static final String BEARER_PREFIX = "Bearer ";
 
     @Override
     protected void doFilterInternal(
@@ -31,29 +34,27 @@ public class JwtFilter extends OncePerRequestFilter {
     )
             // サーバエラー（ServletException）と通信エラー（IOException）発生時にSpringにエラー処理を委ねる
             throws ServletException, IOException {
-
-        String authHeader = request.getHeader("Authorization");
+        String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
         System.out.println("★★Filter開始★★");
-        if(authHeader != null && authHeader.startsWith("Bearer ")){
+        // リクエスト メソッド = OPTIONS なら無条件で次の処理に進む
+        if(HttpMethod.OPTIONS.name().equalsIgnoreCase(request.getMethod())){
+            filterChain.doFilter(request, response);
+            return;
+        }
+        if(authHeader != null && authHeader.startsWith(BEARER_PREFIX)){
             String token = authHeader.substring(7);
-
             try {
                 String loginId = JwtUtil.getLoginIdFromToken(token);
-
                 User user = userRepository.findByLoginId(loginId);
-
                 List<SimpleGrantedAuthority> authorities  = List.of(new SimpleGrantedAuthority(user.getRole()));
-
                 System.out.println("認証OK:" + loginId);
                 System.out.println("認証OK:" + authorities);
-
                 UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
                         loginId,
                         null,
                         authorities
                 );
                 SecurityContextHolder.getContext().setAuthentication(auth);
-
             } catch (Exception e) {
                 System.out.println("認証失敗・・・");
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
