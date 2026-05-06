@@ -22,7 +22,7 @@ public class LoginController {
     public LoginResponseDto login(
             @RequestBody @Valid LoginRequestDto loginRequestDto
             ){
-        return loginService.login(loginRequestDto.getLoginId(), loginRequestDto.getPassword());
+        return loginService.login(loginRequestDto.getLoginId(), loginRequestDto.getPassword(), loginRequestDto.getExpiration());
     }
 
     @GetMapping("/admin")

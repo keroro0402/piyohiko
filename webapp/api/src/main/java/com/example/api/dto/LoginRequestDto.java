@@ -9,4 +9,5 @@ public class LoginRequestDto {
     private String loginId;
     @NotBlank(message = "パスワードは必須です")
     private String password;
+    private long expiration;
 }

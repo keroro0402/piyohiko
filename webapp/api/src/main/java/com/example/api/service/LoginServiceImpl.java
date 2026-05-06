@@ -24,7 +24,7 @@ public class LoginServiceImpl implements LoginService{
     }
 
     @Override
-    public LoginResponseDto login(String loginId, String password) {
+    public LoginResponseDto login(String loginId, String password , long expiration) {
 
         User user = userRepository.findByLoginId(loginId);
 
@@ -37,11 +37,12 @@ public class LoginServiceImpl implements LoginService{
             throw new LoginException("LOGIN_FAILED", "ログインidまたはパスワードが不正です");
         }
 
-        String token = JwtUtil.generateToken(user.getLoginId());
+        String token = JwtUtil.generateToken(user.getLoginId(), expiration);
 
         UserDto userDto = new UserDto();
         userDto.setUserId(user.getUserId());
         userDto.setLoginId(user.getLoginId());
+        userDto.setExpiration(expiration);
 
         LoginResponseDto dto = new LoginResponseDto();
         dto.setUser(userDto);

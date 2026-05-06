@@ -6,4 +6,5 @@ import lombok.Data;
 public class LoginResponseDto {
     private UserDto user;
     private String accessToken;
+    private long expiration;
 }
