@@ -57,7 +57,6 @@ useHead({
 const handleSubmit = async () => {
   // login API呼び出し
   const response = await login(loginId.value, password.value, rememberMe.value ? COOKIE_EXPIRATION.REMEMBER_ME : COOKIE_EXPIRATION.DEFAULT);
-  console.log(response);
   if (response.data) {
     // Cookieの設定
     const cookie = useCookie(

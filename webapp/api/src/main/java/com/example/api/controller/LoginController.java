@@ -27,6 +27,9 @@ public class LoginController {
 
     @GetMapping("/admin")
     public String admin(){
-        return "admin OK!!";
+        return "admin認証";
     }
+
+    @GetMapping("/users")
+    public String users(){return "user認証OK";}
 }

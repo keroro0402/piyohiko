@@ -34,13 +34,14 @@ public class JwtFilter extends OncePerRequestFilter {
     )
             // サーバエラー（ServletException）と通信エラー（IOException）発生時にSpringにエラー処理を委ねる
             throws ServletException, IOException {
-        String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
         System.out.println("★★Filter開始★★");
         // リクエスト メソッド = OPTIONS なら無条件で次の処理に進む
         if(HttpMethod.OPTIONS.name().equalsIgnoreCase(request.getMethod())){
             filterChain.doFilter(request, response);
             return;
         }
+        System.out.println("★★プリフライト通過★★");
+        String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
         if(authHeader != null && authHeader.startsWith(BEARER_PREFIX)){
             String token = authHeader.substring(7);
             try {
