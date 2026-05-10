@@ -4,13 +4,13 @@ import type { ImageItem } from '~/types/image';
  * イメージ定義
  *
  * @rules
- * - key は一意
+ * - key は一意、alt は画像の内容を説明するテキスト、path は画像のパス、loading は画像の読み込み方法（eager または lazy）
  * - 並び順 = 表示順
  */
-export const images: {
-  main: readonly ImageItem[];
+export const IMAGES: {
+  MAIN: readonly ImageItem[];
 } = {
-  main: [
+  MAIN: [
     {
       key: 'image1',
       alt: 'ルフィ',
