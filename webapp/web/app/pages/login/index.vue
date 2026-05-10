@@ -2,6 +2,9 @@
   <main class="login-page">
     <section class="login-page__content">
       <h1 class="login-page__title">{{ TEXT.LOGIN.LOGINLABEL }}</h1>
+      <p v-if="loginFailed" class="error-message">
+        {{ loginFailed }}
+      </p>
       <form class="login-form" @submit.prevent="handleSubmit">
         <div class="login-form__group">
           <label class="login-form__label" for="loginId">
@@ -35,9 +38,10 @@
 import { TEXT } from '~/constants/text';
 import { ref } from 'vue';
 import { login } from '~/api/apiClient';
-import { pageTitles } from '~/constants/pages';
+import { PAGE_TITLES } from '~/constants/pages';
 import { COOKIE_EXPIRATION } from '~/constants/cookie';
 import { useUserInfoStore } from '~/stores/userInfo';
+import { errorHandler } from '~/api/errorHandler';
 
 const userInfoStore = useUserInfoStore();
 
@@ -48,28 +52,36 @@ definePageMeta({
 const route = useRoute();
 const loginId = ref('');
 const password = ref('');
+const loginFailed = ref('');
 const rememberMe = ref(false);
 
+const pageKey = route.name?.toString() || '';
 useHead({
-  title: pageTitles[route.name?.toString() || ''] ?? '',
+  title: PAGE_TITLES[pageKey as keyof typeof PAGE_TITLES] ?? '',
 });
 
 const handleSubmit = async () => {
+  loginFailed.value = '';
   // login API呼び出し
-  const response = await login(loginId.value, password.value, rememberMe.value ? COOKIE_EXPIRATION.REMEMBER_ME : COOKIE_EXPIRATION.DEFAULT);
-  if (response.data) {
-    // Cookieの設定
-    const cookie = useCookie(
-      'accessToken', // クッキー名
-      {
-        maxAge: response.data.user.expiration / 1000, // APIのexpirationはミリ秒（ms）なので1000で割る（useCookie の maxAge: 単位は 「秒（s）」）
-        sameSite: 'lax', // CSRF対策のためにSameSite属性を設定
-        secure: true, // HTTPSを使用している場合はtrueに設定
-      },
-    );
-    userInfoStore.setUserName(response.data.user.loginId);
-    cookie.value = response.data.accessToken; // Cookieにアクセストークンを保存
-    await navigateTo('/'); // TOPページへ遷移
+  try {
+    const response = await login(loginId.value, password.value, rememberMe.value ? COOKIE_EXPIRATION.REMEMBER_ME : COOKIE_EXPIRATION.DEFAULT);
+    if (response.data) {
+      // Cookieの設定
+      const cookie = useCookie(
+        'accessToken', // クッキー名
+        {
+          maxAge: response.data.token.expiration / 1000, // APIのexpirationはミリ秒（ms）なので1000で割る（useCookie の maxAge: 単位は 「秒（s）」）
+          sameSite: 'lax', // CSRF対策のためにSameSite属性を設定
+          secure: true, // HTTPSを使用している場合はtrueに設定
+        },
+      );
+      userInfoStore.setUserName(response.data.user.loginId);
+      cookie.value = response.data.token.accessToken; // Cookieにアクセストークンを保存
+      await navigateTo('/'); // TOPページへ遷移
+    }
+  } catch (error) {
+    loginFailed.value = errorHandler(error);
+    return;
   }
 };
 </script>
@@ -85,7 +97,7 @@ const handleSubmit = async () => {
   height: 100vh;
   background-color: $color-dark-brown;
   &__content {
-    max-width: 400px;
+    width: 400px;
     margin: 0 auto;
     padding: 2rem;
     background: $color-light-gray;

@@ -28,6 +28,7 @@ public class LoggingAspect {
         return new TargetInfo(className, methodName);
     }
 
+    // メソッドが開始した時に実行される後処理ログ
     @Before(value = "execution(* com.example.api.service..*Impl.*(..))")
     @SuppressWarnings("unused") // 使用していないの警告を消す
     public void logBefore(JoinPoint joinPoint){

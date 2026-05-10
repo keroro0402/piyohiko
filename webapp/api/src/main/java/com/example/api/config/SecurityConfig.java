@@ -13,7 +13,7 @@ public class SecurityConfig {
 
     @Bean
     /*
-    * asswordEncoder という型で、BCryptアルゴリズムを使う実体を返却
+    * passwordEncoder という型で、BCryptアルゴリズムを使う実体を返却
     * */
     public PasswordEncoder passwordEncoder(){
         /*

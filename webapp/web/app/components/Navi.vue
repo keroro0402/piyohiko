@@ -1,11 +1,11 @@
 <template>
   <nav :class="block">
-    <NuxtLink v-for="link in links.navi" :key="link.key" :to="link.to" class="" :class="[`${block}__link`, { [`${block}__link--current`]: isCurrent(link) }]">{{ link.label }}</NuxtLink>
+    <NuxtLink v-for="link in LINKS.NAVI" :key="link.key" :to="link.to" class="" :class="[`${block}__link`, { [`${block}__link--current`]: isCurrent(link) }]">{{ link.label }}</NuxtLink>
   </nav>
 </template>
 
 <script setup lang="ts">
-import { links } from '~/constants/pages';
+import { LINKS } from '~/constants/pages';
 import { useRoute } from 'vue-router';
 import type { NaviItem } from '~/types/navi';
 
