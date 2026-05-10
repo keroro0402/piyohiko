@@ -97,7 +97,7 @@ const handleSubmit = async () => {
   height: 100vh;
   background-color: $color-dark-brown;
   &__content {
-    max-width: 400px;
+    width: 400px;
     margin: 0 auto;
     padding: 2rem;
     background: $color-light-gray;
