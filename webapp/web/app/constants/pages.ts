@@ -22,8 +22,8 @@ export const LINKS = {
  * - key = links.navi 配列の key 名（homeのみindexとする）
  * - 並び順 = links.navi 配列の要素順
  */
-export const PAGE_TITLES: Record<string, string> = {
+export const PAGE_TITLES = {
   index: LINKS.NAVI[0].label,
   about: LINKS.NAVI[1].label,
   login: LINKS.NAVI[2].label,
-};
+} as const;

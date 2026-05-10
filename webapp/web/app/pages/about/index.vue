@@ -9,8 +9,9 @@ definePageMeta({
 });
 
 const route = useRoute();
+const pageKey = route.name?.toString() || '';
 
 useHead({
-  title: PAGE_TITLES[route.name?.toString() || ''] ?? '',
+  title: PAGE_TITLES[pageKey as keyof typeof PAGE_TITLES] ?? '',
 });
 </script>

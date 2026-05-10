@@ -55,8 +55,9 @@ const password = ref('');
 const loginFailed = ref('');
 const rememberMe = ref(false);
 
+const pageKey = route.name?.toString() || '';
 useHead({
-  title: PAGE_TITLES[route.name?.toString() || ''] ?? '',
+  title: PAGE_TITLES[pageKey as keyof typeof PAGE_TITLES] ?? '',
 });
 
 const handleSubmit = async () => {
