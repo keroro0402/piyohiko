@@ -2,7 +2,7 @@
   <h1>About page</h1>
 </template>
 <script setup lang="ts">
-import { pageTitles } from '~/constants/pages';
+import { PAGE_TITLES } from '~/constants/pages';
 
 definePageMeta({
   middleware: 'auth',
@@ -11,6 +11,6 @@ definePageMeta({
 const route = useRoute();
 
 useHead({
-  title: pageTitles[route.name?.toString() || ''] ?? '',
+  title: PAGE_TITLES[route.name?.toString() || ''] ?? '',
 });
 </script>
