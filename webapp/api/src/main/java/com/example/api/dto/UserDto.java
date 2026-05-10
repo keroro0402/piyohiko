@@ -6,5 +6,4 @@ import lombok.Data;
 public class UserDto {
     private Integer userId;
     private String loginId;
-    private long expiration;
 }

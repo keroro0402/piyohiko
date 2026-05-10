@@ -1,6 +1,7 @@
 package com.example.api.service;
 
 import com.example.api.dto.LoginResponseDto;
+import com.example.api.dto.TokenDto;
 import com.example.api.dto.UserDto;
 import com.example.api.entity.User;
 import com.example.api.exception.LoginException;
@@ -42,11 +43,14 @@ public class LoginServiceImpl implements LoginService{
         UserDto userDto = new UserDto();
         userDto.setUserId(user.getUserId());
         userDto.setLoginId(user.getLoginId());
-        userDto.setExpiration(expiration);
+
+        TokenDto tokenDto = new TokenDto();
+        tokenDto.setAccessToken(token);
+        tokenDto.setExpiration(expiration);
 
         LoginResponseDto dto = new LoginResponseDto();
         dto.setUser(userDto);
-        dto.setAccessToken(token);
+        dto.setToken(tokenDto);
         return dto;
     }
 }
