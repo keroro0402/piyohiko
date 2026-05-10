@@ -1,10 +1,9 @@
 /**
  * APIステータスコード定義
  *
- * ルール:
+ * @rules
  * - key は大文字
  */
-
 export const STATES_CODE = {
   OK: 200,
   BAD_REQUEST: 400,

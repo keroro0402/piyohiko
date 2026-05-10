@@ -1,10 +1,9 @@
 /**
  * アプリ内文言定義
  *
- * ルール:
+ * @rules
  * - key は大文字
  */
-
 export const TEXT = {
   COMMON: {
     HOME: 'HOME',
