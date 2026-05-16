@@ -41,19 +41,22 @@ public class JwtFilter extends OncePerRequestFilter {
             return;
         }
         System.out.println("★★プリフライト通過★★");
-        String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
+        String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION); // Header から Authorization を取り出す
+                // Authorization が トークン を情報に持つ場合（null ではなく、Bearer から始まる）
         if(authHeader != null && authHeader.startsWith(BEARER_PREFIX)){
+            // Authorization の先頭7文字(Bearer )を削除してトークンを取り出す
             String token = authHeader.substring(7);
             try {
-                String loginId = JwtUtil.getLoginIdFromToken(token);
-                User user = userRepository.findByLoginId(loginId);
-                List<SimpleGrantedAuthority> authorities  = List.of(new SimpleGrantedAuthority(user.getRole()));
+                String loginId = JwtUtil.getLoginIdFromToken(token); // トークンを使用して loginId を取り出す
+                User user = userRepository.findByLoginId(loginId); // ログインIDに合致するユーザを取得
+                List<SimpleGrantedAuthority> authorities  = List.of(new SimpleGrantedAuthority(user.getRole())); // 権限の認可チェック（hasRoleなど）ができるように、権限チェック専用のクラスに入れ、リストに格納する　
                 System.out.println("認証OK:" + loginId);
                 System.out.println("認証OK:" + authorities);
+                // ユーザ情報を確定させる
                 UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
-                        loginId,
-                        null,
-                        authorities
+                        loginId, // 1. 「誰が」アクセスしてきたか（Principal）
+                        null, // 2. 「どんな証拠（パスワード）」で認証したか（Credentials）
+                        authorities // 3. 「どんな権限」を持っているか（Authorities）
                 );
                 SecurityContextHolder.getContext().setAuthentication(auth);
             } catch (Exception e) {
