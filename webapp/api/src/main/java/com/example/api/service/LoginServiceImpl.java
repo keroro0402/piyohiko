@@ -37,20 +37,23 @@ public class LoginServiceImpl implements LoginService{
         if(user == null || !passwordEncoder.matches(password, user.getPassword()) ){
             throw new LoginException("LOGIN_FAILED", "ログインidまたはパスワードが不正です");
         }
+System.out.println(user.getRole());
+        String token = JwtUtil.generateToken(user.getLoginId(), user.getRole(), expiration);
 
-        String token = JwtUtil.generateToken(user.getLoginId(), expiration);
-
+        // レスポンスDTOのユーザ情報用フィールドに値をセットする
         UserDto userDto = new UserDto();
         userDto.setUserId(user.getUserId());
         userDto.setLoginId(user.getLoginId());
-
+        userDto.setRole(user.getRole());
+        // レスポンスDTOのトークン用フィールドに値をセットする
         TokenDto tokenDto = new TokenDto();
         tokenDto.setAccessToken(token);
         tokenDto.setExpiration(expiration);
-
+        // ユーザ情報とトークン用フィールドをレスポンスDTOにまとめる
         LoginResponseDto dto = new LoginResponseDto();
         dto.setUser(userDto);
         dto.setToken(tokenDto);
+        // レスポンスDTOを返却
         return dto;
     }
 }
