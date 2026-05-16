@@ -18,7 +18,9 @@ const userName = userInfoStore.displayName;
 
 const handleLogout = () => {
   const cookie = useCookie('accessToken');
+  const userInfoCookie = useCookie('userInfo');
   cookie.value = null; // クッキーを削除
+  userInfoCookie.value = null; // ユーザー情報のクッキーを削除
   navigateTo('/login'); // ログインページへリダイレクト
 };
 </script>
