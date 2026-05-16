@@ -11,6 +11,7 @@ export const TEXT = {
     LOGIN: 'LOGIN',
     LOGOUT: 'LOGOUT',
     USERNAME: 'ユーザー名',
+    GUEST: 'ゲスト',
   },
   LOGIN: {
     LOGINLABEL: 'ログイン',

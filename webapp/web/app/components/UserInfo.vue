@@ -1,26 +1,20 @@
 <template>
   <div :class="block">
     <p :class="`${block}__user-name`">{{ userName }}</p>
-    <button :class="`${block}__logout-button`" @click="handleLogout">{{ TEXT.COMMON.LOGOUT }}</button>
+    <button :class="`${block}__logout-button`" @click="logout">{{ TEXT.COMMON.LOGOUT }}</button>
   </div>
 </template>
 
 <script setup lang="ts">
 import { TEXT } from '~/constants/text';
-import { useUserInfoStore } from '#imports';
+import { useAuth } from '~/composables/useAuth';
 
+const { logout } = useAuth();
 const { block } = defineProps<{
   block: string;
 }>();
-
 const userInfoStore = useUserInfoStore();
-const userName = computed(() => userInfoStore.userName || 'ゲスト');
-
-const handleLogout = () => {
-  const cookie = useCookie('accessToken');
-  cookie.value = null; // クッキーを削除
-  navigateTo('/login'); // ログインページへリダイレクト
-};
+const userName = userInfoStore.displayName;
 </script>
 <style lang="scss" scoped>
 .header-user-info {
