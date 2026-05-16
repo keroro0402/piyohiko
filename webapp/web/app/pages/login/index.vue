@@ -76,6 +76,7 @@ const handleSubmit = async () => {
         },
       );
       userInfoStore.setUserName(response.data.user.loginId);
+      userInfoStore.setUserRole(response.data.user.role);
       cookie.value = response.data.token.accessToken; // Cookieにアクセストークンを保存
       await navigateTo('/'); // TOPページへ遷移
     }

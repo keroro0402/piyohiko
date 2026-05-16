@@ -5,4 +5,6 @@
 export type UserInfo = {
   /** ユーザー名 */
   userName: string | null;
+  /** ユーザーのロール */
+  userRole: string | null;
 };

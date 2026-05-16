@@ -14,7 +14,7 @@ const { block } = defineProps<{
 }>();
 
 const userInfoStore = useUserInfoStore();
-const userName = computed(() => userInfoStore.userName || 'ゲスト');
+const userName = userInfoStore.displayName;
 
 const handleLogout = () => {
   const cookie = useCookie('accessToken');
