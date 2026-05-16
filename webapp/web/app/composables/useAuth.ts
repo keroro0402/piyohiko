@@ -1,20 +1,24 @@
+import type { CookieOptions } from '#app';
+
 export const useAuth = () => {
   const logout = () => {
     const accessTokenCookie = useCookie('accessToken');
-    const configTokenCookie = useCookie('configToken');
+    const userInfoCookie = useCookie('userInfo');
+    const userInfoStore = useUserInfoStore();
 
-    accessTokenCookie.value = null; // クッキーを削除
-    configTokenCookie.value = null; // 設定情報のクッキーを削除
-
+    userInfoStore.clearUserInfo(); // ストアのユーザー情報を削除
+    accessTokenCookie.value = null; // アクセストークンのクッキーを削除
+    userInfoCookie.value = null; // ユーザー情報のクッキーを削除
     navigateTo('/login'); // ログインページへリダイレクト
   };
 
-  const setCookies = (accessToken: string, configToken: { maxAge: number; sameSite: string; secure: boolean }) => {
-    const accessTokenCookie = useCookie('accessToken');
-    const configTokenCookie = useCookie('configToken');
-
+  const setCookies = (accessToken: string, configToken: CookieOptions<string>) => {
+    const accessTokenCookie = useCookie('accessToken', {
+      maxAge: configToken.maxAge,
+      sameSite: configToken.sameSite,
+      secure: configToken.secure,
+    });
     accessTokenCookie.value = accessToken; // アクセストークンをクッキーに保存
-    configTokenCookie.value = JSON.stringify(configToken); // 設定情報をクッキーに保存
   };
   return {
     logout,

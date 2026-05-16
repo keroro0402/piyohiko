@@ -20,6 +20,9 @@ const useUserInfoStore = defineStore('userInfo', {
     setUserRole(role: string) {
       this.userRole = role;
     },
+    clearUserInfo() {
+      this.$reset();
+    },
   },
 });
 
