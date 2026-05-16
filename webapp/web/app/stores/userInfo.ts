@@ -7,6 +7,7 @@ const useUserInfoStore = defineStore('userInfo', {
     userName: null,
     userRole: null,
   }),
+  persist: true,
   getters: {
     displayName: (state) => {
       return state.userName || TEXT.COMMON.GUEST;
