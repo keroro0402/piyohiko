@@ -40,15 +40,15 @@ import { ref } from 'vue';
 import { login } from '~/api/apiClient';
 import { PAGE_TITLES } from '~/constants/pages';
 import { COOKIE_EXPIRATION } from '~/constants/cookie';
-import { useUserInfoStore } from '~/stores/userInfo';
 import { errorHandler } from '~/api/errorHandler';
+import { useAuth } from '~/composables/useAuth';
 
-const userInfoStore = useUserInfoStore();
-
+const { setCookies } = useAuth();
 definePageMeta({
   layout: 'blank',
 });
 
+const userInfoStore = useUserInfoStore();
 const route = useRoute();
 const loginId = ref('');
 const password = ref('');
@@ -66,18 +66,15 @@ const handleSubmit = async () => {
   try {
     const response = await login(loginId.value, password.value, rememberMe.value ? COOKIE_EXPIRATION.REMEMBER_ME : COOKIE_EXPIRATION.DEFAULT);
     if (response.data) {
-      // Cookieの設定
-      const cookie = useCookie(
-        'accessToken', // クッキー名
-        {
-          maxAge: response.data.token.expiration / 1000, // APIのexpirationはミリ秒（ms）なので1000で割る（useCookie の maxAge: 単位は 「秒（s）」）
-          sameSite: 'lax', // CSRF対策のためにSameSite属性を設定
-          secure: true, // HTTPSを使用している場合はtrueに設定
-        },
-      );
+      // Cookieにアクセストークンを保存
+      setCookies(response.data.token.accessToken, {
+        maxAge: rememberMe.value ? COOKIE_EXPIRATION.REMEMBER_ME : COOKIE_EXPIRATION.DEFAULT,
+        sameSite: 'lax',
+        secure: true,
+      });
+      // ストアにユーザー情報を保存
       userInfoStore.setUserName(response.data.user.loginId);
       userInfoStore.setUserRole(response.data.user.role);
-      cookie.value = response.data.token.accessToken; // Cookieにアクセストークンを保存
       await navigateTo('/'); // TOPページへ遷移
     }
   } catch (error) {
