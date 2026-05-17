@@ -1,0 +1,18 @@
+#「spring」の設定
+spring:
+  application:
+    name: api
+  #`.env` ファイルの読み込み
+  config:
+    import: optional:file:.env[.properties]
+  # `.env` ファイルに定義した DB（MySQL）の設定を充てる
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+#「JWT」の設定
+jwt:
+  # `.env` ファイルに定義した JWT_SECRET_KEY の設定を充てる
+  secret: ${JWT_SECRET_KEY}

@@ -7,6 +7,7 @@ import com.example.api.entity.User;
 import com.example.api.exception.LoginException;
 import com.example.api.repository.UserRepository;
 import com.example.api.security.JwtUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,10 @@ public class LoginServiceImpl implements LoginService{
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private JwtUtil jwtUtil;
+
 
     public LoginServiceImpl(
             UserRepository userRepository,
@@ -38,7 +43,7 @@ public class LoginServiceImpl implements LoginService{
             throw new LoginException("LOGIN_FAILED", "ログインidまたはパスワードが不正です");
         }
 System.out.println(user.getRole());
-        String token = JwtUtil.generateToken(user.getLoginId(), user.getRole(), expiration);
+        String token = jwtUtil.generateToken(user.getLoginId(), user.getRole(), expiration);
 
         // レスポンスDTOのユーザ情報用フィールドに値をセットする
         UserDto userDto = new UserDto();
