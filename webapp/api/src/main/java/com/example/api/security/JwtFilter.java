@@ -7,6 +7,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
@@ -25,6 +26,9 @@ public class JwtFilter extends OncePerRequestFilter {
 
     private final UserRepository userRepository;
     private static final String BEARER_PREFIX = "Bearer ";
+
+    @Autowired
+    private JwtUtil jwtUtil;
 
     @Override
     protected void doFilterInternal(
@@ -47,7 +51,7 @@ public class JwtFilter extends OncePerRequestFilter {
             // Authorization の先頭7文字(Bearer )を削除してトークンを取り出す
             String token = authHeader.substring(7);
             try {
-                String loginId = JwtUtil.getLoginIdFromToken(token); // トークンを使用して loginId を取り出す
+                String loginId = jwtUtil.getLoginIdFromToken(token); // トークンを使用して loginId を取り出す
                 User user = userRepository.findByLoginId(loginId); // ログインIDに合致するユーザを取得
                 List<SimpleGrantedAuthority> authorities  = List.of(new SimpleGrantedAuthority(user.getRole())); // 権限の認可チェック（hasRoleなど）ができるように、権限チェック専用のクラスに入れ、リストに格納する　
                 System.out.println("認証OK:" + loginId);

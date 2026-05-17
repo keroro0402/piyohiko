@@ -2,29 +2,39 @@ package com.example.api.security;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
+@Component
 public class JwtUtil {
-    private static final String SECRET_KEY = "my-super-secret-key-that-is-very-long-123412256";
+    // application.ymlから秘密鍵を注入
+    @Value("${jwt.secret}")
+    private String SECRET_KEY;
+    private SecretKey key;
 
-    private static final SecretKey key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes(StandardCharsets.UTF_8)); // 文字列の秘密鍵を署名用のSecretKeyに変換
+    @PostConstruct
+    public void init(){
+        this.key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes(StandardCharsets.UTF_8)); // 文字列の秘密鍵を署名用のSecretKeyに変換
+    }
 
-    public static String generateToken(String loginId, String role, long expiration){
+    public String generateToken(String loginId, String role, long expiration){
         return Jwts.builder()  // トークンの土台作成
                 .setSubject(loginId)  // ユーザー識別子をSubjectに設定
                 .claim("role", role)  // 権限をclaimに設定
                 .setIssuedAt(new Date())  // 発行日時をIssuedAtに設定
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))  // 有効期限をExpirationに設定
-                .signWith(key)  // 秘密鍵で署名（改ざん防止）
+                .signWith(this.key)  // 秘密鍵で署名（改ざん防止）
                 .compact();  // JWTを生成して文字列として返す
     }
 
-    public static String getLoginIdFromToken(String token){
+    public String getLoginIdFromToken(String token){
         return Jwts.parserBuilder()
-                .setSigningKey(key)
+                .setSigningKey(this.key)
                 .build()
                 .parseClaimsJws(token)
                 .getBody()
