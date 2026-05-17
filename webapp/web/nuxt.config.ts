@@ -34,6 +34,12 @@ export default defineNuxtConfig({
         interval: 100,
       },
     },
+    /**
+     * 起動時に事前ビルドして、ホットリロードのパフォーマンスを向上させるために追加
+     */
+    optimizeDeps: {
+      include: ['axios'],
+    },
   },
   modules: ['@nuxt/eslint', '@pinia/nuxt', '@pinia-plugin-persistedstate/nuxt'],
 });
