@@ -9,6 +9,7 @@ export const TEXT = {
     HOME: 'HOME',
     ABOUT: 'ABOUT',
     LOGIN: 'LOGIN',
+    REGISTER: 'REGISTER',
     LOGOUT: 'LOGOUT',
     USERNAME: 'ユーザー名',
     GUEST: 'ゲスト',
@@ -19,6 +20,12 @@ export const TEXT = {
     PASSWORDLABEL: 'パスワード',
     REMEMBERME: 'ログイン状態を保持する',
     FORGOTPASSWORD: 'パスワードを忘れた方はこちら',
+  },
+  REGISTER: {
+    REGISTERLABEL: '新規登録',
+    LOGINIDLABEL: 'ログインID',
+    PASSWORDLABEL: 'パスワード',
+    CONFIRM_PASSWORDLABEL: 'パスワード（確認）',
   },
   ERROR: {
     ERROR401: 'ログインに失敗しました。IDとパスワードを確認してください。',
