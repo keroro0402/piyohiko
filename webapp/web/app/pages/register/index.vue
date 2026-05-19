@@ -24,7 +24,7 @@
           </label>
           <input id="confirmPassword" v-model="confirmPassword" class="register-form__input" required type="password" minlength="1" placeholder="test" autocomplete="new-password" />
         </div>
-        <button class="register-form__submit" type="submit">{{ TEXT.REGISTER.REGISTERLABEL }}</button>
+        <SubmitButton block="register-form" :is-form-valid="isFormValid" :text="TEXT.REGISTER.REGISTERLABEL" />
       </form>
     </section>
   </main>
@@ -38,6 +38,7 @@ import { PAGE_TITLES } from '~/constants/pages';
 import { COOKIE_EXPIRATION } from '~/constants/cookie';
 import { errorHandler } from '~/api/errorHandler';
 import { useAuth } from '~/composables/useAuth';
+import SubmitButton from '~/components/SubmitButton.vue';
 
 const { setCookies } = useAuth();
 definePageMeta({
@@ -45,6 +46,7 @@ definePageMeta({
 });
 
 const userInfoStore = useUserInfoStore();
+const { validateLoginForm } = useAuthValidation();
 const route = useRoute();
 const loginId = ref('');
 const password = ref('');
@@ -55,6 +57,10 @@ const rememberMe = ref(false);
 const pageKey = route.name?.toString() || '';
 useHead({
   title: PAGE_TITLES[pageKey as keyof typeof PAGE_TITLES] ?? '',
+});
+
+const isFormValid = computed(() => {
+  return validateLoginForm(loginId.value, password.value) && password.value === confirmPassword.value;
 });
 
 const handleSubmit = async () => {

@@ -25,7 +25,7 @@
           </label>
         </div>
 
-        <button class="login-form__submit" type="submit">{{ TEXT.LOGIN.LOGINLABEL }}</button>
+        <SubmitButton block="login-form" :is-form-valid="isFormValid" :text="TEXT.LOGIN.LOGINLABEL" />
         <div class="login-form__forgot-password">
           <a class="login-form__forgot-link" href="#">{{ TEXT.LOGIN.FORGOTPASSWORD }}</a>
         </div>
@@ -42,6 +42,7 @@ import { PAGE_TITLES } from '~/constants/pages';
 import { COOKIE_EXPIRATION } from '~/constants/cookie';
 import { errorHandler } from '~/api/errorHandler';
 import { useAuth } from '~/composables/useAuth';
+import SubmitButton from '~/components/SubmitButton.vue';
 
 const { setCookies } = useAuth();
 definePageMeta({
@@ -49,6 +50,7 @@ definePageMeta({
 });
 
 const userInfoStore = useUserInfoStore();
+const { validateLoginForm } = useAuthValidation();
 const route = useRoute();
 const loginId = ref('');
 const password = ref('');
@@ -58,6 +60,10 @@ const rememberMe = ref(false);
 const pageKey = route.name?.toString() || '';
 useHead({
   title: PAGE_TITLES[pageKey as keyof typeof PAGE_TITLES] ?? '',
+});
+
+const isFormValid = computed(() => {
+  return validateLoginForm(loginId.value, password.value);
 });
 
 const handleSubmit = async () => {
@@ -145,6 +151,10 @@ const handleSubmit = async () => {
     transition: background-color 0.3s ease;
     &:hover {
       background-color: color.adjust($color-warm-orange, $lightness: -10%);
+    }
+    &.disabled {
+      background-color: color.adjust($color-warm-orange, $lightness: 30%, $saturation: -40%);
+      cursor: not-allowed;
     }
   }
   &__forgot-password {
