@@ -18,6 +18,12 @@
           </label>
           <input id="password" v-model="password" class="register-form__input" type="password" minlength="1" placeholder="test" autocomplete="password" />
         </div>
+        <div class="register-form__group">
+          <label class="register-form__label" for="confirmPassword">
+            {{ TEXT.REGISTER.CONFIRM_PASSWORDLABEL }}
+          </label>
+          <input id="confirmPassword" v-model="confirmPassword" class="register-form__input" type="password" minlength="1" placeholder="test" autocomplete="confirmPassword" />
+        </div>
         <button class="register-form__submit" type="submit">{{ TEXT.REGISTER.REGISTERLABEL }}</button>
       </form>
     </section>
@@ -42,6 +48,7 @@ const userInfoStore = useUserInfoStore();
 const route = useRoute();
 const loginId = ref('');
 const password = ref('');
+const confirmPassword = ref('');
 const registerFailed = ref('');
 const rememberMe = ref(false);
 
