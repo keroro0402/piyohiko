@@ -1,34 +1,30 @@
 <template>
-  <main class="login-page">
-    <section class="login-page__content">
-      <h1 class="login-page__title">{{ TEXT.LOGIN.LOGINLABEL }}</h1>
-      <p v-if="loginFailed" class="error-message">
-        {{ loginFailed }}
+  <main class="register-page">
+    <section class="register-page__content">
+      <h1 class="register-page__title">{{ TEXT.REGISTER.REGISTERLABEL }}</h1>
+      <p v-if="registerFailed" class="error-message">
+        {{ registerFailed }}
       </p>
-      <form class="login-form" @submit.prevent="handleSubmit">
-        <div class="login-form__group">
-          <label class="login-form__label" for="loginId">
-            {{ TEXT.LOGIN.LOGINIDLABEL }}
+      <form class="register-form" @submit.prevent="handleSubmit">
+        <div class="register-form__group">
+          <label class="register-form__label" for="loginId">
+            {{ TEXT.REGISTER.LOGINIDLABEL }}
           </label>
-          <input id="loginId" v-model="loginId" class="login-form__input" required placeholder="test" autocomplete="username" />
+          <input id="loginId" v-model="loginId" class="register-form__input" required placeholder="test" autocomplete="username" />
         </div>
-        <div class="login-form__group">
-          <label class="login-form__label" for="password">
-            {{ TEXT.LOGIN.PASSWORDLABEL }}
+        <div class="register-form__group">
+          <label class="register-form__label" for="password">
+            {{ TEXT.REGISTER.PASSWORDLABEL }}
           </label>
-          <input id="password" v-model="password" class="login-form__input" required type="password" minlength="1" placeholder="test" autocomplete="password" />
+          <input id="password" v-model="password" class="register-form__input" required type="password" minlength="1" placeholder="test" autocomplete="new-password" />
         </div>
-        <div class="login-form__check">
-          <input id="rememberMe" v-model="rememberMe" class="login-form__checkbox" type="checkbox" />
-          <label for="rememberMe">
-            {{ TEXT.LOGIN.REMEMBERME }}
+        <div class="register-form__group">
+          <label class="register-form__label" for="confirmPassword">
+            {{ TEXT.REGISTER.CONFIRM_PASSWORDLABEL }}
           </label>
+          <input id="confirmPassword" v-model="confirmPassword" class="register-form__input" required type="password" minlength="1" placeholder="test" autocomplete="new-password" />
         </div>
-
-        <SubmitButton block="login-form" :is-form-valid="isFormValid" :text="TEXT.LOGIN.LOGINLABEL" />
-        <div class="login-form__forgot-password">
-          <a class="login-form__forgot-link" href="#">{{ TEXT.LOGIN.FORGOTPASSWORD }}</a>
-        </div>
+        <SubmitButton block="register-form" :is-form-valid="isFormValid" :text="TEXT.REGISTER.REGISTERLABEL" />
       </form>
     </section>
   </main>
@@ -54,7 +50,8 @@ const { validateLoginForm } = useAuthValidation();
 const route = useRoute();
 const loginId = ref('');
 const password = ref('');
-const loginFailed = ref('');
+const confirmPassword = ref('');
+const registerFailed = ref('');
 const rememberMe = ref(false);
 
 const pageKey = route.name?.toString() || '';
@@ -63,11 +60,11 @@ useHead({
 });
 
 const isFormValid = computed(() => {
-  return validateLoginForm(loginId.value, password.value);
+  return validateLoginForm(loginId.value, password.value) && password.value === confirmPassword.value;
 });
 
 const handleSubmit = async () => {
-  loginFailed.value = '';
+  registerFailed.value = '';
   // login API呼び出し
   try {
     const response = await login(loginId.value, password.value, rememberMe.value ? COOKIE_EXPIRATION.REMEMBER_ME : COOKIE_EXPIRATION.DEFAULT);
@@ -84,7 +81,7 @@ const handleSubmit = async () => {
       await navigateTo('/'); // TOPページへ遷移
     }
   } catch (error) {
-    loginFailed.value = errorHandler(error);
+    registerFailed.value = errorHandler(error);
     return;
   }
 };
@@ -94,12 +91,12 @@ const handleSubmit = async () => {
 @use '~/assets/styles/main.scss' as *;
 @use 'sass:color';
 
-.login-page {
+.register-page {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: $color-dark-brown;
+  background-color: $color-dark-green;
   &__content {
     width: 400px;
     margin: 0 auto;
@@ -115,7 +112,7 @@ const handleSubmit = async () => {
     font-weight: 600;
   }
 }
-.login-form {
+.register-form {
   &__group {
     margin-bottom: 1.5rem;
   }
@@ -151,10 +148,6 @@ const handleSubmit = async () => {
     transition: background-color 0.3s ease;
     &:hover {
       background-color: color.adjust($color-warm-orange, $lightness: -10%);
-    }
-    &.disabled {
-      background-color: color.adjust($color-warm-orange, $lightness: 30%, $saturation: -40%);
-      cursor: not-allowed;
     }
   }
   &__forgot-password {

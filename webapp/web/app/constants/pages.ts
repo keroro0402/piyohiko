@@ -13,6 +13,7 @@ export const LINKS = {
     { key: 'home', label: TEXT.COMMON.HOME, to: '/' },
     { key: 'about', label: TEXT.COMMON.ABOUT, to: '/about' },
     { key: 'login', label: TEXT.COMMON.LOGIN, to: '/login' },
+    { key: 'register', label: TEXT.COMMON.REGISTER, to: '/register' },
   ] as const,
 } as const;
 
@@ -27,4 +28,5 @@ export const PAGE_TITLES = {
   index: LINKS.NAVI[0].label,
   about: LINKS.NAVI[1].label,
   login: LINKS.NAVI[2].label,
+  register: LINKS.NAVI[3].label,
 } as const;
