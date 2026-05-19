@@ -16,7 +16,7 @@
           <label class="login-form__label" for="password">
             {{ TEXT.LOGIN.PASSWORDLABEL }}
           </label>
-          <input id="password" v-model="password" class="login-form__input" type="password" minlength="1" placeholder="test" autocomplete="password" />
+          <input id="password" v-model="password" class="login-form__input" required type="password" minlength="1" placeholder="test" autocomplete="password" />
         </div>
         <div class="login-form__check">
           <input id="rememberMe" v-model="rememberMe" class="login-form__checkbox" type="checkbox" />
