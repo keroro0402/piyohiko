@@ -10,19 +10,19 @@
           <label class="register-form__label" for="loginId">
             {{ TEXT.REGISTER.LOGINIDLABEL }}
           </label>
-          <input id="loginId" v-model="loginId" class="register-form__input" required placeholder="test" autocomplete="loginId" />
+          <input id="loginId" v-model="loginId" class="register-form__input" required placeholder="test" autocomplete="username" />
         </div>
         <div class="register-form__group">
           <label class="register-form__label" for="password">
             {{ TEXT.REGISTER.PASSWORDLABEL }}
           </label>
-          <input id="password" v-model="password" class="register-form__input" type="password" minlength="1" placeholder="test" autocomplete="password" />
+          <input id="password" v-model="password" class="register-form__input" type="password" minlength="1" placeholder="test" autocomplete="new-password" />
         </div>
         <div class="register-form__group">
           <label class="register-form__label" for="confirmPassword">
             {{ TEXT.REGISTER.CONFIRM_PASSWORDLABEL }}
           </label>
-          <input id="confirmPassword" v-model="confirmPassword" class="register-form__input" type="password" minlength="1" placeholder="test" autocomplete="confirmPassword" />
+          <input id="confirmPassword" v-model="confirmPassword" class="register-form__input" type="password" minlength="1" placeholder="test" autocomplete="new-password" />
         </div>
         <button class="register-form__submit" type="submit">{{ TEXT.REGISTER.REGISTERLABEL }}</button>
       </form>

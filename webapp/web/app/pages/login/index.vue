@@ -10,7 +10,7 @@
           <label class="login-form__label" for="loginId">
             {{ TEXT.LOGIN.LOGINIDLABEL }}
           </label>
-          <input id="loginId" v-model="loginId" class="login-form__input" required placeholder="test" autocomplete="loginId" />
+          <input id="loginId" v-model="loginId" class="login-form__input" required placeholder="test" autocomplete="username" />
         </div>
         <div class="login-form__group">
           <label class="login-form__label" for="password">
