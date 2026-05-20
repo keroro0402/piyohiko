@@ -1,5 +1,5 @@
 <template>
-  <button :class="{ [`${block}__submit`]: true, disabled: !isFormValid }" type="submit" :disabled="!isFormValid">
+  <button :class="[`${block}__submit`, { disabled: !isFormValid }]" type="submit" :disabled="!isFormValid">
     {{ text }}
   </button>
 </template>
