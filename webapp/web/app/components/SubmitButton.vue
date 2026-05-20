@@ -6,7 +6,7 @@
 
 <script setup lang="ts">
 /* props 定義*/
-const { block, isFormValid } = defineProps<{
+const { block, text, isFormValid } = defineProps<{
   block: string;
   text: string;
   isFormValid: boolean;
