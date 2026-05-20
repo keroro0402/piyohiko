@@ -14,18 +14,20 @@ export const TEXT = {
     USERNAME: 'ユーザー名',
     GUEST: 'ゲスト',
   },
+  FORM: {
+    LOGINID: 'ログインID',
+    PASSWORD: 'パスワード',
+    LOGINATTR: 'loginId',
+    PASSWORDATTR: 'password',
+  },
   LOGIN: {
-    LOGINLABEL: 'ログイン',
-    LOGINIDLABEL: 'ログインID',
-    PASSWORDLABEL: 'パスワード',
+    LABEL: 'ログイン',
     REMEMBERME: 'ログイン状態を保持する',
     FORGOTPASSWORD: 'パスワードを忘れた方はこちら',
   },
   REGISTER: {
-    REGISTERLABEL: '新規登録',
-    LOGINIDLABEL: 'ログインID',
-    PASSWORDLABEL: 'パスワード',
-    CONFIRM_PASSWORDLABEL: 'パスワード（確認）',
+    LABEL: '新規登録',
+    CONFIRMPASSWORDLABEL: 'パスワード（確認）',
   },
   ERROR: {
     ERROR401: 'ログインに失敗しました。IDとパスワードを確認してください。',
