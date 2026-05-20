@@ -62,9 +62,11 @@ public class JwtFilter extends OncePerRequestFilter {
                         null, // 2. 「どんな証拠（パスワード）」で認証したか（Credentials）
                         authorities // 3. 「どんな権限」を持っているか（Authorities）
                 );
+                // 確定したユーザ情報をセキュリティシステムに登録して、認証システム本体(JwtFilter)を完成させる
                 SecurityContextHolder.getContext().setAuthentication(auth);
             } catch (Exception e) {
                 System.out.println("認証失敗・・・");
+                // （マジックナンバーになるので一般的なフィールド参照で）401を返す
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 return;
             }
