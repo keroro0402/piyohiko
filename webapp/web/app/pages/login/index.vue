@@ -1,33 +1,22 @@
 <template>
   <main class="login-page">
     <section class="login-page__content">
-      <h1 class="login-page__title">{{ TEXT.LOGIN.LOGINLABEL }}</h1>
+      <h1 class="login-page__title">{{ TEXT.LOGIN.LABEL }}</h1>
       <p v-if="loginFailed" class="error-message">
         {{ loginFailed }}
       </p>
-      <form class="login-form" @submit.prevent="handleSubmit">
-        <div class="login-form__group">
-          <label class="login-form__label" for="loginId">
-            {{ TEXT.LOGIN.LOGINIDLABEL }}
-          </label>
-          <input id="loginId" v-model="loginId" class="login-form__input" required placeholder="test" autocomplete="username" />
-        </div>
-        <div class="login-form__group">
-          <label class="login-form__label" for="password">
-            {{ TEXT.LOGIN.PASSWORDLABEL }}
-          </label>
-          <input id="password" v-model="password" class="login-form__input" required type="password" minlength="1" placeholder="test" autocomplete="password" />
-        </div>
-        <div class="login-form__check">
-          <input id="rememberMe" v-model="rememberMe" class="login-form__checkbox" type="checkbox" />
-          <label for="rememberMe">
+      <form :class="BLOCK_NAME" @submit.prevent="handleSubmit">
+        <FormGroupInput :id="FIELD.LOGIN_ID" v-model="loginId" :block="BLOCK_NAME" :text="TEXT.FORM.LOGINID" placeholder="test" autocomplete="username" required />
+        <FormGroupInput :id="FIELD.PASSWORD" v-model="password" :block="BLOCK_NAME" :text="TEXT.FORM.PASSWORD" type="password" minlength="1" placeholder="test" required />
+        <div :class="`${BLOCK_NAME}__check`">
+          <input :id="FIELD.REMEMBER_ME" v-model="rememberMe" :class="`${BLOCK_NAME}__checkbox`" type="checkbox" />
+          <label :for="FIELD.REMEMBER_ME">
             {{ TEXT.LOGIN.REMEMBERME }}
           </label>
         </div>
-
-        <SubmitButton block="login-form" :is-form-valid="isFormValid" :text="TEXT.LOGIN.LOGINLABEL" />
-        <div class="login-form__forgot-password">
-          <a class="login-form__forgot-link" href="#">{{ TEXT.LOGIN.FORGOTPASSWORD }}</a>
+        <SubmitButton :block="BLOCK_NAME" :is-form-valid="isFormValid" :text="TEXT.LOGIN.LABEL" />
+        <div :class="`${BLOCK_NAME}__forgot-password`">
+          <a :class="`${BLOCK_NAME}__forgot-link`" href="#">{{ TEXT.LOGIN.FORGOTPASSWORD }}</a>
         </div>
       </form>
     </section>
@@ -42,7 +31,15 @@ import { PAGE_TITLES } from '~/constants/pages';
 import { COOKIE_EXPIRATION } from '~/constants/cookie';
 import { errorHandler } from '~/api/errorHandler';
 import { useAuth } from '~/composables/useAuth';
+import FormGroupInput from '~/components/FormGroupInput.vue';
 import SubmitButton from '~/components/SubmitButton.vue';
+
+const BLOCK_NAME = 'login-form';
+const FIELD = {
+  LOGIN_ID: 'loginId',
+  PASSWORD: 'password',
+  REMEMBER_ME: 'rememberMe',
+};
 
 const { setCookies } = useAuth();
 definePageMeta({
@@ -116,21 +113,6 @@ const handleSubmit = async () => {
   }
 }
 .login-form {
-  &__group {
-    margin-bottom: 1.5rem;
-  }
-  &__label {
-    display: block;
-    margin-bottom: 0.5rem;
-    color: $color-dark-gray;
-  }
-  &__input {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 0.5rem;
-    border: 1px solid $color-white;
-    border-radius: 4px;
-  }
   &__check {
     display: flex;
     align-items: center;
@@ -138,24 +120,6 @@ const handleSubmit = async () => {
   }
   &__checkbox {
     margin-right: 0.5rem;
-  }
-  &__submit {
-    width: 100%;
-    padding: 0.75rem;
-    background-color: $color-warm-orange;
-    color: $color-white;
-    border: none;
-    border-radius: 4px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    &:hover {
-      background-color: color.adjust($color-warm-orange, $lightness: -10%);
-    }
-    &.disabled {
-      background-color: color.adjust($color-warm-orange, $lightness: 30%, $saturation: -40%);
-      cursor: not-allowed;
-    }
   }
   &__forgot-password {
     text-align: center;
