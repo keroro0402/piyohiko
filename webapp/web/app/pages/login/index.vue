@@ -92,25 +92,7 @@ const handleSubmit = async () => {
 @use 'sass:color';
 
 .login-page {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: $color-dark-brown;
-  &__content {
-    width: 400px;
-    margin: 0 auto;
-    padding: 2rem;
-    background: $color-light-gray;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px $color-thin-black;
-  }
-  &__title {
-    text-align: center;
-    margin-bottom: 2rem;
-    color: $color-dark-gray;
-    font-weight: 600;
-  }
+  @include auth-page-layout($color-dark-brown);
 }
 .login-form {
   &__check {

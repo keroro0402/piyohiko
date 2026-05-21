@@ -19,6 +19,7 @@ export const TEXT = {
     PASSWORD: 'パスワード',
     LOGINATTR: 'loginId',
     PASSWORDATTR: 'password',
+    REQUIRED: '必須項目です',
   },
   LOGIN: {
     LABEL: 'ログイン',
