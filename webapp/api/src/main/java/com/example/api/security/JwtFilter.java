@@ -7,6 +7,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -26,6 +28,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
     private final UserRepository userRepository;
     private static final String BEARER_PREFIX = "Bearer ";
+    private static final Logger log = LoggerFactory.getLogger(JwtFilter.class);
 
     @Autowired
     private JwtUtil jwtUtil;
@@ -65,7 +68,7 @@ public class JwtFilter extends OncePerRequestFilter {
                 // 確定したユーザ情報をセキュリティシステムに登録して、認証システム本体(JwtFilter)を完成させる
                 SecurityContextHolder.getContext().setAuthentication(auth);
             } catch (Exception e) {
-                System.out.println("認証失敗・・・");
+                log.error("認証処理に失敗しました", e);
                 // （マジックナンバーになるので一般的なフィールド参照で）401を返す
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 return;
