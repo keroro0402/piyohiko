@@ -8,7 +8,7 @@
       <form :class="BLOCK_NAME" @submit.prevent="handleSubmit">
         <FormGroupInput :id="FIELD.LOGIN_ID" v-model="loginId" :block="BLOCK_NAME" :text="TEXT.FORM.LOGINID" placeholder="test" autocomplete="username" required />
         <FormGroupInput :id="FIELD.PASSWORD" v-model="password" :block="BLOCK_NAME" :text="TEXT.FORM.PASSWORD" type="password" minlength="1" placeholder="test" required />
-        <FormGroupInput :id="FIELD.CONFIRM_PASSWORD" v-model="confirmPassword" :block="BLOCK_NAME" :text="TEXT.REGISTER.CONFIRMPASSWORDLABEL" type="password" minlength="1" placeholder="test" required />
+        <FormGroupInput :id="FIELD.CONFIRM_PASSWORD" v-model="confirmPassword" :block="BLOCK_NAME" :text="TEXT.REGISTER.CONFIRM_PASSWORD_LABEL" type="password" minlength="1" placeholder="test" required />
         <SubmitButton :block="BLOCK_NAME" :is-form-valid="isFormValid" :text="TEXT.REGISTER.LABEL" />
       </form>
     </section>

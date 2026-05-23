@@ -17,20 +17,20 @@ export const TEXT = {
   FORM: {
     LOGINID: 'ログインID',
     PASSWORD: 'パスワード',
-    LOGINATTR: 'loginId',
-    PASSWORDATTR: 'password',
+    LOGIN_ATTR: 'loginId',
+    PASSWORD_ATTR: 'password',
     REQUIRED: '必須項目です',
     ERROR_REQUIRED_LOGIN_ID: 'ログインIDを入力してください',
     ERROR_REQUIRED_PASSWORD: 'パスワードを入力してください',
   },
   LOGIN: {
     LABEL: 'ログイン',
-    REMEMBERME: 'ログイン状態を保持する',
-    FORGOTPASSWORD: 'パスワードを忘れた方はこちら',
+    REMEMBER_ME: 'ログイン状態を保持する',
+    FORGOT_PASSWORD: 'パスワードを忘れた方はこちら',
   },
   REGISTER: {
     LABEL: '新規登録',
-    CONFIRMPASSWORDLABEL: 'パスワード（確認）',
+    CONFIRM_PASSWORD_LABEL: 'パスワード（確認）',
     ERROR_REQUIRED_CONFIRM_PASSWORD: '確認用パスワードを入力してください',
   },
   ERROR: {

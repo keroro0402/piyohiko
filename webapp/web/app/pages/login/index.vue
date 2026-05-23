@@ -11,12 +11,12 @@
         <div :class="`${BLOCK_NAME}__check`">
           <input :id="FIELD.REMEMBER_ME" v-model="rememberMe" :class="`${BLOCK_NAME}__checkbox`" type="checkbox" />
           <label :for="FIELD.REMEMBER_ME">
-            {{ TEXT.LOGIN.REMEMBERME }}
+            {{ TEXT.LOGIN.REMEMBER_ME }}
           </label>
         </div>
         <SubmitButton :block="BLOCK_NAME" :is-form-valid="isFormValid" :text="TEXT.LOGIN.LABEL" />
         <div :class="`${BLOCK_NAME}__forgot-password`">
-          <a :class="`${BLOCK_NAME}__forgot-link`" href="#">{{ TEXT.LOGIN.FORGOTPASSWORD }}</a>
+          <a :class="`${BLOCK_NAME}__forgot-link`" href="#">{{ TEXT.LOGIN.FORGOT_PASSWORD }}</a>
         </div>
       </form>
     </section>
