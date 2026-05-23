@@ -16,17 +16,32 @@
 </template>
 
 <script setup lang="ts">
-import { useForm } from 'vee-validate';
-import { TEXT } from '~/constants/text';
+// 外部ライブラリ（Vue本体やnpmパッケージ）
 import { ref } from 'vue';
+import { useForm } from 'vee-validate';
+// プロジェクト共通の仕組み（API、エラーハンドラー、汎用コンポーザブル）
 import { login } from '~/api/apiClient';
-import { PAGE_TITLES } from '~/constants/pages';
-import { COOKIE_EXPIRATION } from '~/constants/cookie';
 import { errorHandler } from '~/api/errorHandler';
 import { useAuth } from '~/composables/useAuth';
+// プロジェクト共通の定数（マスターデータ系）
+import { COOKIE_EXPIRATION } from '~/constants/cookie';
+import { PAGE_TITLES } from '~/constants/pages';
+import { TEXT } from '~/constants/text';
+// 子コンポーネント（画面を構成する部品）
 import FormGroupInput from '~/components/FormGroupInput.vue';
 import SubmitButton from '~/components/SubmitButton.vue';
 
+// 画面のメタ情報（Nuxt/Vueのシステム設定）
+definePageMeta({
+  layout: 'blank',
+});
+const route = useRoute();
+const pageKey = route.name?.toString() || '';
+useHead({
+  title: PAGE_TITLES[pageKey as keyof typeof PAGE_TITLES] ?? '',
+});
+
+// 当該ページ（新規登録画面）でのみ使用する定数（タイポ防止用）
 const BLOCK_NAME = 'register-form';
 const FIELD = {
   LOGIN_ID: 'loginId',
@@ -34,13 +49,12 @@ const FIELD = {
   CONFIRM_PASSWORD: 'confirmPassword',
 };
 
-const { setCookies } = useAuth();
-definePageMeta({
-  layout: 'blank',
-});
-
+// 外部データ・状態管理（Storeや共通コンポーザブルの呼び出し）
 const userInfoStore = useUserInfoStore();
+const { setCookies } = useAuth();
 const { registerSchema } = useAuthValidation();
+
+// フォーム・バリデーション関連（VeeValidate）
 const { defineField, errors, handleSubmit, meta } = useForm({
   validationSchema: registerSchema,
   initialValues: {
@@ -52,18 +66,12 @@ const [loginId, loginIdProps] = defineField('loginId');
 const [password, passwordProps] = defineField('password');
 const [confirmPassword, confirmPasswordProps] = defineField('confirmPassword');
 
-const route = useRoute();
-
+// 画面独自のリアクティブな状態（ref / computed）
 const registerFailed = ref('');
 const rememberMe = ref(false);
-
-const pageKey = route.name?.toString() || '';
-useHead({
-  title: PAGE_TITLES[pageKey as keyof typeof PAGE_TITLES] ?? '',
-});
-
 const isFormValid = computed(() => meta.value.valid);
 
+// 送信などのアクション（関数・イベントハンドラー）
 const onSubmit = handleSubmit(async (values) => {
   registerFailed.value = '';
   // login API呼び出し
