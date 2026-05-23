@@ -20,6 +20,8 @@ export const TEXT = {
     LOGINATTR: 'loginId',
     PASSWORDATTR: 'password',
     REQUIRED: '必須項目です',
+    ERROR_REQUIRED_LOGIN_ID: 'ログインIDを入力してください',
+    ERROR_REQUIRED_PASSWORD: 'パスワードを入力してください',
   },
   LOGIN: {
     LABEL: 'ログイン',
@@ -29,6 +31,7 @@ export const TEXT = {
   REGISTER: {
     LABEL: '新規登録',
     CONFIRMPASSWORDLABEL: 'パスワード（確認）',
+    ERROR_REQUIRED_CONFIRM_PASSWORD: '確認用パスワードを入力してください',
   },
   ERROR: {
     ERROR401: 'ログインに失敗しました。IDとパスワードを確認してください。',
