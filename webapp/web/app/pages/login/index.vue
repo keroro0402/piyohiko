@@ -63,20 +63,30 @@ const { setCookies } = useAuth();
 const { loginSchema } = useAuthValidation();
 
 // フォーム・バリデーション関連（VeeValidate）
-const { defineField, errors, handleSubmit, meta } = useForm({
-  validationSchema: loginSchema,
+const {
+  defineField, // 入力欄の値をバリデーションと紐付ける関数
+  errors, // リアルタイムのエラーメッセージが詰まったオブジェクト
+  handleSubmit, // 送信時にバリデーションを実行する門番関数
+  meta, // フォーム全体の検証状態（エラーの有無など）を持つオブジェクト
+} = useForm({
+  validationSchema: loginSchema, // Zodで定義した検証ルール
   initialValues: {
+    // 画面表示時の初期値（空文字で初期化）
     loginId: '',
     password: '',
   },
 });
-const [loginId, loginIdProps] = defineField('loginId');
+const [
+  // loginId用のVeeValidate処理一式を定義（値と裏方のイベント設定を取得）
+  loginId, // v-modelで双方バインディグされた値
+  loginIdProps, // 入力欄が動くために必要な「裏方のイベント設定」が入ったオブジェクト
+] = defineField('loginId');
 const [password, passwordProps] = defineField('password');
 
 // 画面独自のリアクティブな状態（ref / computed）
 const loginFailed = ref('');
 const rememberMe = ref(false);
-const isFormValid = computed(() => meta.value.valid && meta.value.dirty);
+const isFormValid = computed(() => meta.value.valid && meta.value.dirty); // VeeValidateの結果がvalidにbooleanで入る
 
 // 送信などのアクション（関数・イベントハンドラー）
 const onSubmit = handleSubmit(async (values) => {
