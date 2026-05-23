@@ -60,6 +60,7 @@ const { defineField, errors, handleSubmit, meta } = useForm({
   initialValues: {
     loginId: '',
     password: '',
+    confirmPassword: '',
   },
 });
 const [loginId, loginIdProps] = defineField('loginId');
