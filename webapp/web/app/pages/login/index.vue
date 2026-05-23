@@ -5,9 +5,9 @@
       <p v-if="loginFailed" class="error-message">
         {{ loginFailed }}
       </p>
-      <form :class="BLOCK_NAME" @submit.prevent="handleSubmit">
-        <FormGroupInput :id="FIELD.LOGIN_ID" v-model="loginId" :block="BLOCK_NAME" :text="TEXT.FORM.LOGINID" placeholder="test" autocomplete="username" required />
-        <FormGroupInput :id="FIELD.PASSWORD" v-model="password" :block="BLOCK_NAME" :text="TEXT.FORM.PASSWORD" type="password" minlength="1" placeholder="test" required />
+      <form :class="BLOCK_NAME" @submit.prevent="onSubmit">
+        <FormGroupInput :id="FIELD.LOGIN_ID" v-model="loginId" v-bind="loginIdProps" :errors="errors" :block="BLOCK_NAME" :text="TEXT.FORM.LOGINID" placeholder="test" autocomplete="username" required />
+        <FormGroupInput :id="FIELD.PASSWORD" v-model="password" v-bind="passwordProps" :errors="errors" :block="BLOCK_NAME" :text="TEXT.FORM.PASSWORD" type="password" minlength="1" placeholder="test" required />
         <div :class="`${BLOCK_NAME}__check`">
           <input :id="FIELD.REMEMBER_ME" v-model="rememberMe" :class="`${BLOCK_NAME}__checkbox`" type="checkbox" />
           <label :for="FIELD.REMEMBER_ME">
@@ -24,6 +24,7 @@
 </template>
 
 <script setup lang="ts">
+import { useForm } from 'vee-validate';
 import { TEXT } from '~/constants/text';
 import { ref } from 'vue';
 import { login } from '~/api/apiClient';
@@ -47,10 +48,17 @@ definePageMeta({
 });
 
 const userInfoStore = useUserInfoStore();
-const { validateLoginForm } = useAuthValidation();
+const { loginSchema } = useAuthValidation();
+const { defineField, errors, handleSubmit, meta } = useForm({
+  validationSchema: loginSchema,
+  initialValues: {
+    loginId: '',
+    password: '',
+  },
+});
+const [loginId, loginIdProps] = defineField('loginId');
+const [password, passwordProps] = defineField('password');
 const route = useRoute();
-const loginId = ref('');
-const password = ref('');
 const loginFailed = ref('');
 const rememberMe = ref(false);
 
@@ -59,15 +67,13 @@ useHead({
   title: PAGE_TITLES[pageKey as keyof typeof PAGE_TITLES] ?? '',
 });
 
-const isFormValid = computed(() => {
-  return validateLoginForm(loginId.value, password.value);
-});
+const isFormValid = computed(() => meta.value.valid);
 
-const handleSubmit = async () => {
+const onSubmit = handleSubmit(async (values) => {
   loginFailed.value = '';
   // login API呼び出し
   try {
-    const response = await login(loginId.value, password.value, rememberMe.value ? COOKIE_EXPIRATION.REMEMBER_ME : COOKIE_EXPIRATION.DEFAULT);
+    const response = await login(values.loginId, values.password, rememberMe.value ? COOKIE_EXPIRATION.REMEMBER_ME : COOKIE_EXPIRATION.DEFAULT);
     if (response.data) {
       // Cookieにアクセストークンを保存
       setCookies(response.data.token.accessToken, {
@@ -84,7 +90,7 @@ const handleSubmit = async () => {
     loginFailed.value = errorHandler(error);
     return;
   }
-};
+});
 </script>
 
 <style lang="scss" scoped>

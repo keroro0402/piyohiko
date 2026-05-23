@@ -5,6 +5,7 @@
     </label>
     <span v-if="props.required" :class="`${block}__required`">{{ TEXT.FORM.REQUIRED }}</span>
     <input :id="props.id" :value="props.modelValue" :class="`${props.block}__input`" :required="props.required" :placeholder="props.placeholder" :autocomplete="props.autocomplete" v-bind="$attrs" @input="updateValue" />
+    <p v-if="errors[id]" class="error">{{ errors[id] }}</p>
   </div>
 </template>
 
@@ -33,7 +34,8 @@ const props = withDefaults(
     id: string;
     autocomplete?: string;
     required?: boolean;
-    modelValue: string;
+    modelValue: string | undefined;
+    errors: Record<string, string | undefined>;
   }>(),
   {
     placeholder: '',
