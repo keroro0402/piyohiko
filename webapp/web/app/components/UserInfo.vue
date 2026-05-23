@@ -6,16 +6,22 @@
 </template>
 
 <script setup lang="ts">
-import { TEXT } from '~/constants/text';
 import { useAuth } from '~/composables/useAuth';
+import { TEXT } from '~/constants/text';
 
-const { logout } = useAuth();
+// 外部から受け取るデータ（Props）
 const { block } = defineProps<{
   block: string;
 }>();
+
+// 外部データ・状態管理（Storeや共通コンポーザブルの呼び出し）
 const userInfoStore = useUserInfoStore();
+const { logout } = useAuth();
+
+// 画面で使う具体的な変数・状態（データの抽出や加工）
 const userName = userInfoStore.displayName;
 </script>
+
 <style lang="scss" scoped>
 .header-user-info {
   &__user-name {

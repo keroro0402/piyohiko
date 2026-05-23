@@ -17,15 +17,7 @@ import { TEXT } from '~/constants/text';
  */
 defineOptions({ inheritAttrs: false });
 
-/* emit定義 */
-const emit = defineEmits(['update:modelValue']);
-/* inputイベントで親コンポーネントに値を渡す関数 */
-const updateValue = (event: Event) => {
-  const target = event.target as HTMLInputElement;
-  emit('update:modelValue', target.value);
-};
-
-/* props 定義*/
+// 外部から受け取るデータ（Props）
 const props = withDefaults(
   defineProps<{
     block: string;
@@ -43,6 +35,15 @@ const props = withDefaults(
     required: false,
   },
 );
+
+// 外部に出すデータ（Emits）
+const emit = defineEmits(['update:modelValue']);
+
+/* inputイベントで親コンポーネントに値を渡す関数 */
+const updateValue = (event: Event) => {
+  const target = event.target as HTMLInputElement;
+  emit('update:modelValue', target.value);
+};
 </script>
 
 <style lang="scss" scoped>
