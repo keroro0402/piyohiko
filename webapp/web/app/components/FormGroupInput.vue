@@ -17,7 +17,7 @@ import { TEXT } from '~/constants/text';
  */
 defineOptions({ inheritAttrs: false });
 
-// 外部から受け取るデータ（Props）
+/* 外部から受け取るデータ（Props） */
 const props = withDefaults(
   defineProps<{
     block: string;
@@ -36,7 +36,7 @@ const props = withDefaults(
   },
 );
 
-// 外部に出すデータ（Emits）
+/* 外部に出すデータ（Emits） */
 const emit = defineEmits(['update:modelValue']);
 
 /* inputイベントで親コンポーネントに値を渡す関数 */

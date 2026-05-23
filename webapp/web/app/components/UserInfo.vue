@@ -9,16 +9,16 @@
 import { useAuth } from '~/composables/useAuth';
 import { TEXT } from '~/constants/text';
 
-// 外部から受け取るデータ（Props）
+/* 外部から受け取るデータ（Props） */
 const { block } = defineProps<{
   block: string;
 }>();
 
-// 外部データ・状態管理（Storeや共通コンポーザブルの呼び出し）
+/* 外部データ・状態管理（Storeや共通コンポーザブルの呼び出し） */
 const userInfoStore = useUserInfoStore();
 const { logout } = useAuth();
 
-// 画面で使う具体的な変数・状態（データの抽出や加工）
+/* 画面で使う具体的な変数・状態（データの抽出や加工） */
 const userName = userInfoStore.displayName;
 </script>
 

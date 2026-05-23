@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-// 外部から受け取るデータ（Props）
+/* 外部から受け取るデータ（Props） */
 const { block, text, isFormValid } = defineProps<{
   block: string;
   text: string;

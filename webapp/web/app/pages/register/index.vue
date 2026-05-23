@@ -16,22 +16,22 @@
 </template>
 
 <script setup lang="ts">
-// 外部ライブラリ（Vue本体やnpmパッケージ）
+/* 外部ライブラリ（Vue本体やnpmパッケージ） */
 import { ref } from 'vue';
 import { useForm } from 'vee-validate';
-// プロジェクト共通の仕組み（API、エラーハンドラー、汎用コンポーザブル）
+/* プロジェクト共通の仕組み（API、エラーハンドラー、汎用コンポーザブル） */
 import { login } from '~/api/apiClient';
 import { errorHandler } from '~/api/errorHandler';
 import { useAuth } from '~/composables/useAuth';
-// プロジェクト共通の定数（マスターデータ系）
+/* プロジェクト共通の定数（マスターデータ系） */
 import { COOKIE_EXPIRATION } from '~/constants/cookie';
 import { PAGE_TITLES } from '~/constants/pages';
 import { TEXT } from '~/constants/text';
-// 子コンポーネント（画面を構成する部品）
+/* 子コンポーネント（画面を構成する部品） */
 import FormGroupInput from '~/components/FormGroupInput.vue';
 import SubmitButton from '~/components/SubmitButton.vue';
 
-// 画面のメタ情報（Nuxt/Vueのシステム設定）
+/* 画面のメタ情報（Nuxt/Vueのシステム設定） */
 definePageMeta({
   layout: 'blank',
 });
@@ -41,7 +41,7 @@ useHead({
   title: PAGE_TITLES[pageKey as keyof typeof PAGE_TITLES] ?? '',
 });
 
-// 当該ページ（新規登録画面）でのみ使用する定数（タイポ防止用）
+/* 当該ページ（新規登録画面）でのみ使用する定数（タイポ防止用） */
 const BLOCK_NAME = 'register-form';
 const FIELD = {
   LOGIN_ID: 'loginId',
@@ -49,12 +49,12 @@ const FIELD = {
   CONFIRM_PASSWORD: 'confirmPassword',
 };
 
-// 外部データ・状態管理（Storeや共通コンポーザブルの呼び出し）
+/* 外部データ・状態管理（Storeや共通コンポーザブルの呼び出し） */
 const userInfoStore = useUserInfoStore();
 const { setCookies } = useAuth();
 const { registerSchema } = useAuthValidation();
 
-// フォーム・バリデーション関連（VeeValidate）
+/* フォーム・バリデーション関連（VeeValidate）*/
 const {
   defineField, // 入力欄の値をバリデーションと紐付ける関数
   errors, // リアルタイムのエラーメッセージが詰まったオブジェクト
@@ -77,12 +77,12 @@ const [
 const [password, passwordProps] = defineField('password');
 const [confirmPassword, confirmPasswordProps] = defineField('confirmPassword');
 
-// 画面独自のリアクティブな状態（ref / computed）
+/* 画面独自のリアクティブな状態（ref / computed） */
 const registerFailed = ref('');
 const rememberMe = ref(false);
 const isFormValid = computed(() => meta.value.valid); // VeeValidateの結果がvalidにbooleanで入る
 
-// 送信などのアクション（関数・イベントハンドラー）
+/* 送信などのアクション（関数・イベントハンドラー） */
 const onSubmit = handleSubmit(async (values) => {
   registerFailed.value = '';
   // login API呼び出し
