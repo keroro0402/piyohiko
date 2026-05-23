@@ -17,8 +17,6 @@ export const TEXT = {
   FORM: {
     LOGINID: 'ログインID',
     PASSWORD: 'パスワード',
-    LOGIN_ATTR: 'loginId',
-    PASSWORD_ATTR: 'password',
     REQUIRED: '必須項目です',
     ERROR_REQUIRED_LOGIN_ID: 'ログインIDを入力してください',
     ERROR_REQUIRED_PASSWORD: 'パスワードを入力してください',
