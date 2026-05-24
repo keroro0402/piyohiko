@@ -5,11 +5,11 @@
 </template>
 
 <script setup lang="ts">
-import { LINKS } from '~/constants/pages';
 import { useRoute } from 'vue-router';
+import { LINKS } from '~/constants/pages';
 import type { NaviItem } from '~/types/navi';
 
-/* props 定義*/
+/* props 定義 */
 const { block } = defineProps<{
   block: string;
 }>();

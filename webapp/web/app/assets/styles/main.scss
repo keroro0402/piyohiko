@@ -1,3 +1,4 @@
+@use 'sass:color';
 // 色定義
 $color-white: rgb(255, 255, 255, 1);
 $color-thin-black: rgb(0, 0, 0, 0.5);
@@ -52,4 +53,66 @@ main {
 /* エラーメッセージ */
 .error-message {
   color: $color-light-red;
+}
+
+/* フォーム共通スタイル */
+@mixin auth-page-layout($bg-color) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: $bg-color;
+  &__content {
+    width: 400px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: $color-light-gray;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px $color-thin-black;
+  }
+  &__title {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: $color-dark-gray;
+    font-weight: 600;
+  }
+}
+
+@mixin form-style {
+  &__group {
+    margin-bottom: 1.5rem;
+  }
+  &__label {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+    color: $color-dark-gray;
+  }
+  &__input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid $color-light-gray;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  &__submit {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: $color-warm-orange;
+    color: $color-white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    &:hover {
+      background-color: color.adjust($color-warm-orange, $lightness: -10%);
+    }
+  }
+  &__required {
+    color: $color-light-red;
+    margin-left: 0.25rem;
+    font-size: 0.6rem;
+    vertical-align: text-top;
+  }
 }

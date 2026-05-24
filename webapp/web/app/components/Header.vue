@@ -9,6 +9,7 @@
 import Navi from '~/components/Navi.vue';
 import UserInfo from '~/components/UserInfo.vue';
 </script>
+
 <style lang="scss" scoped>
 .header {
   text-align: end;
