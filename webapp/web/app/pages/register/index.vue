@@ -20,11 +20,9 @@
 import { ref } from 'vue';
 import { useForm } from 'vee-validate';
 /* プロジェクト共通の仕組み（API、エラーハンドラー、汎用コンポーザブル） */
-import { login } from '~/api/apiClient';
+import { registerNewUser } from '~/api/apiClient';
 import { errorHandler } from '~/api/errorHandler';
-import { useAuth } from '~/composables/useAuth';
 /* プロジェクト共通の定数（マスターデータ系） */
-import { COOKIE_EXPIRATION } from '~/constants/cookie';
 import { PAGE_TITLES } from '~/constants/pages';
 import { TEXT } from '~/constants/text';
 /* 子コンポーネント（画面を構成する部品） */
@@ -50,8 +48,6 @@ const FIELD = {
 };
 
 /* 外部データ・状態管理（Storeや共通コンポーザブルの呼び出し） */
-const userInfoStore = useUserInfoStore();
-const { setCookies } = useAuth();
 const { registerSchema } = useAuthValidation();
 
 /* フォーム・バリデーション関連（VeeValidate）*/
@@ -79,25 +75,15 @@ const [confirmPassword, confirmPasswordProps] = defineField('confirmPassword');
 
 /* 画面独自のリアクティブな状態（ref / computed） */
 const registerFailed = ref('');
-const rememberMe = ref(false);
 const isFormValid = computed(() => meta.value.valid); // VeeValidateの結果がvalidにbooleanで入る
 
 /* 送信などのアクション（関数・イベントハンドラー） */
 const onSubmit = handleSubmit(async (values) => {
   registerFailed.value = '';
-  // login API呼び出し
+  // register API呼び出し
   try {
-    const response = await login(values.loginId, values.password, rememberMe.value ? COOKIE_EXPIRATION.REMEMBER_ME : COOKIE_EXPIRATION.DEFAULT);
+    const response = await registerNewUser(values.loginId, values.password);
     if (response.data) {
-      // Cookieにアクセストークンを保存
-      setCookies(response.data.token.accessToken, {
-        maxAge: rememberMe.value ? COOKIE_EXPIRATION.REMEMBER_ME : COOKIE_EXPIRATION.DEFAULT,
-        sameSite: 'lax',
-        secure: true,
-      });
-      // ストアにユーザー情報を保存
-      userInfoStore.setUserName(response.data.user.loginId);
-      userInfoStore.setUserRole(response.data.user.role);
       await navigateTo('/'); // TOPページへ遷移
     }
   } catch (error) {
