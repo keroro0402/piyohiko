@@ -11,7 +11,7 @@
         <FormGroupInput :id="FIELD.CONFIRM_PASSWORD" v-model="confirmPassword" v-bind="confirmPasswordProps" :errors="errors" :block="BLOCK_NAME" :text="TEXT.REGISTER.CONFIRM_PASSWORD_LABEL" type="password" minlength="1" placeholder="test" required />
         <SubmitButton :block="BLOCK_NAME" :is-form-valid="isFormValid" :text="TEXT.REGISTER.LABEL" />
         <div :class="`${BLOCK_NAME}__switch-page`">
-          <a :class="`${BLOCK_NAME}__switch-link`" :href="LINKS.TEXT.login">{{ TEXT.REGISTER.EXISTING_USER }}</a>
+          <NuxtLink :class="`${BLOCK_NAME}__switch-link`" :to="LINKS.TEXT.LOGIN">{{ TEXT.REGISTER.EXISTING_USER }}</NuxtLink>
         </div>
       </form>
     </section>
