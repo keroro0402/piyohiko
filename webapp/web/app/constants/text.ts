@@ -34,12 +34,14 @@ export const TEXT = {
     LABEL: 'ログイン',
     REMEMBER_ME: 'ログイン状態を保持する',
     FORGOT_PASSWORD: 'パスワードを忘れた方はこちら',
+    NEW_USER: 'アカウントをお持ちでない方はこちら',
   },
   REGISTER: {
     LABEL: '新規登録',
     CONFIRM_PASSWORD_LABEL: 'パスワード（確認）',
     ERROR_REQUIRED_CONFIRM_PASSWORD: '確認用パスワードを入力してください',
     ERROR_PASSWORD_MISMATCH: 'パスワードが一致しません',
+    EXISTING_USER: 'すでにアカウントをお持ちの方はこちら',
   },
   ERROR: {
     ERROR401: 'ログインに失敗しました。IDとパスワードを確認してください。',
