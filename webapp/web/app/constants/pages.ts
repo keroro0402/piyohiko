@@ -8,17 +8,22 @@ import { TEXT } from './text';
  * - 並び順 = 表示順
  * - to は pages に存在するルートのみ
  */
+
+const PATH = {
+  TOP: '/',
+  ABOUT: '/about',
+  LOGIN: '/login',
+  REGISTER: '/register',
+};
+
 export const LINKS = {
   NAVI: [
-    { key: 'home', label: TEXT.COMMON.HOME, to: '/' },
-    { key: 'about', label: TEXT.COMMON.ABOUT, to: '/about' },
-    { key: 'login', label: TEXT.COMMON.LOGIN, to: '/login' },
-    { key: 'register', label: TEXT.COMMON.REGISTER, to: '/register' },
+    { key: 'home', label: TEXT.COMMON.HOME, to: PATH.TOP },
+    { key: 'about', label: TEXT.COMMON.ABOUT, to: PATH.ABOUT },
+    { key: 'login', label: TEXT.COMMON.LOGIN, to: PATH.LOGIN },
+    { key: 'register', label: TEXT.COMMON.REGISTER, to: PATH.REGISTER },
   ] as const,
-  TEXT: {
-    login: '/login',
-    register: '/register',
-  } as const,
+  TEXT: PATH,
 } as const;
 
 /**
