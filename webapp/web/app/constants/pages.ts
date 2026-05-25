@@ -15,6 +15,10 @@ export const LINKS = {
     { key: 'login', label: TEXT.COMMON.LOGIN, to: '/login' },
     { key: 'register', label: TEXT.COMMON.REGISTER, to: '/register' },
   ] as const,
+  TEXT: {
+    login: '/login',
+    register: '/register',
+  } as const,
 } as const;
 
 /**

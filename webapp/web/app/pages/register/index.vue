@@ -10,6 +10,9 @@
         <FormGroupInput :id="FIELD.PASSWORD" v-model="password" v-bind="passwordProps" :errors="errors" :block="BLOCK_NAME" :text="TEXT.FORM.PASSWORD" type="password" minlength="1" placeholder="test" required />
         <FormGroupInput :id="FIELD.CONFIRM_PASSWORD" v-model="confirmPassword" v-bind="confirmPasswordProps" :errors="errors" :block="BLOCK_NAME" :text="TEXT.REGISTER.CONFIRM_PASSWORD_LABEL" type="password" minlength="1" placeholder="test" required />
         <SubmitButton :block="BLOCK_NAME" :is-form-valid="isFormValid" :text="TEXT.REGISTER.LABEL" />
+        <div :class="`${BLOCK_NAME}__switch-page`">
+          <a :class="`${BLOCK_NAME}__switch-link`" :href="LINKS.TEXT.login">{{ TEXT.REGISTER.EXISTING_USER }}</a>
+        </div>
       </form>
     </section>
   </main>
@@ -23,7 +26,7 @@ import { useForm } from 'vee-validate';
 import { registerNewUser } from '~/api/apiClient';
 import { errorHandler } from '~/api/errorHandler';
 /* プロジェクト共通の定数（マスターデータ系） */
-import { PAGE_TITLES } from '~/constants/pages';
+import { PAGE_TITLES, LINKS } from '~/constants/pages';
 import { TEXT } from '~/constants/text';
 /* 子コンポーネント（画面を構成する部品） */
 import FormGroupInput from '~/components/FormGroupInput.vue';
@@ -32,6 +35,7 @@ import SubmitButton from '~/components/SubmitButton.vue';
 /* 画面のメタ情報（Nuxt/Vueのシステム設定） */
 definePageMeta({
   layout: 'blank',
+  middleware: 'guest',
 });
 const route = useRoute();
 const pageKey = route.name?.toString() || '';
@@ -99,5 +103,11 @@ const onSubmit = handleSubmit(async (values) => {
 
 .register-page {
   @include auth-page-layout($color-dark-green);
+}
+.register-form {
+  &__switch-page {
+    text-align: center;
+    margin-top: 1rem;
+  }
 }
 </style>

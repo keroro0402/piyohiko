@@ -18,6 +18,9 @@
         <div :class="`${BLOCK_NAME}__forgot-password`">
           <a :class="`${BLOCK_NAME}__forgot-link`" href="#">{{ TEXT.LOGIN.FORGOT_PASSWORD }}</a>
         </div>
+        <div :class="`${BLOCK_NAME}__switch-page`">
+          <a :class="`${BLOCK_NAME}__switch-link`" :href="LINKS.TEXT.register">{{ TEXT.LOGIN.NEW_USER }}</a>
+        </div>
       </form>
     </section>
   </main>
@@ -33,7 +36,7 @@ import { errorHandler } from '~/api/errorHandler';
 import { useAuth } from '~/composables/useAuth';
 /* プロジェクト共通の定数（マスターデータ系） */
 import { COOKIE_EXPIRATION } from '~/constants/cookie';
-import { PAGE_TITLES } from '~/constants/pages';
+import { PAGE_TITLES, LINKS } from '~/constants/pages';
 import { TEXT } from '~/constants/text';
 /* 子コンポーネント（画面を構成する部品） */
 import FormGroupInput from '~/components/FormGroupInput.vue';
@@ -42,6 +45,7 @@ import SubmitButton from '~/components/SubmitButton.vue';
 /* 画面のメタ情報（Nuxt/Vueのシステム設定） */
 definePageMeta({
   layout: 'blank',
+  middleware: 'guest',
 });
 const route = useRoute();
 const pageKey = route.name?.toString() || '';
@@ -130,6 +134,10 @@ const onSubmit = handleSubmit(async (values) => {
     margin-right: 0.5rem;
   }
   &__forgot-password {
+    text-align: center;
+    margin-top: 1rem;
+  }
+  &__switch-page {
     text-align: center;
     margin-top: 1rem;
   }
