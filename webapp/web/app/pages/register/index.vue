@@ -79,7 +79,7 @@ const [confirmPassword, confirmPasswordProps] = defineField('confirmPassword');
 
 /* 画面独自のリアクティブな状態（ref / computed） */
 const registerFailed = ref('');
-const isFormValid = computed(() => meta.value.valid); // VeeValidateの結果がvalidにbooleanで入る
+const isFormValid = computed(() => meta.value.valid && meta.value.dirty); // VeeValidateの結果がvalidにbooleanで入る
 
 /* 送信などのアクション（関数・イベントハンドラー） */
 const onSubmit = handleSubmit(async (values) => {
