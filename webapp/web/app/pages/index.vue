@@ -10,7 +10,7 @@ import { IMAGES } from '~/constants/images';
 import { PAGE_TITLES } from '~/constants/pages';
 
 definePageMeta({
-  middleware: 'auth',
+  middleware: 'auth', // middleware/auth.ts で遷移を操作
 });
 
 const route = useRoute();
