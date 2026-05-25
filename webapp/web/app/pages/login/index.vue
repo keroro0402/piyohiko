@@ -16,7 +16,10 @@
         </div>
         <SubmitButton :block="BLOCK_NAME" :is-form-valid="isFormValid" :text="TEXT.LOGIN.LABEL" />
         <div :class="`${BLOCK_NAME}__forgot-password`">
-          <a :class="`${BLOCK_NAME}__forgot-link`" href="#">{{ TEXT.LOGIN.FORGOT_PASSWORD }}</a>
+          <NuxtLink :class="`${BLOCK_NAME}__forgot-link`" to="/">{{ TEXT.LOGIN.FORGOT_PASSWORD }}</NuxtLink>
+        </div>
+        <div :class="`${BLOCK_NAME}__switch-page`">
+          <NuxtLink :class="`${BLOCK_NAME}__switch-link`" :to="LINKS.TEXT.REGISTER">{{ TEXT.LOGIN.NEW_USER }}</NuxtLink>
         </div>
       </form>
     </section>
@@ -33,7 +36,7 @@ import { errorHandler } from '~/api/errorHandler';
 import { useAuth } from '~/composables/useAuth';
 /* プロジェクト共通の定数（マスターデータ系） */
 import { COOKIE_EXPIRATION } from '~/constants/cookie';
-import { PAGE_TITLES } from '~/constants/pages';
+import { PAGE_TITLES, LINKS } from '~/constants/pages';
 import { TEXT } from '~/constants/text';
 /* 子コンポーネント（画面を構成する部品） */
 import FormGroupInput from '~/components/FormGroupInput.vue';
@@ -42,6 +45,7 @@ import SubmitButton from '~/components/SubmitButton.vue';
 /* 画面のメタ情報（Nuxt/Vueのシステム設定） */
 definePageMeta({
   layout: 'blank',
+  middleware: 'guest',
 });
 const route = useRoute();
 const pageKey = route.name?.toString() || '';
@@ -130,6 +134,10 @@ const onSubmit = handleSubmit(async (values) => {
     margin-right: 0.5rem;
   }
   &__forgot-password {
+    text-align: center;
+    margin-top: 1rem;
+  }
+  &__switch-page {
     text-align: center;
     margin-top: 1rem;
   }

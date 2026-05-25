@@ -1,23 +1,32 @@
 package com.example.api.controller;
 
+import com.example.api.dto.SignUpDto;
 import com.example.api.entity.Review;
 import com.example.api.form.ReviewRegisterForm;
 import com.example.api.service.RegisterService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 public class RegisterController {
 
     private final RegisterService service;
+
+    @PostMapping("/register")
+    public String registerNewUser(@RequestBody SignUpDto signUpDto) {
+        System.out.println(signUpDto.getLoginId());
+        System.out.println(signUpDto.getPassword());
+        return "リクエストを確認できました";
+    }
+
+
+
+
 
     @PostMapping("/show-review-form")
     public String showReviewForm(@ModelAttribute ReviewRegisterForm form){

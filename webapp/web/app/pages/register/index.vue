@@ -10,6 +10,9 @@
         <FormGroupInput :id="FIELD.PASSWORD" v-model="password" v-bind="passwordProps" :errors="errors" :block="BLOCK_NAME" :text="TEXT.FORM.PASSWORD" type="password" minlength="1" placeholder="test" required />
         <FormGroupInput :id="FIELD.CONFIRM_PASSWORD" v-model="confirmPassword" v-bind="confirmPasswordProps" :errors="errors" :block="BLOCK_NAME" :text="TEXT.REGISTER.CONFIRM_PASSWORD_LABEL" type="password" minlength="1" placeholder="test" required />
         <SubmitButton :block="BLOCK_NAME" :is-form-valid="isFormValid" :text="TEXT.REGISTER.LABEL" />
+        <div :class="`${BLOCK_NAME}__switch-page`">
+          <NuxtLink :class="`${BLOCK_NAME}__switch-link`" :to="LINKS.TEXT.LOGIN">{{ TEXT.REGISTER.EXISTING_USER }}</NuxtLink>
+        </div>
       </form>
     </section>
   </main>
@@ -20,12 +23,10 @@
 import { ref } from 'vue';
 import { useForm } from 'vee-validate';
 /* プロジェクト共通の仕組み（API、エラーハンドラー、汎用コンポーザブル） */
-import { login } from '~/api/apiClient';
+import { registerNewUser } from '~/api/apiClient';
 import { errorHandler } from '~/api/errorHandler';
-import { useAuth } from '~/composables/useAuth';
 /* プロジェクト共通の定数（マスターデータ系） */
-import { COOKIE_EXPIRATION } from '~/constants/cookie';
-import { PAGE_TITLES } from '~/constants/pages';
+import { PAGE_TITLES, LINKS } from '~/constants/pages';
 import { TEXT } from '~/constants/text';
 /* 子コンポーネント（画面を構成する部品） */
 import FormGroupInput from '~/components/FormGroupInput.vue';
@@ -34,6 +35,7 @@ import SubmitButton from '~/components/SubmitButton.vue';
 /* 画面のメタ情報（Nuxt/Vueのシステム設定） */
 definePageMeta({
   layout: 'blank',
+  middleware: 'guest',
 });
 const route = useRoute();
 const pageKey = route.name?.toString() || '';
@@ -50,8 +52,6 @@ const FIELD = {
 };
 
 /* 外部データ・状態管理（Storeや共通コンポーザブルの呼び出し） */
-const userInfoStore = useUserInfoStore();
-const { setCookies } = useAuth();
 const { registerSchema } = useAuthValidation();
 
 /* フォーム・バリデーション関連（VeeValidate）*/
@@ -79,25 +79,15 @@ const [confirmPassword, confirmPasswordProps] = defineField('confirmPassword');
 
 /* 画面独自のリアクティブな状態（ref / computed） */
 const registerFailed = ref('');
-const rememberMe = ref(false);
-const isFormValid = computed(() => meta.value.valid); // VeeValidateの結果がvalidにbooleanで入る
+const isFormValid = computed(() => meta.value.valid && meta.value.dirty); // VeeValidateの結果がvalidにbooleanで入る
 
 /* 送信などのアクション（関数・イベントハンドラー） */
 const onSubmit = handleSubmit(async (values) => {
   registerFailed.value = '';
-  // login API呼び出し
+  // register API呼び出し
   try {
-    const response = await login(values.loginId, values.password, rememberMe.value ? COOKIE_EXPIRATION.REMEMBER_ME : COOKIE_EXPIRATION.DEFAULT);
+    const response = await registerNewUser(values.loginId, values.password);
     if (response.data) {
-      // Cookieにアクセストークンを保存
-      setCookies(response.data.token.accessToken, {
-        maxAge: rememberMe.value ? COOKIE_EXPIRATION.REMEMBER_ME : COOKIE_EXPIRATION.DEFAULT,
-        sameSite: 'lax',
-        secure: true,
-      });
-      // ストアにユーザー情報を保存
-      userInfoStore.setUserName(response.data.user.loginId);
-      userInfoStore.setUserRole(response.data.user.role);
       await navigateTo('/'); // TOPページへ遷移
     }
   } catch (error) {
@@ -113,5 +103,11 @@ const onSubmit = handleSubmit(async (values) => {
 
 .register-page {
   @include auth-page-layout($color-dark-green);
+}
+.register-form {
+  &__switch-page {
+    text-align: center;
+    margin-top: 1rem;
+  }
 }
 </style>

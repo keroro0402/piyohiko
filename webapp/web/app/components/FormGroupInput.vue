@@ -5,7 +5,7 @@
     </label>
     <span v-if="props.required" :class="`${block}__required`">{{ TEXT.FORM.REQUIRED }}</span>
     <input :id="props.id" :value="props.modelValue" :class="`${props.block}__input`" :required="props.required" :placeholder="props.placeholder" :autocomplete="props.autocomplete" v-bind="$attrs" @input="updateValue" />
-    <p v-if="errors[id]" class="error">{{ errors[id] }}</p>
+    <p v-if="errors[id]" class="error-message">{{ errors[id] }}</p>
   </div>
 </template>
 
@@ -52,5 +52,8 @@ const updateValue = (event: Event) => {
 .register-form,
 .login-form {
   @include form-style;
+}
+.error-message {
+  margin: 0;
 }
 </style>
