@@ -31,6 +31,7 @@ public class JwtFilter extends OncePerRequestFilter {
     private static final Logger log = LoggerFactory.getLogger(JwtFilter.class);
 
     @Autowired
+    // JwtUtilは@PostConstruct を使って中身を完成させる構造のためfinalはつけない
     private JwtUtil jwtUtil;
 
     @Override
