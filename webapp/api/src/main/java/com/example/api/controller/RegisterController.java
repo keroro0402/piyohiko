@@ -1,8 +1,8 @@
 package com.example.api.controller;
 
-import com.example.api.dto.SignUpDto;
 import com.example.api.entity.Review;
 import com.example.api.form.ReviewRegisterForm;
+import com.example.api.form.SignUpForm;
 import com.example.api.service.RegisterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ui.Model;
@@ -18,9 +18,9 @@ public class RegisterController {
     private final RegisterService service;
 
     @PostMapping("/register")
-    public String registerNewUser(@RequestBody SignUpDto signUpDto) {
-        System.out.println(signUpDto.getLoginId());
-        System.out.println(signUpDto.getPassword());
+    public String registerNewUser(@Validated @RequestBody SignUpForm signUpForm) {
+        System.out.println(signUpForm.getLoginId());
+        System.out.println(signUpForm.getPassword());
         return "リクエストを確認できました";
     }
 
