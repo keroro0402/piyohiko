@@ -4,6 +4,7 @@ import com.example.api.entity.Review;
 import com.example.api.form.ReviewRegisterForm;
 import com.example.api.form.SignUpForm;
 import com.example.api.service.RegisterService;
+import com.example.api.service.SignUpService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,11 +18,12 @@ public class RegisterController {
 
     private final RegisterService service;
 
+    private final SignUpService signUpService;
     @PostMapping("/register")
     public String registerNewUser(@Validated @RequestBody SignUpForm signUpForm) {
         System.out.println(signUpForm.getLoginId());
         System.out.println(signUpForm.getPassword());
-        return "リクエストを確認できました";
+        return signUpService.SignUp();
     }
 
 
