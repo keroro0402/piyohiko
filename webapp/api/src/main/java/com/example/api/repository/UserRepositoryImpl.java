@@ -32,6 +32,21 @@ public class UserRepositoryImpl implements UserRepository{
         }
     }
 
+/* 新規ユーザー登録用のメソッド */
+    @Override
+    public void createUser(User user){
+        String sql = "INSERT INTO `api_db`.`t_user` (login_id, password, role) VALUES (?, ?, ?)";
+        jdbcTemplate.update(sql,
+                user.getLoginId(),
+                user.getPassword(),
+                "ROLE_USER"
+                );
+    }
+
+
+
+
+
     @Override
     public void save(User user) {
         String sql = "INSERT INTO `api_db`.`t_user` (login_id, password) VALUES (?,?)";
