@@ -15,7 +15,7 @@ public class SecurityConfig {
     /*
     * passwordEncoder という型で、BCryptアルゴリズムを使う実体を返却
     * */
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder createPasswordEncoder(){
         /*
         * BCryptPasswordEncoder：パスワード専用の安全な変換用クラス
         * */

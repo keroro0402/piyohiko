@@ -1,13 +1,14 @@
 package com.example.api.controller;
 
-import com.example.api.dto.SignUpDto;
 import com.example.api.entity.Review;
 import com.example.api.form.ReviewRegisterForm;
+import com.example.api.form.SignUpForm;
 import com.example.api.service.RegisterService;
+import com.example.api.service.SignUpService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -17,11 +18,12 @@ public class RegisterController {
 
     private final RegisterService service;
 
+    private final SignUpService signUpService;
     @PostMapping("/register")
-    public String registerNewUser(@RequestBody SignUpDto signUpDto) {
-        System.out.println(signUpDto.getLoginId());
-        System.out.println(signUpDto.getPassword());
-        return "リクエストを確認できました";
+    public void registerNewUser(@RequestBody @Valid SignUpForm signUpForm) {
+        System.out.println(signUpForm.getLoginId());
+        System.out.println(signUpForm.getPassword());
+        signUpService.signUp(signUpForm);
     }
 
 
@@ -41,7 +43,7 @@ public class RegisterController {
 
     @PostMapping("/register-review")
     public String registerReview(
-            @Validated @ModelAttribute ReviewRegisterForm form,
+            @Valid @ModelAttribute ReviewRegisterForm form,
             BindingResult result
     ){
         if(result.hasErrors()){
@@ -53,7 +55,7 @@ public class RegisterController {
 
     @PostMapping("/confirm-register-review")
     public String confirmRegisterReview(
-            @Validated ReviewRegisterForm form,
+            @Valid ReviewRegisterForm form,
             BindingResult result,
             RedirectAttributes redirectAttributes,
             Model model
