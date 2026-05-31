@@ -20,10 +20,10 @@ public class RegisterController {
 
     private final SignUpService signUpService;
     @PostMapping("/register")
-    public String registerNewUser(@RequestBody @Valid SignUpForm signUpForm) {
+    public void registerNewUser(@RequestBody @Valid SignUpForm signUpForm) {
         System.out.println(signUpForm.getLoginId());
         System.out.println(signUpForm.getPassword());
-        return signUpService.signUp(signUpForm);
+        signUpService.signUp(signUpForm);
     }
 
 
