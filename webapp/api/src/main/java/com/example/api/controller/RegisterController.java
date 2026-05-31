@@ -5,10 +5,10 @@ import com.example.api.form.ReviewRegisterForm;
 import com.example.api.form.SignUpForm;
 import com.example.api.service.RegisterService;
 import com.example.api.service.SignUpService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -20,7 +20,7 @@ public class RegisterController {
 
     private final SignUpService signUpService;
     @PostMapping("/register")
-    public String registerNewUser(@Validated @RequestBody SignUpForm signUpForm) {
+    public String registerNewUser(@RequestBody @Valid SignUpForm signUpForm) {
         System.out.println(signUpForm.getLoginId());
         System.out.println(signUpForm.getPassword());
         return signUpService.signUp(signUpForm);
@@ -43,7 +43,7 @@ public class RegisterController {
 
     @PostMapping("/register-review")
     public String registerReview(
-            @Validated @ModelAttribute ReviewRegisterForm form,
+            @Valid @ModelAttribute ReviewRegisterForm form,
             BindingResult result
     ){
         if(result.hasErrors()){
@@ -55,7 +55,7 @@ public class RegisterController {
 
     @PostMapping("/confirm-register-review")
     public String confirmRegisterReview(
-            @Validated ReviewRegisterForm form,
+            @Valid ReviewRegisterForm form,
             BindingResult result,
             RedirectAttributes redirectAttributes,
             Model model
