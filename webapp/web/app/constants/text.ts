@@ -39,8 +39,8 @@ export const TEXT = {
   REGISTER: {
     LABEL: '新規登録',
     CONFIRM_PASSWORD_LABEL: 'パスワード（確認）',
-    SECURITY_PHRASE_LABEL: '好きな食べ物を入力してください',
     ERROR_REQUIRED_CONFIRM_PASSWORD: '確認用パスワードを入力してください',
+    SECURITY_PHRASE_LABEL: '好きな食べ物を入力してください',
     ERROR_PASSWORD_MISMATCH: 'パスワードが一致しません',
     EXISTING_USER: 'すでにアカウントをお持ちの方はこちら',
   },
