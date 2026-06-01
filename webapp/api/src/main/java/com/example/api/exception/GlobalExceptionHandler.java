@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.time.LocalDateTime;
 import java.util.List;
 
-/*@RestControllerAdvice：アプリ内の例外をこのクラスで処理する*/
+/* @RestControllerAdvice：アプリ内の例外をこのクラスで処理する */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-    /*@ExceptionHandler：引数のクラスでエラーが起きたら後述のメソッドで対応する*/
+/* @ExceptionHandler：引数のクラスでエラーが起きたら後述のメソッドで対応する */
+
+    // ログイン("/login")：未登録の ログインID と PW でリクエストした時の ExceptionHandler
     @ExceptionHandler(LoginException.class)
     public ResponseEntity<ApiErrorDto> handleLoginException(LoginException e){
         ApiErrorDto apiErrorDto = new ApiErrorDto();
@@ -24,21 +26,21 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(401).body(apiErrorDto);
     }
 
+    // API のバリデーションに弾かれた時の ExceptionHandler
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiErrorDto> handleValidationException(MethodArgumentNotValidException e){
-
         List<String> messageList = e.getBindingResult()
                 .getFieldErrors()
                 .stream()
                 .map(error -> error.getDefaultMessage())
                 .toList();
-
         ApiErrorDto apiErrorDto = new ApiErrorDto();
         apiErrorDto.setErrorCode("VALIDATION_ERROR");
         apiErrorDto.setMessage(messageList);
         return ResponseEntity.status(400).body(apiErrorDto);
     }
 
+    // API のリクエストで JSON が破損、不正な時の ExceptionHandler
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ApiErrorDto> handleJsonParseError(HttpMessageNotReadableException e){
         ApiErrorDto dto = new ApiErrorDto();
@@ -47,7 +49,7 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(400).body(dto);
     }
 
-    /* Api全体で発生した 500 のエラーハンドリング用メソッド */
+    /* Api 全体で発生した 500（サーバーエラー） のエラーハンドリング用メソッド */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiErrorDto> handleAllException(Exception e, HttpServletRequest request) {
         ApiErrorDto apiErrorDto = new ApiErrorDto();
