@@ -89,7 +89,7 @@ const onSubmit = handleSubmit(async (values) => {
   registerFailed.value = '';
   // register API呼び出し
   try {
-    const response = await registerNewUser(values.loginId, values.password);
+    const response = await registerNewUser(values.loginId, values.password, values.securityPhrase ?? '');
     if (response.data) {
       await navigateTo('/'); // TOPページへ遷移
     }
