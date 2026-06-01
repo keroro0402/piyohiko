@@ -39,7 +39,7 @@ public class UserRepositoryImpl implements UserRepository{
         jdbcTemplate.update(sql,
                 user.getLoginId(),
                 user.getPassword(),
-                "ROLE_USER"
+                user.getRole()
                 );
     }
 

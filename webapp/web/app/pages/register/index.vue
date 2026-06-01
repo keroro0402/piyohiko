@@ -9,6 +9,7 @@
         <FormGroupInput :id="FIELD.LOGIN_ID" v-model="loginId" v-bind="loginIdProps" :errors="errors" :block="BLOCK_NAME" :text="TEXT.FORM.LOGINID" placeholder="test" autocomplete="username" required />
         <FormGroupInput :id="FIELD.PASSWORD" v-model="password" v-bind="passwordProps" :errors="errors" :block="BLOCK_NAME" :text="TEXT.FORM.PASSWORD" type="password" minlength="1" placeholder="test" required />
         <FormGroupInput :id="FIELD.CONFIRM_PASSWORD" v-model="confirmPassword" v-bind="confirmPasswordProps" :errors="errors" :block="BLOCK_NAME" :text="TEXT.REGISTER.CONFIRM_PASSWORD_LABEL" type="password" minlength="1" placeholder="test" required />
+        <FormGroupInput :id="FIELD.SECURITY_PHRASE" v-model="securityPhrase" v-bind="securityPhraseProps" :block="BLOCK_NAME" :text="SECURITY_SUBJECT" placeholder="test" />
         <SubmitButton :block="BLOCK_NAME" :is-form-valid="isFormValid" :text="TEXT.REGISTER.LABEL" />
         <div :class="`${BLOCK_NAME}__switch-page`">
           <NuxtLink :class="`${BLOCK_NAME}__switch-link`" :to="LINKS.TEXT.LOGIN">{{ TEXT.REGISTER.EXISTING_USER }}</NuxtLink>
@@ -27,7 +28,7 @@ import { registerNewUser } from '~/api/apiClient';
 import { errorHandler } from '~/api/errorHandler';
 /* プロジェクト共通の定数（マスターデータ系） */
 import { PAGE_TITLES, LINKS } from '~/constants/pages';
-import { TEXT } from '~/constants/text';
+import { TEXT, SECURITY_SUBJECT } from '~/constants/text';
 /* 子コンポーネント（画面を構成する部品） */
 import FormGroupInput from '~/components/FormGroupInput.vue';
 import SubmitButton from '~/components/SubmitButton.vue';
@@ -48,6 +49,7 @@ const BLOCK_NAME = 'register-form';
 const FIELD = {
   LOGIN_ID: 'loginId',
   PASSWORD: 'password',
+  SECURITY_PHRASE: 'securityPhrase',
   CONFIRM_PASSWORD: 'confirmPassword',
 };
 
@@ -67,6 +69,7 @@ const {
     loginId: '',
     password: '',
     confirmPassword: '',
+    securityPhrase: '',
   },
 });
 const [
@@ -76,7 +79,7 @@ const [
 ] = defineField('loginId');
 const [password, passwordProps] = defineField('password');
 const [confirmPassword, confirmPasswordProps] = defineField('confirmPassword');
-
+const [securityPhrase, securityPhraseProps] = defineField('securityPhrase');
 /* 画面独自のリアクティブな状態（ref / computed） */
 const registerFailed = ref('');
 const isFormValid = computed(() => meta.value.valid && meta.value.dirty); // VeeValidateの結果がvalidにbooleanで入る
@@ -86,7 +89,7 @@ const onSubmit = handleSubmit(async (values) => {
   registerFailed.value = '';
   // register API呼び出し
   try {
-    const response = await registerNewUser(values.loginId, values.password);
+    const response = await registerNewUser(values.loginId, values.password, values.securityPhrase ?? '');
     if (response.data) {
       await navigateTo('/'); // TOPページへ遷移
     }

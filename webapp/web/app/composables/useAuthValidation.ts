@@ -44,6 +44,8 @@ export const useAuthValidation = () => {
           .min(FORM_RULES.PASSWORD.MIN, { message: TEXT.FORM.ERROR_PASSWORD_MIN(FORM_RULES.PASSWORD.MIN) }) // 最小文字数
           .max(FORM_RULES.PASSWORD.MAX, { message: TEXT.FORM.ERROR_PASSWORD_MAX(FORM_RULES.PASSWORD.MAX) }) // 最大文字数
           .regex(/^[a-zA-Z0-9]+$/, { message: TEXT.FORM.ERROR_PASSWORD_ALPHANUMERIC }), // 形式チェック
+
+        securityPhrase: z.string().optional(),
       })
       .refine(
         (data) => data.password === data.confirmPassword, //  // エラー判定の条件式

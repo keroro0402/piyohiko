@@ -27,12 +27,13 @@ const props = withDefaults(
     autocomplete?: string;
     required?: boolean;
     modelValue: string | undefined;
-    errors: Record<string, string | undefined>;
+    errors?: Record<string, string | undefined>;
   }>(),
   {
     placeholder: '',
     autocomplete: 'off',
     required: false,
+    errors: () => ({}),
   },
 );
 

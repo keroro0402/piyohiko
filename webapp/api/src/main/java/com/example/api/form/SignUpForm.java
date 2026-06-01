@@ -17,4 +17,5 @@ public class SignUpForm {
     @Size(min = 8, max = 64, message = "パスワードは8~64文字で入力してください")
     @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "パスワードは半角英数字のみで入力してください")
     private String password;
+    private String securityPhrase;
 }
