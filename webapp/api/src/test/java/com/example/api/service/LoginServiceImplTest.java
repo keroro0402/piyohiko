@@ -3,6 +3,7 @@ package com.example.api.service;
 import com.example.api.dto.LoginRequestDto;
 import com.example.api.dto.LoginResponseDto;
 import com.example.api.entity.User;
+import com.example.api.exception.LoginException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,8 +13,7 @@ import com.example.api.repository.UserRepository;
 import com.example.api.security.JwtUtil;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 /* ① テスト対象の実装クラスを指定 */
@@ -41,6 +41,8 @@ public class LoginServiceImplTest {
     public void まずは動くか確認() {
         System.out.println("ログインテストの部屋が立ち上がりました！");
     }
+
+    // 正常系
     @Test
     public void 正しいIDとパスワードでログインが成功すること() {
         // 1. 【準備】本番ロジックが必要とするデータ（ダミーのユーザー）を作る
@@ -75,4 +77,30 @@ public class LoginServiceImplTest {
         System.out.println("----------------------------------------");
         System.out.println("テスト成功！トークン: " + result.getToken().getAccessToken());
         System.out.println("----------------------------------------");
-    }}
+    }
+
+    // 異常系
+    @Test
+    public void 未登録ユーザでログインが失敗すること() {
+        // 1. 【準備】本番ロジックが必要とするデータ（ダミーのユーザー）を作る
+        // 未登録ユーザ を想定するのでダミーユーザは作成しない
+
+        // 【準備】logInメソッドが必要なデータ（ダミーのデータ）を用意し、DTOを作る
+        LoginRequestDto dummyRequestDto = new LoginRequestDto();
+        dummyRequestDto.setLoginId(TEST_LOGIN_ID);
+        dummyRequestDto.setPassword("raw_password");
+        dummyRequestDto.setExpiration(TEST_EXPIRATION);
+
+        // 2. MockitoBeanで作ったモックオブジェクトに組まれたメソッドに null をいれて実行させる
+        // 「DBから検索できない場合 null を返しなさい」と命令
+        when(userRepository.findByLoginId(TEST_LOGIN_ID)).thenReturn(null);
+
+        // 3. 【実行】完成した実験室で、本番のloginメソッドを外から呼び出す！
+        LoginException exception = assertThrows(LoginException.class, () -> {
+            loginService.login(dummyRequestDto);
+        });
+        // 4. 【検証】返り値が期待通りに null なっているかチェックする
+        assertEquals("LOGIN_FAILED", exception.getErrorCode());
+    }
+
+}
