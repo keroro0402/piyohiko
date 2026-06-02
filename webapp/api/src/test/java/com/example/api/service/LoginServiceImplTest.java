@@ -1,5 +1,6 @@
 package com.example.api.service;
 
+import com.example.api.dto.LoginRequestDto;
 import com.example.api.dto.LoginResponseDto;
 import com.example.api.entity.User;
 import org.junit.jupiter.api.Test;
@@ -49,6 +50,12 @@ public class LoginServiceImplTest {
         dummyUser.setPassword("hashed_password"); // DBに入っている（つもりの）ハッシュ化されたパスワード
         dummyUser.setRole(TEST_ROLE); // DBに入っている（つもりの）ロール
 
+        // 【準備】logInメソッドが必要なデータ（ダミーのデータ）を用意し、DTOを作る
+        LoginRequestDto dummyRequestDto = new LoginRequestDto();
+        dummyRequestDto.setLoginId(TEST_LOGIN_ID);
+        dummyRequestDto.setPassword("raw_password");
+        dummyRequestDto.setExpiration(TEST_EXPIRATION);
+
         // 2. MockitoBeanで作ったモックオブジェクトに組まれたメソッドに仮の引数をいれて実行させる
         // 「DBから検索されたら、1. で作った dummyUser を返しなさい」と命令
         when(userRepository.findByLoginId(TEST_LOGIN_ID)).thenReturn(dummyUser);
@@ -58,10 +65,10 @@ public class LoginServiceImplTest {
         when(jwtUtil.generateToken(TEST_LOGIN_ID, TEST_ROLE, TEST_EXPIRATION)).thenReturn(MOCKED_TOKEN);
 
         // 3. 【実行】完成した実験室で、本番のloginメソッドを外から呼び出す！
-        LoginResponseDto result = loginService.login(TEST_LOGIN_ID, "raw_password", TEST_EXPIRATION);
+        LoginResponseDto result = loginService.login(dummyRequestDto);
 
-        // 4. 【検証】返ってきたDtoの中身が、期待通りになっているかチェックする
-        assertNotNull(result); // ちゃんとDtoが返ってきていること
+        // 4. 【検証】返ってきたDTOの中身が、期待通りになっているかチェックする
+        assertNotNull(result); // ちゃんとDTOが返ってきていること
         assertEquals(MOCKED_TOKEN, result.getToken().getAccessToken()); // トークンが一致すること
         assertEquals(TEST_LOGIN_ID, result.getUser().getLoginId()); // ログインIDが一致すること
 
