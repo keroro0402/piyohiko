@@ -26,6 +26,15 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(401).body(apiErrorDto);
     }
 
+    // 新規登録("/register")：重複する ログインID でリクエストされた時の ExceptionHandler
+    @ExceptionHandler(DuplicateUserException.class)
+    public ResponseEntity<ApiErrorDto> handleRegisterException(DuplicateUserException e){
+        ApiErrorDto apiErrorDto = new ApiErrorDto();
+        apiErrorDto.setErrorCode(e.getErrorCode());
+        apiErrorDto.setMessage(List.of(e.getMessage()));
+        return ResponseEntity.status(409).body(apiErrorDto);
+    }
+
     // API のバリデーションに弾かれた時の ExceptionHandler
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiErrorDto> handleValidationException(MethodArgumentNotValidException e){
