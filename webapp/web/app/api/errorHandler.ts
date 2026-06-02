@@ -12,6 +12,8 @@ const errorHandler = (error: unknown): string => {
       return TEXT.ERROR.ERROR401;
     case STATES_CODE.FORBIDDEN:
       return TEXT.ERROR.ERROR403;
+    case STATES_CODE.CONFLICT:
+      return TEXT.ERROR.ERROR409;
     case STATES_CODE.INTERNAL_SERVER_ERROR:
       return TEXT.ERROR.ERROR500;
     case STATES_CODE.BAD_REQUEST:
