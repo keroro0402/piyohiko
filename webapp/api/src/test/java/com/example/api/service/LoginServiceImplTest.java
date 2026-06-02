@@ -66,7 +66,7 @@ public class LoginServiceImplTest {
         // 「トークン生成を頼まれたら、MOCKED_TOKEN（mocked_jwt_token という文字）を返しなさい」と命令
         when(jwtUtil.generateToken(TEST_LOGIN_ID, TEST_ROLE, TEST_EXPIRATION)).thenReturn(MOCKED_TOKEN);
 
-        // 3. 【実行】完成した実験室で、本番のloginメソッドを外から呼び出す！
+        // 3. 【実行】完成した実験室で、本番のloginメソッドを外から呼び出す
         LoginResponseDto result = loginService.login(dummyRequestDto);
 
         // 4. 【検証】返ってきたDTOの中身が、期待通りになっているかチェックする
@@ -99,6 +99,36 @@ public class LoginServiceImplTest {
         LoginException exception = assertThrows(LoginException.class, () -> {
             loginService.login(dummyRequestDto);
         });
+        // 4. 【検証】返り値が期待通りに null なっているかチェックする
+        assertEquals("LOGIN_FAILED", exception.getErrorCode());
+    }
+
+    @Test
+    public void ログインIDに紐づかないパスワードでログインが失敗すること() {
+        // 1. 【準備】本番ロジックが必要とするデータ（ダミーのユーザー）を作る
+        User dummyUser = new User();
+        dummyUser.setUserId(1); // DBに入っている（つもりの）ユーザID
+        dummyUser.setLoginId(TEST_LOGIN_ID); // DBに入っている（つもりの）ログインID
+        dummyUser.setPassword("hashed_password"); // DBに入っている（つもりの）ハッシュ化されたパスワード
+        dummyUser.setRole(TEST_ROLE); // DBに入っている（つもりの）ロール
+
+        // 【準備】logInメソッドが必要なデータ（ダミーのデータ）を用意し、DTOを作る
+        LoginRequestDto dummyRequestDto = new LoginRequestDto();
+        dummyRequestDto.setLoginId(TEST_LOGIN_ID);
+        dummyRequestDto.setPassword("raw_password");
+        dummyRequestDto.setExpiration(TEST_EXPIRATION);
+
+        // 2. MockitoBeanで作ったモックオブジェクトに組まれたメソッドに仮の引数をいれて実行させる
+        // 「DBから検索されたら、1. で作った dummyUser を返しなさい」と命令
+        when(userRepository.findByLoginId(TEST_LOGIN_ID)).thenReturn(dummyUser);
+        // 「パスワード照合されたら、一致しない（false）と返しなさい」と命令
+        when(passwordEncoder.matches("raw_password", "hashed_password")).thenReturn(false);
+
+        // 3. 【実行】完成した実験室で、本番のloginメソッドを外から呼び出す
+        LoginException exception = assertThrows(LoginException.class, () -> {
+            loginService.login(dummyRequestDto);
+        });
+
         // 4. 【検証】返り値が期待通りに null なっているかチェックする
         assertEquals("LOGIN_FAILED", exception.getErrorCode());
     }
