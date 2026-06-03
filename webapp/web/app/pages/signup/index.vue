@@ -26,6 +26,7 @@ import { useForm } from 'vee-validate';
 /* プロジェクト共通の仕組み（API、エラーハンドラー、汎用コンポーザブル） */
 import { signupNewUser } from '~/api/apiClient';
 import { errorHandler } from '~/api/errorHandler';
+import type { CustomAxiosError } from '~/types/customAxiosError';
 /* プロジェクト共通の定数（マスターデータ系） */
 import { PAGE_TITLES, LINKS } from '~/constants/pages';
 import { TEXT, SECURITY_SUBJECT } from '~/constants/text';
@@ -96,7 +97,7 @@ const onSubmit = handleSubmit(async (values) => {
       await navigateTo('/'); // TOPページへ遷移
     }
   } catch (error) {
-    showApiErrorToast(error);
+    showApiErrorToast(error as CustomAxiosError);
     signupFailed.value = errorHandler(error);
     return;
   }
