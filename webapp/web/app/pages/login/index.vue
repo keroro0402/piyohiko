@@ -19,7 +19,7 @@
           <NuxtLink :class="`${BLOCK_NAME}__forgot-link`" to="/">{{ TEXT.LOGIN.FORGOT_PASSWORD }}</NuxtLink>
         </div>
         <div :class="`${BLOCK_NAME}__switch-page`">
-          <NuxtLink :class="`${BLOCK_NAME}__switch-link`" :to="LINKS.TEXT.REGISTER">{{ TEXT.LOGIN.NEW_USER }}</NuxtLink>
+          <NuxtLink :class="`${BLOCK_NAME}__switch-link`" :to="LINKS.TEXT.SIGNUP">{{ TEXT.LOGIN.NEW_USER }}</NuxtLink>
         </div>
       </form>
     </section>

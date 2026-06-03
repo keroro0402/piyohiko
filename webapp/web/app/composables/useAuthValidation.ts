@@ -21,7 +21,7 @@ export const useAuthValidation = () => {
         .regex(/^[a-zA-Z0-9]+$/, { message: TEXT.FORM.ERROR_PASSWORD_ALPHANUMERIC }), // 形式チェック
     }),
   );
-  const registerSchema = toTypedSchema(
+  const signupSchema = toTypedSchema(
     z
       .object({
         loginId: z
@@ -50,7 +50,7 @@ export const useAuthValidation = () => {
       .refine(
         (data) => data.password === data.confirmPassword, //  // エラー判定の条件式
         {
-          message: TEXT.REGISTER.ERROR_PASSWORD_MISMATCH,
+          message: TEXT.SIGNUP.ERROR_PASSWORD_MISMATCH,
           path: ['confirmPassword'], // エラーをconfirmPasswordの欄に表示させる指定
         },
       ),
@@ -58,6 +58,6 @@ export const useAuthValidation = () => {
 
   return {
     loginSchema,
-    registerSchema,
+    signupSchema,
   };
 };

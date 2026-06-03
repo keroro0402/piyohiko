@@ -41,7 +41,7 @@ const { block, text, isFormValid } = defineProps<{
     margin-top: 1rem;
   }
 }
-.register-form {
+.signup-form {
   &__submit {
     width: 100%;
     padding: 0.75rem;

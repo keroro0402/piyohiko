@@ -13,7 +13,7 @@ const PATH = {
   TOP: '/',
   ABOUT: '/about',
   LOGIN: '/login',
-  REGISTER: '/register',
+  SIGNUP: '/signup',
 };
 
 export const LINKS = {
@@ -21,7 +21,7 @@ export const LINKS = {
     { key: 'home', label: TEXT.COMMON.HOME, to: PATH.TOP },
     { key: 'about', label: TEXT.COMMON.ABOUT, to: PATH.ABOUT },
     { key: 'login', label: TEXT.COMMON.LOGIN, to: PATH.LOGIN },
-    { key: 'register', label: TEXT.COMMON.REGISTER, to: PATH.REGISTER },
+    { key: 'signup', label: TEXT.COMMON.SIGNUP, to: PATH.SIGNUP },
   ] as const,
   TEXT: PATH,
 } as const;
@@ -37,5 +37,5 @@ export const PAGE_TITLES = {
   index: LINKS.NAVI[0].label,
   about: LINKS.NAVI[1].label,
   login: LINKS.NAVI[2].label,
-  register: LINKS.NAVI[3].label,
+  signup: LINKS.NAVI[3].label,
 } as const;

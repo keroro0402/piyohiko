@@ -20,20 +20,6 @@ public class RegisterController {
 
     private final RegisterService service;
 
-    private final SignUpService signUpService;
-    @PostMapping("/register")
-    public SignUpResponseDto registerNewUser(@RequestBody @Valid SignUpForm signUpForm) {
-        SignUpRequestDto signUpRequestDto = new SignUpRequestDto();
-        signUpRequestDto.setLoginId(signUpForm.getLoginId());
-        signUpRequestDto.setPassword(signUpForm.getPassword());
-        signUpRequestDto.setSecurityPhrase(signUpForm.getSecurityPhrase());
-        return signUpService.signUp(signUpRequestDto);
-    }
-
-
-
-
-
     @PostMapping("/show-review-form")
     public String showReviewForm(@ModelAttribute ReviewRegisterForm form){
         return "register-review";

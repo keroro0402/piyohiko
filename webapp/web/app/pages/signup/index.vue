@@ -1,18 +1,18 @@
 <template>
-  <main class="register-page">
-    <section class="register-page__content">
-      <h1 class="register-page__title">{{ TEXT.REGISTER.LABEL }}</h1>
-      <p v-if="registerFailed" class="error-message">
-        {{ registerFailed }}
+  <main class="signup-page">
+    <section class="signup-page__content">
+      <h1 class="signup-page__title">{{ TEXT.SIGNUP.LABEL }}</h1>
+      <p v-if="signupFailed" class="error-message">
+        {{ signupFailed }}
       </p>
       <form :class="BLOCK_NAME" @submit.prevent="onSubmit">
         <FormGroupInput :id="FIELD.LOGIN_ID" v-model="loginId" v-bind="loginIdProps" :errors="errors" :block="BLOCK_NAME" :text="TEXT.FORM.LOGINID" placeholder="test" autocomplete="username" required />
         <FormGroupInput :id="FIELD.PASSWORD" v-model="password" v-bind="passwordProps" :errors="errors" :block="BLOCK_NAME" :text="TEXT.FORM.PASSWORD" type="password" minlength="1" placeholder="test" required />
-        <FormGroupInput :id="FIELD.CONFIRM_PASSWORD" v-model="confirmPassword" v-bind="confirmPasswordProps" :errors="errors" :block="BLOCK_NAME" :text="TEXT.REGISTER.CONFIRM_PASSWORD_LABEL" type="password" minlength="1" placeholder="test" required />
+        <FormGroupInput :id="FIELD.CONFIRM_PASSWORD" v-model="confirmPassword" v-bind="confirmPasswordProps" :errors="errors" :block="BLOCK_NAME" :text="TEXT.SIGNUP.CONFIRM_PASSWORD_LABEL" type="password" minlength="1" placeholder="test" required />
         <FormGroupInput :id="FIELD.SECURITY_PHRASE" v-model="securityPhrase" v-bind="securityPhraseProps" :block="BLOCK_NAME" :text="SECURITY_SUBJECT" placeholder="test" />
-        <SubmitButton :block="BLOCK_NAME" :is-form-valid="isFormValid" :text="TEXT.REGISTER.LABEL" />
+        <SubmitButton :block="BLOCK_NAME" :is-form-valid="isFormValid" :text="TEXT.SIGNUP.LABEL" />
         <div :class="`${BLOCK_NAME}__switch-page`">
-          <NuxtLink :class="`${BLOCK_NAME}__switch-link`" :to="LINKS.TEXT.LOGIN">{{ TEXT.REGISTER.EXISTING_USER }}</NuxtLink>
+          <NuxtLink :class="`${BLOCK_NAME}__switch-link`" :to="LINKS.TEXT.LOGIN">{{ TEXT.SIGNUP.EXISTING_USER }}</NuxtLink>
         </div>
       </form>
     </section>
@@ -24,7 +24,7 @@
 import { ref } from 'vue';
 import { useForm } from 'vee-validate';
 /* プロジェクト共通の仕組み（API、エラーハンドラー、汎用コンポーザブル） */
-import { registerNewUser } from '~/api/apiClient';
+import { signupNewUser } from '~/api/apiClient';
 import { errorHandler } from '~/api/errorHandler';
 /* プロジェクト共通の定数（マスターデータ系） */
 import { PAGE_TITLES, LINKS } from '~/constants/pages';
@@ -45,7 +45,7 @@ useHead({
 });
 
 /* 当該ページ（新規登録画面）でのみ使用する定数（タイポ防止用） */
-const BLOCK_NAME = 'register-form';
+const BLOCK_NAME = 'signup-form';
 const FIELD = {
   LOGIN_ID: 'loginId',
   PASSWORD: 'password',
@@ -54,7 +54,7 @@ const FIELD = {
 };
 
 /* 外部データ・状態管理（Storeや共通コンポーザブルの呼び出し） */
-const { registerSchema } = useAuthValidation();
+const { signupSchema } = useAuthValidation();
 
 /* フォーム・バリデーション関連（VeeValidate）*/
 const {
@@ -63,7 +63,7 @@ const {
   handleSubmit, // 送信時にバリデーションを実行する門番関数
   meta, // フォーム全体の検証状態（エラーの有無など）を持つオブジェクト
 } = useForm({
-  validationSchema: registerSchema, // Zodで定義した検証ルール
+  validationSchema: signupSchema, // Zodで定義した検証ルール
   initialValues: {
     // 画面表示時の初期値（空文字で初期化）
     loginId: '',
@@ -81,20 +81,20 @@ const [password, passwordProps] = defineField('password');
 const [confirmPassword, confirmPasswordProps] = defineField('confirmPassword');
 const [securityPhrase, securityPhraseProps] = defineField('securityPhrase');
 /* 画面独自のリアクティブな状態（ref / computed） */
-const registerFailed = ref('');
+const signupFailed = ref('');
 const isFormValid = computed(() => meta.value.valid && meta.value.dirty); // VeeValidateの結果がvalidにbooleanで入る
 
 /* 送信などのアクション（関数・イベントハンドラー） */
 const onSubmit = handleSubmit(async (values) => {
-  registerFailed.value = '';
-  // register API呼び出し
+  signupFailed.value = '';
+  // signup API呼び出し
   try {
-    const response = await registerNewUser(values.loginId, values.password, values.securityPhrase ?? '');
+    const response = await signupNewUser(values.loginId, values.password, values.securityPhrase ?? '');
     if (response.data) {
       await navigateTo('/'); // TOPページへ遷移
     }
   } catch (error) {
-    registerFailed.value = errorHandler(error);
+    signupFailed.value = errorHandler(error);
     return;
   }
 });
@@ -104,10 +104,10 @@ const onSubmit = handleSubmit(async (values) => {
 @use '~/assets/styles/main.scss' as *;
 @use 'sass:color';
 
-.register-page {
+.signup-page {
   @include auth-page-layout($color-dark-green);
 }
-.register-form {
+.signup-form {
   &__switch-page {
     text-align: center;
     margin-top: 1rem;

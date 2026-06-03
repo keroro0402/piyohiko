@@ -13,9 +13,9 @@ const login = async (loginId: string, password: string, expiration: number) => {
   return apiClient.post('/login', { loginId, password, expiration });
 };
 
-const registerNewUser = async (loginId: string, password: string, securityPhrase: string) => {
+const signupNewUser = async (loginId: string, password: string, securityPhrase: string) => {
   const apiClient = getApiClient();
-  return apiClient.post('/register', { loginId, password, securityPhrase });
+  return apiClient.post('/signup', { loginId, password, securityPhrase });
 };
 
-export { login, registerNewUser };
+export { login, signupNewUser };

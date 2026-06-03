@@ -15,7 +15,7 @@ export const TEXT = {
     HOME: 'HOME',
     ABOUT: 'ABOUT',
     LOGIN: 'LOGIN',
-    REGISTER: 'REGISTER',
+    SIGNUP: 'SIGNUP',
     LOGOUT: 'LOGOUT',
     USERNAME: 'ユーザー名',
     GUEST: 'ゲスト',
@@ -40,7 +40,7 @@ export const TEXT = {
     FORGOT_PASSWORD: 'パスワードを忘れた方はこちら',
     NEW_USER: 'アカウントをお持ちでない方はこちら',
   },
-  REGISTER: {
+  SIGNUP: {
     LABEL: '新規登録',
     CONFIRM_PASSWORD_LABEL: 'パスワード（確認）',
     ERROR_REQUIRED_CONFIRM_PASSWORD: '確認用パスワードを入力してください',

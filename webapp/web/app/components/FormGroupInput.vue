@@ -50,7 +50,7 @@ const updateValue = (event: Event) => {
 <style lang="scss" scoped>
 @use '~/assets/styles/main.scss' as *;
 
-.register-form,
+.signup-form,
 .login-form {
   @include form-style;
 }
