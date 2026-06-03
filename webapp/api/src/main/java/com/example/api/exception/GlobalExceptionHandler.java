@@ -26,7 +26,7 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(401).body(apiErrorDto);
     }
 
-    // 新規登録("/register")：重複する ログインID でリクエストされた時の ExceptionHandler
+    // 新規登録("/signup")：重複する ログインID でリクエストされた時の ExceptionHandler
     @ExceptionHandler(DuplicateUserException.class)
     public ResponseEntity<ApiErrorDto> handleRegisterException(DuplicateUserException e){
         ApiErrorDto apiErrorDto = new ApiErrorDto();
@@ -58,7 +58,7 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(400).body(dto);
     }
 
-    /* Api 全体で発生した 500（サーバーエラー） のエラーハンドリング用メソッド */
+    /* API 全体で発生した 500（サーバーエラー） のエラーハンドリング用メソッド */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiErrorDto> handleAllException(Exception e, HttpServletRequest request) {
         ApiErrorDto apiErrorDto = new ApiErrorDto();
