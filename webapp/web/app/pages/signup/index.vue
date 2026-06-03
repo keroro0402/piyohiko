@@ -55,6 +55,7 @@ const FIELD = {
 
 /* 外部データ・状態管理（Storeや共通コンポーザブルの呼び出し） */
 const { signupSchema } = useAuthValidation();
+const { showSuccessToast, showApiErrorToast } = useToast();
 
 /* フォーム・バリデーション関連（VeeValidate）*/
 const {
@@ -90,10 +91,12 @@ const onSubmit = handleSubmit(async (values) => {
   // signup API呼び出し
   try {
     const response = await signupNewUser(values.loginId, values.password, values.securityPhrase ?? '');
+    showSuccessToast(TEXT.SIGNUP.SUCCESS_SIGNUP);
     if (response.data) {
       await navigateTo('/'); // TOPページへ遷移
     }
   } catch (error) {
+    showApiErrorToast(error);
     signupFailed.value = errorHandler(error);
     return;
   }
