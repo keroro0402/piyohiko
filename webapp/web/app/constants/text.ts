@@ -46,6 +46,7 @@ export const TEXT = {
     ERROR_REQUIRED_CONFIRM_PASSWORD: '確認用パスワードを入力してください',
     ERROR_PASSWORD_MISMATCH: 'パスワードが一致しません',
     EXISTING_USER: 'すでにアカウントをお持ちの方はこちら',
+    SUCCESS_SIGNUP: '新規ユーザ登録が完了しました',
   },
   ERROR: {
     ERROR400: 'リクエストを処理できませんでした。入力内容が正しいかご確認ください。',
