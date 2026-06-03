@@ -1,6 +1,7 @@
 package com.example.api.controller;
 
-import com.example.api.dto.SignUpDto;
+import com.example.api.dto.SignUpRequestDto;
+import com.example.api.dto.SignUpResponseDto;
 import com.example.api.entity.Review;
 import com.example.api.form.ReviewRegisterForm;
 import com.example.api.form.SignUpForm;
@@ -21,12 +22,12 @@ public class RegisterController {
 
     private final SignUpService signUpService;
     @PostMapping("/register")
-    public void registerNewUser(@RequestBody @Valid SignUpForm signUpForm) {
-        SignUpDto signUpDto = new SignUpDto();
-        signUpDto.setLoginId(signUpForm.getLoginId());
-        signUpDto.setPassword(signUpForm.getPassword());
-        signUpDto.setSecurityPhrase(signUpForm.getSecurityPhrase());
-        signUpService.signUp(signUpDto);
+    public SignUpResponseDto registerNewUser(@RequestBody @Valid SignUpForm signUpForm) {
+        SignUpRequestDto signUpRequestDto = new SignUpRequestDto();
+        signUpRequestDto.setLoginId(signUpForm.getLoginId());
+        signUpRequestDto.setPassword(signUpForm.getPassword());
+        signUpRequestDto.setSecurityPhrase(signUpForm.getSecurityPhrase());
+        return signUpService.signUp(signUpRequestDto);
     }
 
 

@@ -1,7 +1,8 @@
 package com.example.api.service;
 
-import com.example.api.dto.SignUpDto;
+import com.example.api.dto.SignUpRequestDto;
+import com.example.api.dto.SignUpResponseDto;
 
 public interface SignUpService {
-    void signUp(SignUpDto signUpDto);
+    SignUpResponseDto signUp(SignUpRequestDto signUpRequestDto);
 }
