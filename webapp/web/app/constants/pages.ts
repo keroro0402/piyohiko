@@ -8,6 +8,7 @@ import { TEXT } from './text';
  * - LINKS.NAVI の key は一意、label はリンクの表示テキスト、to は遷移先のルート
  * - LINKS.NAVI の key の value は複数単語の場合は キャメルケース で指定
  * - to は pages に存在するルートのみ
+ * - PATH[key]、LINKS.NAVI[].key、PAGE_TITLES[key] は 一致させること（例: PATH.TOP, LINKS.NAVI[0].key, PAGE_TITLES.index）
  */
 
 const PATH = {
@@ -33,7 +34,10 @@ export const LINKS = {
  * ページごとのタイトルマッピング
  *
  * @rules
- * - key = links.navi 配列の key 名（homeのみindexとする）
+ * - key = LINKS.NAVI 配列の key 名（Nuxtの route.name と一致させる。homeのみ index とする例外あり）
+ * - 各定数の紐づき = URL、LINKS.NAVIのkey、PAGE_TITLESのkey を揃えること
+ * （例: '/about' に対して about / about）
+ * （例: '/password-reset' に対して 'password-reset' / 'password-reset'）
  * - 並び順 = links.navi 配列の要素順
  */
 export const PAGE_TITLES = {
