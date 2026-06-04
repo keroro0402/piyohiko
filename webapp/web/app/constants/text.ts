@@ -17,6 +17,7 @@ export const TEXT = {
     ABOUT: 'ABOUT',
     LOGIN: 'LOGIN',
     SIGNUP: 'SIGNUP',
+    PASSWORD_RESET: 'PASSWORD_RESET',
     LOGOUT: 'LOGOUT',
     USERNAME: 'ユーザー名',
     GUEST: 'ゲスト',

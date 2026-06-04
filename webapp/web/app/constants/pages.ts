@@ -41,5 +41,5 @@ export const PAGE_TITLES = {
   about: LINKS.NAVI[1].label,
   login: LINKS.NAVI[2].label,
   signup: LINKS.NAVI[3].label,
-  password_reset: LINKS.NAVI[3].label,
+  password_reset: LINKS.NAVI[4].label,
 } as const;
