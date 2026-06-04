@@ -18,4 +18,9 @@ const signupNewUser = async (loginId: string, password: string, securityPhrase: 
   return apiClient.post('/signup', { loginId, password, securityPhrase });
 };
 
-export { login, signupNewUser };
+const passwordReset = async (loginId: string) => {
+  const apiClient = getApiClient();
+  return apiClient.post('/password-reset', { loginId });
+};
+
+export { login, signupNewUser, passwordReset };
