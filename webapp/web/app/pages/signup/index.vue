@@ -30,6 +30,7 @@ import type { CustomAxiosError } from '~/types/customAxiosError';
 /* プロジェクト共通の定数（マスターデータ系） */
 import { PAGE_TITLES, LINKS } from '~/constants/pages';
 import { TEXT, SECURITY_SUBJECT } from '~/constants/text';
+import { TIME } from '~/constants/number';
 /* 子コンポーネント（画面を構成する部品） */
 import FormGroupInput from '~/components/FormGroupInput.vue';
 import SubmitButton from '~/components/SubmitButton.vue';
@@ -92,9 +93,10 @@ const onSubmit = handleSubmit(async (values) => {
   // signup API呼び出し
   try {
     const response = await signupNewUser(values.loginId, values.password, values.securityPhrase ?? '');
-    showSuccessToast(TEXT.SIGNUP.SUCCESS_SIGNUP);
+    showSuccessToast(TEXT.SIGNUP.SUCCESS_SIGNUP); // トーストで通知
     if (response.data) {
-      await navigateTo('/'); // TOPページへ遷移
+      await sleep(TIME.SLEEP); // ページ遷移を少し待つ
+      await navigateTo('/login'); // ログインページへ遷移
     }
   } catch (error) {
     showApiErrorToast(error as CustomAxiosError);
