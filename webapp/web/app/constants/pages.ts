@@ -25,7 +25,7 @@ export const LINKS = {
     { key: 'about', label: TEXT.COMMON.ABOUT, to: PATH.ABOUT },
     { key: 'login', label: TEXT.COMMON.LOGIN, to: PATH.LOGIN },
     { key: 'signup', label: TEXT.COMMON.SIGNUP, to: PATH.SIGNUP },
-    { key: 'passwordReset', label: TEXT.COMMON.PASSWORD_RESET, to: PATH.PASSWORD_RESET },
+    { key: 'password-reset', label: TEXT.COMMON.PASSWORD_RESET, to: PATH.PASSWORD_RESET },
   ] as const,
   TEXT: PATH,
 } as const;
@@ -45,5 +45,5 @@ export const PAGE_TITLES = {
   about: LINKS.NAVI[1].label,
   login: LINKS.NAVI[2].label,
   signup: LINKS.NAVI[3].label,
-  password_reset: LINKS.NAVI[4].label,
+  'password-reset': LINKS.NAVI[4].label,
 } as const;
