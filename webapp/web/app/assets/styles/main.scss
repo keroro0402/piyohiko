@@ -9,6 +9,7 @@ $color-dark-green: rgb(17, 35, 9);
 $color-light-gray: rgb(236, 236, 236, 1);
 $color-dark-gray: rgb(52, 52, 52, 1);
 $color-light-red: rgb(255, 0, 0, 1);
+$color-light-purple: rgb(70, 74, 143);
 
 main {
   padding: 2rem;
@@ -57,7 +58,12 @@ main {
 
 /* トースト */
 .pre-line-toast {
-  white-space: pre-line; // 文字が長いので改行
+  white-space: pre-line; // 文字が長い場合は\nで改行
+}
+
+/* 説明文 */
+.description {
+  white-space: pre-line; // 文字が長い場合は\nで改行
 }
 
 /* フォーム共通スタイル */
