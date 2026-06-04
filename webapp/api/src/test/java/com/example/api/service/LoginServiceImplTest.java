@@ -99,7 +99,8 @@ public class LoginServiceImplTest {
         LoginException exception = assertThrows(LoginException.class, () -> {
             loginService.login(dummyRequestDto);
         });
-        // 4. 【検証】返り値が期待通りに null なっているかチェックする
+        // 4. 【検証】エラーの中身（エラーコード）が「LOGIN_FAILED」と一致することを確認する
+        // ※ JUnitの仕様上、画面に「LOGIN_FAILED」が出るわけではないが、テストが落ちることなく終了できてるかを確認する
         assertEquals("LOGIN_FAILED", exception.getErrorCode());
     }
 
@@ -129,7 +130,8 @@ public class LoginServiceImplTest {
             loginService.login(dummyRequestDto);
         });
 
-        // 4. 【検証】返り値が期待通りに null なっているかチェックする
+        // 4. 【検証】エラーの中身（エラーコード）が「LOGIN_FAILED」と一致することを確認する
+        // ※ JUnitの仕様上、画面に「LOGIN_FAILED」が出るわけではないが、テストが落ちることなく終了できてるかを確認する
         assertEquals("LOGIN_FAILED", exception.getErrorCode());
     }
 
