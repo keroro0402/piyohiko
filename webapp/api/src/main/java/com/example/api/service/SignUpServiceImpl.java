@@ -23,7 +23,7 @@ public class SignUpServiceImpl implements SignUpService{
         User registeredUser = userRepository.findByLoginId(signUpRequestDto.getLoginId());
         // 重複するログインID がリクエストされたなら GlobalExceptionHandler の handleRegisterException に入る
         if(registeredUser != null){
-            throw new DuplicateUserException("REGISTER_FAILED", "登録済みのログインIDでリクエストされました");
+            throw new DuplicateUserException("SIGNUP_FAILED", "登録済みのログインIDでリクエストされました");
         }
 
         String securityPhrase = signUpRequestDto.getSecurityPhrase();
