@@ -37,7 +37,7 @@ export const LINKS = {
  * - 並び順 = links.navi 配列の要素順
  */
 export const PAGE_TITLES = {
-  index: LINKS.NAVI[0].label,
+  index: LINKS.NAVI[0].label, // TOPページのroute.nameが index になるので TOP のキーは index
   about: LINKS.NAVI[1].label,
   login: LINKS.NAVI[2].label,
   signup: LINKS.NAVI[3].label,
