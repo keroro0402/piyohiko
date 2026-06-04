@@ -9,6 +9,7 @@ export const useToast = () => {
     toast.success(message, {
       timeout: false,
       closeOnClick: true,
+      bodyClassName: 'pre-line-toast',
     });
   };
 
@@ -19,16 +20,19 @@ export const useToast = () => {
       toast.error(errorMessage || TEXT.ERROR.ERROR400, {
         timeout: false,
         closeOnClick: true,
+        bodyClassName: 'pre-line-toast',
       });
     } else if (statusCode === STATES_CODE.CONFLICT) {
       toast.error(errorMessage || TEXT.ERROR.ERROR409, {
         timeout: false,
         closeOnClick: true,
+        bodyClassName: 'pre-line-toast',
       });
     } else {
       toast.error(TEXT.ERROR.ERROR500, {
         timeout: false,
         closeOnClick: true,
+        bodyClassName: 'pre-line-toast',
       });
     }
   };
