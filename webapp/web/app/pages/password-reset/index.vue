@@ -1,15 +1,12 @@
 <template>
-  <main class="signup-page">
-    <section class="signup-page__content">
-      <h1 class="signup-page__title">{{ TEXT.SIGNUP.LABEL }}</h1>
-      <p v-if="signupFailed" class="error-message">
-        {{ signupFailed }}
+  <main class="password-reset-page">
+    <section class="password-reset-page__content">
+      <h1 class="password-reset-page__title">{{ TEXT.PASSWORD_RESET.TITLE }}</h1>
+      <p v-if="passwordResetFailed" class="error-message">
+        {{ passwordResetFailed }}
       </p>
       <form :class="BLOCK_NAME" @submit.prevent="onSubmit">
         <FormGroupInput :id="FIELD.LOGIN_ID" v-model="loginId" v-bind="loginIdProps" :errors="errors" :block="BLOCK_NAME" :text="TEXT.FORM.LOGINID" placeholder="test" autocomplete="username" required />
-        <FormGroupInput :id="FIELD.PASSWORD" v-model="password" v-bind="passwordProps" :errors="errors" :block="BLOCK_NAME" :text="TEXT.FORM.PASSWORD" type="password" minlength="1" placeholder="test" required />
-        <FormGroupInput :id="FIELD.CONFIRM_PASSWORD" v-model="confirmPassword" v-bind="confirmPasswordProps" :errors="errors" :block="BLOCK_NAME" :text="TEXT.SIGNUP.CONFIRM_PASSWORD_LABEL" type="password" minlength="1" placeholder="test" required />
-        <FormGroupInput :id="FIELD.SECURITY_PHRASE" v-model="securityPhrase" v-bind="securityPhraseProps" :block="BLOCK_NAME" :text="SECURITY_SUBJECT" placeholder="test" />
         <SubmitButton :block="BLOCK_NAME" :is-form-valid="isFormValid" :text="TEXT.SIGNUP.LABEL" />
         <div :class="`${BLOCK_NAME}__switch-page`">
           <NuxtLink :class="`${BLOCK_NAME}__switch-link`" :to="LINKS.TEXT.LOGIN">{{ TEXT.SIGNUP.EXISTING_USER }}</NuxtLink>
@@ -29,7 +26,7 @@ import { errorHandler } from '~/api/errorHandler';
 import type { CustomAxiosError } from '~/types/customAxiosError';
 /* プロジェクト共通の定数（マスターデータ系） */
 import { PAGE_TITLES, LINKS } from '~/constants/pages';
-import { TEXT, SECURITY_SUBJECT } from '~/constants/text';
+import { TEXT } from '~/constants/text';
 import { TIME } from '~/constants/number';
 /* 子コンポーネント（画面を構成する部品） */
 import FormGroupInput from '~/components/FormGroupInput.vue';
@@ -41,7 +38,9 @@ definePageMeta({
   middleware: 'guest',
 });
 const route = useRoute();
+console.log('route', route);
 const pageKey = route.name?.toString() || '';
+console.log('pageKey', pageKey);
 useHead({
   title: PAGE_TITLES[pageKey as keyof typeof PAGE_TITLES] ?? '',
 });
@@ -80,16 +79,13 @@ const [
   loginId, // v-modelで双方バインディグされた値
   loginIdProps, // 入力欄が動くために必要な「裏方のイベント設定」が入ったオブジェクト
 ] = defineField('loginId');
-const [password, passwordProps] = defineField('password');
-const [confirmPassword, confirmPasswordProps] = defineField('confirmPassword');
-const [securityPhrase, securityPhraseProps] = defineField('securityPhrase');
 /* 画面独自のリアクティブな状態（ref / computed） */
-const signupFailed = ref('');
+const passwordResetFailed = ref('');
 const isFormValid = computed(() => meta.value.valid && meta.value.dirty); // VeeValidateの結果がvalidにbooleanで入る
 
 /* 送信などのアクション（関数・イベントハンドラー） */
 const onSubmit = handleSubmit(async (values) => {
-  signupFailed.value = '';
+  passwordResetFailed.value = '';
   // signup API呼び出し
   try {
     const response = await signupNewUser(values.loginId, values.password, values.securityPhrase ?? '');
@@ -100,7 +96,7 @@ const onSubmit = handleSubmit(async (values) => {
     }
   } catch (error) {
     showApiErrorToast(error as CustomAxiosError);
-    signupFailed.value = errorHandler(error);
+    passwordResetFailed.value = errorHandler(error);
     return;
   }
 });
@@ -110,10 +106,10 @@ const onSubmit = handleSubmit(async (values) => {
 @use '~/assets/styles/main.scss' as *;
 @use 'sass:color';
 
-.signup-page {
+.password-reset-page {
   @include auth-page-layout($color-dark-green);
 }
-.signup-form {
+.password-reset-form {
   &__switch-page {
     text-align: center;
     margin-top: 1rem;
