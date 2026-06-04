@@ -1,13 +1,16 @@
 <template>
   <main class="password-reset-page">
     <section class="password-reset-page__content">
-      <h1 class="password-reset-page__title">{{ TEXT.PASSWORD_RESET.TITLE }}</h1>
+      <h1 class="password-reset-page__title">{{ TEXT.PASSWORD_RESET.LABEL }}</h1>
       <p v-if="passwordResetFailed" class="error-message">
         {{ passwordResetFailed }}
       </p>
+      <p class="description">
+        {{ TEXT.PASSWORD_RESET.DESCRIPTION }}
+      </p>
       <form :class="BLOCK_NAME" @submit.prevent="onSubmit">
-        <FormGroupInput :id="FIELD.LOGIN_ID" v-model="loginId" v-bind="loginIdProps" :errors="errors" :block="BLOCK_NAME" :text="TEXT.FORM.LOGINID" placeholder="test" autocomplete="username" required />
-        <SubmitButton :block="BLOCK_NAME" :is-form-valid="isFormValid" :text="TEXT.SIGNUP.LABEL" />
+        <FormGroupInput :id="FIELD.LOGIN_ID" v-model="loginId" v-bind="loginIdProps" :errors="errors" :block="BLOCK_NAME" :text="TEXT.PASSWORD_RESET.EMAIL_LABEL" :placeholder="TEXT.PASSWORD_RESET.EMAIL_PLACEHOLDER" autocomplete="username" required />
+        <SubmitButton :block="BLOCK_NAME" :is-form-valid="isFormValid" :text="TEXT.PASSWORD_RESET.BUTTON_SEND" />
         <div :class="`${BLOCK_NAME}__switch-page`">
           <NuxtLink :class="`${BLOCK_NAME}__switch-link`" :to="LINKS.TEXT.LOGIN">{{ TEXT.SIGNUP.EXISTING_USER }}</NuxtLink>
         </div>
@@ -21,7 +24,7 @@
 import { ref } from 'vue';
 import { useForm } from 'vee-validate';
 /* プロジェクト共通の仕組み（API、エラーハンドラー、汎用コンポーザブル） */
-import { signupNewUser } from '~/api/apiClient';
+import { passwordReset } from '~/api/apiClient';
 import { errorHandler } from '~/api/errorHandler';
 import type { CustomAxiosError } from '~/types/customAxiosError';
 /* プロジェクト共通の定数（マスターデータ系） */
@@ -46,12 +49,9 @@ useHead({
 });
 
 /* 当該ページ（新規登録画面）でのみ使用する定数（タイポ防止用） */
-const BLOCK_NAME = 'signup-form';
+const BLOCK_NAME = 'password-reset-form';
 const FIELD = {
   LOGIN_ID: 'loginId',
-  PASSWORD: 'password',
-  SECURITY_PHRASE: 'securityPhrase',
-  CONFIRM_PASSWORD: 'confirmPassword',
 };
 
 /* 外部データ・状態管理（Storeや共通コンポーザブルの呼び出し） */
@@ -69,9 +69,6 @@ const {
   initialValues: {
     // 画面表示時の初期値（空文字で初期化）
     loginId: '',
-    password: '',
-    confirmPassword: '',
-    securityPhrase: '',
   },
 });
 const [
@@ -86,10 +83,10 @@ const isFormValid = computed(() => meta.value.valid && meta.value.dirty); // Vee
 /* 送信などのアクション（関数・イベントハンドラー） */
 const onSubmit = handleSubmit(async (values) => {
   passwordResetFailed.value = '';
-  // signup API呼び出し
+  // passwordReset API呼び出し
   try {
-    const response = await signupNewUser(values.loginId, values.password, values.securityPhrase ?? '');
-    showSuccessToast(TEXT.SIGNUP.SUCCESS_SIGNUP); // トーストで通知
+    const response = await passwordReset(values.loginId);
+    showSuccessToast(TEXT.PASSWORD_RESET.SEND_SUCCESS); // トーストで通知
     if (response.data) {
       await sleep(TIME.SLEEP); // ページ遷移を少し待つ
       await navigateTo('/login'); // ログインページへ遷移
@@ -107,7 +104,7 @@ const onSubmit = handleSubmit(async (values) => {
 @use 'sass:color';
 
 .password-reset-page {
-  @include auth-page-layout($color-dark-green);
+  @include auth-page-layout($color-light-purple);
 }
 .password-reset-form {
   &__switch-page {
