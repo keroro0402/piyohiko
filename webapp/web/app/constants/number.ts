@@ -14,6 +14,10 @@ export const FORM_RULES = {
     MIN: 8,
     MAX: 64,
   },
+  EMAIL: {
+    MIN: 1,
+    MAX: 256,
+  },
 } as const;
 
 export const TIME = {
