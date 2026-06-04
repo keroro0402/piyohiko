@@ -15,3 +15,7 @@ export const FORM_RULES = {
     MAX: 64,
   },
 } as const;
+
+export const TIME = {
+  SLEEP: 2000,
+} as const;
