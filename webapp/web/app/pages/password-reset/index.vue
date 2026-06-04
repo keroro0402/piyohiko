@@ -9,7 +9,7 @@
         {{ TEXT.PASSWORD_RESET.DESCRIPTION }}
       </p>
       <form :class="BLOCK_NAME" @submit.prevent="onSubmit">
-        <FormGroupInput :id="FIELD.LOGIN_ID" v-model="loginId" v-bind="loginIdProps" :errors="errors" :block="BLOCK_NAME" :text="TEXT.PASSWORD_RESET.EMAIL_LABEL" :placeholder="TEXT.PASSWORD_RESET.EMAIL_PLACEHOLDER" autocomplete="username" required />
+        <FormGroupInput :id="FIELD.EMAIL" v-model="email" v-bind="emailProps" :errors="errors" :block="BLOCK_NAME" :text="TEXT.PASSWORD_RESET.EMAIL_LABEL" :placeholder="TEXT.PASSWORD_RESET.EMAIL_PLACEHOLDER" autocomplete="username" required />
         <SubmitButton :block="BLOCK_NAME" :is-form-valid="isFormValid" :text="TEXT.PASSWORD_RESET.BUTTON_SEND" />
         <div :class="`${BLOCK_NAME}__switch-page`">
           <NuxtLink :class="`${BLOCK_NAME}__switch-link`" :to="LINKS.TEXT.LOGIN">{{ TEXT.SIGNUP.EXISTING_USER }}</NuxtLink>
@@ -51,11 +51,11 @@ useHead({
 /* 当該ページ（新規登録画面）でのみ使用する定数（タイポ防止用） */
 const BLOCK_NAME = 'password-reset-form';
 const FIELD = {
-  LOGIN_ID: 'loginId',
+  EMAIL: 'email',
 };
 
 /* 外部データ・状態管理（Storeや共通コンポーザブルの呼び出し） */
-const { signupSchema } = useAuthValidation();
+const { passwordResetSchema } = useAuthValidation();
 const { showSuccessToast, showApiErrorToast } = useToast();
 
 /* フォーム・バリデーション関連（VeeValidate）*/
@@ -65,17 +65,17 @@ const {
   handleSubmit, // 送信時にバリデーションを実行する門番関数
   meta, // フォーム全体の検証状態（エラーの有無など）を持つオブジェクト
 } = useForm({
-  validationSchema: signupSchema, // Zodで定義した検証ルール
+  validationSchema: passwordResetSchema, // Zodで定義した検証ルール
   initialValues: {
     // 画面表示時の初期値（空文字で初期化）
-    loginId: '',
+    email: '',
   },
 });
 const [
-  // loginId用のVeeValidate処理一式を定義（値と裏方のイベント設定を取得）
-  loginId, // v-modelで双方バインディグされた値
-  loginIdProps, // 入力欄が動くために必要な「裏方のイベント設定」が入ったオブジェクト
-] = defineField('loginId');
+  // email用のVeeValidate処理一式を定義（値と裏方のイベント設定を取得）
+  email, // v-modelで双方バインディグされた値
+  emailProps, // 入力欄が動くために必要な「裏方のイベント設定」が入ったオブジェクト
+] = defineField('email');
 /* 画面独自のリアクティブな状態（ref / computed） */
 const passwordResetFailed = ref('');
 const isFormValid = computed(() => meta.value.valid && meta.value.dirty); // VeeValidateの結果がvalidにbooleanで入る
@@ -85,7 +85,7 @@ const onSubmit = handleSubmit(async (values) => {
   passwordResetFailed.value = '';
   // passwordReset API呼び出し
   try {
-    const response = await passwordReset(values.loginId);
+    const response = await passwordReset(values.email as string);
     showSuccessToast(TEXT.PASSWORD_RESET.SEND_SUCCESS); // トーストで通知
     if (response.data) {
       await sleep(TIME.SLEEP); // ページ遷移を少し待つ
