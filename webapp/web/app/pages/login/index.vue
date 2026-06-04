@@ -16,7 +16,7 @@
         </div>
         <SubmitButton :block="BLOCK_NAME" :is-form-valid="isFormValid" :text="TEXT.LOGIN.LABEL" />
         <div :class="`${BLOCK_NAME}__forgot-password`">
-          <NuxtLink :class="`${BLOCK_NAME}__forgot-link`" to="/">{{ TEXT.LOGIN.FORGOT_PASSWORD }}</NuxtLink>
+          <NuxtLink :class="`${BLOCK_NAME}__forgot-link`" :to="LINKS.TEXT.PASSWORD_RESET">{{ TEXT.LOGIN.FORGOT_PASSWORD }}</NuxtLink>
         </div>
         <div :class="`${BLOCK_NAME}__switch-page`">
           <NuxtLink :class="`${BLOCK_NAME}__switch-link`" :to="LINKS.TEXT.SIGNUP">{{ TEXT.LOGIN.NEW_USER }}</NuxtLink>
