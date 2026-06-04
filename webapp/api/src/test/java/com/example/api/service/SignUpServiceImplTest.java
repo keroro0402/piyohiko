@@ -130,62 +130,8 @@ public class SignUpServiceImplTest {
             signUpService.signUp(dummySignUpRequestDto);
         });
 
-        // 4. 【検証】返り値が期待通りに null なっているかチェックする
+        // 4. 【検証】エラーの中身（エラーコード）が「SIGNUP_FAILED」と一致することを確認する
+        // ※ JUnitの仕様上、画面に「SIGNUP_FAILED」が出るわけではないが、テストが落ちることなく終了できてるかを確認する
          assertEquals("SIGNUP_FAILED", exception.getErrorCode());
     }
-
-//    // 異常系
-//    @Test
-//    public void 未登録ユーザでログインが失敗すること() {
-//        // 1. 【準備】本番ロジックが必要とするデータ（ダミーのユーザー）を作る
-//        // 未登録ユーザ を想定するのでダミーユーザは作成しない
-//
-//        // 【準備】logInメソッドが必要なデータ（ダミーのデータ）を用意し、DTOを作る
-//        LoginRequestDto dummyRequestDto = new LoginRequestDto();
-//        dummyRequestDto.setLoginId(TEST_LOGIN_ID);
-//        dummyRequestDto.setPassword("raw_password");
-//        dummyRequestDto.setExpiration(TEST_EXPIRATION);
-//
-//        // 2. MockitoBeanで作ったモックオブジェクトに組まれたメソッドに null をいれて実行させる
-//        // 「DBから検索できない場合 null を返しなさい」と命令
-//        when(userRepository.findByLoginId(TEST_LOGIN_ID)).thenReturn(null);
-//
-//        // 3. 【実行】完成した実験室で、本番のloginメソッドを外から呼び出す！
-//        LoginException exception = assertThrows(LoginException.class, () -> {
-//            loginService.login(dummyRequestDto);
-//        });
-//        // 4. 【検証】返り値が期待通りに null なっているかチェックする
-//        assertEquals("LOGIN_FAILED", exception.getErrorCode());
-//    }
-//
-//    @Test
-//    public void ログインIDに紐づかないパスワードでログインが失敗すること() {
-//        // 1. 【準備】本番ロジックが必要とするデータ（ダミーのユーザー）を作る
-//        User dummyUser = new User();
-//        dummyUser.setUserId(1); // DBに入っている（つもりの）ユーザID
-//        dummyUser.setLoginId(TEST_LOGIN_ID); // DBに入っている（つもりの）ログインID
-//        dummyUser.setPassword("hashed_password"); // DBに入っている（つもりの）ハッシュ化されたパスワード
-//        dummyUser.setRole(TEST_ROLE); // DBに入っている（つもりの）ロール
-//
-//        // 【準備】logInメソッドが必要なデータ（ダミーのデータ）を用意し、DTOを作る
-//        LoginRequestDto dummyRequestDto = new LoginRequestDto();
-//        dummyRequestDto.setLoginId(TEST_LOGIN_ID);
-//        dummyRequestDto.setPassword("raw_password");
-//        dummyRequestDto.setExpiration(TEST_EXPIRATION);
-//
-//        // 2. MockitoBeanで作ったモックオブジェクトに組まれたメソッドに仮の引数をいれて実行させる
-//        // 「DBから検索されたら、1. で作った dummyUser を返しなさい」と命令
-//        when(userRepository.findByLoginId(TEST_LOGIN_ID)).thenReturn(dummyUser);
-//        // 「パスワード照合されたら、一致しない（false）と返しなさい」と命令
-//        when(passwordEncoder.matches("raw_password", "hashed_password")).thenReturn(false);
-//
-//        // 3. 【実行】完成した実験室で、本番のloginメソッドを外から呼び出す
-//        LoginException exception = assertThrows(LoginException.class, () -> {
-//            loginService.login(dummyRequestDto);
-//        });
-//
-//        // 4. 【検証】返り値が期待通りに null なっているかチェックする
-//        assertEquals("LOGIN_FAILED", exception.getErrorCode());
-//    }
-
 }
