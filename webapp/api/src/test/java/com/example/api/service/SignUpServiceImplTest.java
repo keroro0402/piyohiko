@@ -1,8 +1,10 @@
 package com.example.api.service;
 
+import com.example.api.dto.LoginResponseDto;
 import com.example.api.dto.SignUpRequestDto;
 import com.example.api.dto.SignUpResponseDto;
 import com.example.api.entity.User;
+import com.example.api.exception.DuplicateUserException;
 import com.example.api.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -109,6 +111,28 @@ public class SignUpServiceImplTest {
         System.out.println("----------------------------------------");
     }
 
+    // 異常系
+    @Test
+    public void 重複データでリクエストが来たら登録を失敗すること(){
+        // 1. 【準備】本番で入力されるデータのスタブを作成（ログインIDのみで他は不要）
+        User user = new User();
+        user.setLoginId("testuser");
+        // 【準備】signUpメソッドが必要なデータ（ダミーのデータ）を用意し、DTOを作る
+        SignUpRequestDto dummySignUpRequestDto = new SignUpRequestDto();
+        dummySignUpRequestDto.setLoginId("testuser");
+
+        // 2. MockitoBeanで作ったモックオブジェクトに組まれたメソッドに user をいれて実行させる
+        // 「DBから検索できたら場合 user を返しなさい」と命令
+        when(userRepository.findByLoginId(user.getLoginId())).thenReturn(user);
+
+        // 3. 【実行】完成した実験室で、本番のsignUpメソッドを外から呼び出す
+        DuplicateUserException exception = assertThrows(DuplicateUserException.class, () -> {
+            signUpService.signUp(dummySignUpRequestDto);
+        });
+
+        // 4. 【検証】返り値が期待通りに null なっているかチェックする
+         assertEquals("SIGNUP_FAILED", exception.getErrorCode());
+    }
 
 //    // 異常系
 //    @Test
