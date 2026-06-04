@@ -17,7 +17,7 @@ import java.util.List;
 public class GlobalExceptionHandler {
 /* @ExceptionHandler：引数のクラスでエラーが起きたら後述のメソッドで対応する */
 
-    // ログイン("/login")：未登録の ログインID と PW でリクエストした時の ExceptionHandler
+    // DB未登録データでリクエストした時の ExceptionHandler（使用API例：ログイン("/login")）
     @ExceptionHandler(LoginException.class)
     public ResponseEntity<ApiErrorDto> handleLoginException(LoginException e){
         ApiErrorDto apiErrorDto = new ApiErrorDto();
@@ -26,7 +26,7 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(401).body(apiErrorDto);
     }
 
-    // 新規登録("/signup")：重複する ログインID でリクエストされた時の ExceptionHandler
+    // DB登録済みの重複するデータでリクエストされた時の ExceptionHandler（使用API例：新規登録("/signup")）
     @ExceptionHandler(DuplicateUserException.class)
     public ResponseEntity<ApiErrorDto> handleRegisterException(DuplicateUserException e){
         ApiErrorDto apiErrorDto = new ApiErrorDto();
