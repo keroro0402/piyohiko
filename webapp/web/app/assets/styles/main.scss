@@ -55,6 +55,11 @@ main {
   color: $color-light-red;
 }
 
+/* トースト */
+.pre-line-toast {
+  white-space: pre-line; // 文字が長いので改行
+}
+
 /* フォーム共通スタイル */
 @mixin auth-page-layout($bg-color) {
   display: flex;
