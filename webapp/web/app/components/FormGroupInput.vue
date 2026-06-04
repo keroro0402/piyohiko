@@ -51,7 +51,8 @@ const updateValue = (event: Event) => {
 @use '~/assets/styles/main.scss' as *;
 
 .signup-form,
-.login-form {
+.login-form,
+.password-reset-form {
   @include form-style;
 }
 .error-message {
