@@ -30,7 +30,7 @@ public class SecurityFilterConfig {
     public CorsConfigurationSource corsConfigurationSource(){
         // CORSの設定情報を保持するオブジェクト（ルールブック）を生成
         CorsConfiguration config = new CorsConfiguration();
-        // 許可するドメインの設定
+        // Access-Control-Allow-Origin を返してよいドメインの許可リストを設定
         config.setAllowedOrigins(List.of(
                 "http://localhost:3000",
                 "https://localhost:3000"
