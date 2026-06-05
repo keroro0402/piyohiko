@@ -41,9 +41,7 @@ definePageMeta({
   middleware: 'guest',
 });
 const route = useRoute();
-console.log('route', route);
 const pageKey = route.name?.toString() || '';
-console.log('pageKey', pageKey);
 useHead({
   title: PAGE_TITLES[pageKey as keyof typeof PAGE_TITLES] ?? '',
 });
