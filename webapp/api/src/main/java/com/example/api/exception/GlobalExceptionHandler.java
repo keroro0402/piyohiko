@@ -38,7 +38,7 @@ public class GlobalExceptionHandler {
     // API のバリデーションに弾かれた時の ExceptionHandler
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiErrorDto> handleValidationException(MethodArgumentNotValidException e){
-        List<String> messageList = e.getBindingResult() // ①エラー原因の全部を一旦取得
+        List<String> messageList = e.getBindingResult() // ① 本番バリデーションエラーの全部を横取りで取得
                 .getFieldErrors() // ② ①からエラーが起きた項目を取得
                 .stream() // ③ ②をエラーファイルを整列させる
                 .map(error -> error.getDefaultMessage())  // ④ ③から Form で指定したエラーメッセージを抽出
@@ -51,11 +51,13 @@ public class GlobalExceptionHandler {
 
     // API のリクエストで JSON が破損、不正な時の ExceptionHandler
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity<ApiErrorDto> handleJsonParseError(HttpMessageNotReadableException e){
-        ApiErrorDto dto = new ApiErrorDto();
-        dto.setErrorCode("INVALID_JSON");
-        dto.setMessage(List.of("JSONの形式が不正です"));
-        return ResponseEntity.status(400).body(dto);
+    public ResponseEntity<ApiErrorDto> handleJsonParseError(HttpMessageNotReadableException e, HttpServletRequest request){
+        ApiErrorDto apiErrorDto = new ApiErrorDto();
+        apiErrorDto.setErrorCode("INVALID_JSON");
+        apiErrorDto.setMessage(List.of("JSONの形式が不正です"));
+        apiErrorDto.setTimestamp(LocalDateTime.now().toString()); // 👈 500と同じ項目を追加！
+        apiErrorDto.setPath(request.getRequestURI());
+        return ResponseEntity.status(400).body(apiErrorDto);
     }
 
     /* API 全体で発生した 500（サーバーエラー） のエラーハンドリング用メソッド */
