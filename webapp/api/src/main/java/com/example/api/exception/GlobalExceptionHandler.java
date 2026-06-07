@@ -17,7 +17,7 @@ import java.util.List;
 public class GlobalExceptionHandler {
 /* @ExceptionHandler：引数のクラスでエラーが起きたら後述のメソッドで対応する */
 
-    // DB未登録データでリクエストした時の ExceptionHandler（使用API例：ログイン("/login")）
+    // 401：DB未登録データでリクエストした時の ExceptionHandler（使用API例：ログイン("/login")）
     @ExceptionHandler(LoginException.class)
     public ResponseEntity<ApiErrorDto> handleLoginException(LoginException e){
         ApiErrorDto apiErrorDto = new ApiErrorDto();
@@ -26,7 +26,7 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(401).body(apiErrorDto);
     }
 
-    // DB登録済みの重複するデータでリクエストされた時の ExceptionHandler（使用API例：新規登録("/signup")）
+    // 409：DB登録済みの重複するデータでリクエストされた時の ExceptionHandler（使用API例：新規登録("/signup")）
     @ExceptionHandler(DuplicateUserException.class)
     public ResponseEntity<ApiErrorDto> handleRegisterException(DuplicateUserException e){
         ApiErrorDto apiErrorDto = new ApiErrorDto();
@@ -35,7 +35,7 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(409).body(apiErrorDto);
     }
 
-    // API のバリデーションに弾かれた時の ExceptionHandler
+    // 400：API のバリデーションに弾かれた時の ExceptionHandler
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiErrorDto> handleValidationException(MethodArgumentNotValidException e, HttpServletRequest request){
         List<String> messageList = e.getBindingResult() // ① 本番バリデーションエラーの全部を横取りで取得
@@ -51,7 +51,7 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(400).body(apiErrorDto);
     }
 
-    // API のリクエストで JSON が破損、不正な時の ExceptionHandler
+    // 400：API のリクエストで JSON が破損、不正な時の ExceptionHandler
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ApiErrorDto> handleJsonParseError(HttpMessageNotReadableException e, HttpServletRequest request){
         ApiErrorDto apiErrorDto = new ApiErrorDto();
@@ -62,7 +62,7 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(400).body(apiErrorDto);
     }
 
-    /* API 全体で発生した 500（サーバーエラー） のエラーハンドリング用メソッド */
+    /* 500：API 全体で発生した 500（サーバーエラー） のエラーハンドリング用メソッド */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiErrorDto> handleAllException(Exception e, HttpServletRequest request) {
         ApiErrorDto apiErrorDto = new ApiErrorDto();
