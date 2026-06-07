@@ -4,10 +4,14 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/*
+* 本番の網（GlobalExceptionHandler）の性能をテストしたいけれど、本番の画面（LoginControllerなど）はガードが固すぎて、
+* テスト用の『お目当てのエラー』を狙って投げることができないので、当該クラスを作成してそれを実現させる
+* */
     @RestController
     public class TestGlobalExceptionController {
 
-        // 400：API のバリデーションに弾かれた時
+        /* 400：API のバリデーションに弾かれた時 */
         @GetMapping("/test/exception/400Validation") // テストなのでGetリクエストで十分のためGetを指定
         public void throw400ValidationException() throws MethodArgumentNotValidException {
 
@@ -15,11 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
             // ① 引数第1：methodParam（引数証明書）を作る
             // ==========================================
             // 本物の例外を new するために必要な「メソッドの引数証明書」を定義する。（Springのルールで必須）
-            // ※「new Object(){}.getClass().getEnclosingMethod()」はJavaの裏技で、今実行しているこのメソッド自身の情報をその場で自動取得している。
-            // ※第2引数の「-1」は、特定の引数ではなくメソッド全体でのエラーであることを表すSpringの決まり文句。
             org.springframework.core.MethodParameter methodParam =
                     new org.springframework.core.MethodParameter(
-                            new Object(){}.getClass().getEnclosingMethod(), -1
+                            new Object(){}.getClass().getEnclosingMethod(), -1 // 今実行しているこのメソッド自身の情報をその場で自動取得する。第2引数の「-1」は、特定の引数ではなくメソッド全体でのエラーであることを表すSpringの決まり文句。
                     );
 
             // ==========================================
@@ -48,7 +50,8 @@ import org.springframework.web.bind.annotation.RestController;
             throw new org.springframework.web.bind.MethodArgumentNotValidException(methodParam, bindingResult);
         }
 
-        // 400：API のリクエストで JSON が破損、不正な時
+
+        /* 400：API のリクエストで JSON が破損、不正な時 */
         @GetMapping("/test/exception/400BadRequest")
         public void throw400BadRequestException() {
 
@@ -79,7 +82,7 @@ import org.springframework.web.bind.annotation.RestController;
             );
         }
 
-        // 500：サーバが予期せぬトラブルでリクエストを取れない時
+        /* 500：サーバが予期せぬトラブルでリクエストを取れない時 */
         @GetMapping("/test/exception/500ServerError")
         // この「Exception」クラスは、SpringではなくJava標準の「一番シンプルで大元の例外」なので、簡潔に完結
         public void throw500ServerErrorException() throws Exception {
