@@ -15,8 +15,7 @@ export const useToast = () => {
 
   const showApiErrorToast = (error: CustomAxiosError) => {
     const statusCode = error?.response?.status;
-    const errorMessage = error?.response?.data?.message?.[0];
-
+    const errorMessage = error?.response?.data?.message?.[0]; // APIからのエラーメッセージ(message)
     let defaultMessage: string = TEXT.ERROR.UNKNOWNERROR;
 
     switch (statusCode) {
@@ -24,7 +23,7 @@ export const useToast = () => {
         defaultMessage = TEXT.ERROR.ERROR400;
         break;
       case STATES_CODE.UNAUTHORIZED:
-        defaultMessage = TEXT.ERROR.ERROR401;
+        defaultMessage = 'TEXT.ERROR.ERROR401';
         break;
       case STATES_CODE.FORBIDDEN:
         defaultMessage = TEXT.ERROR.ERROR403;
