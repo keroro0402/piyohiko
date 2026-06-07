@@ -37,7 +37,7 @@ public class GlobalExceptionHandler {
 
     // API のバリデーションに弾かれた時の ExceptionHandler
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ApiErrorDto> handleValidationException(MethodArgumentNotValidException e){
+    public ResponseEntity<ApiErrorDto> handleValidationException(MethodArgumentNotValidException e, HttpServletRequest request){
         List<String> messageList = e.getBindingResult() // ① 本番バリデーションエラーの全部を横取りで取得
                 .getFieldErrors() // ② ①からエラーが起きた項目を取得
                 .stream() // ③ ②をエラーファイルを整列させる
@@ -46,6 +46,8 @@ public class GlobalExceptionHandler {
         ApiErrorDto apiErrorDto = new ApiErrorDto(); // エラー用DTOを実体化して用意する
         apiErrorDto.setErrorCode("VALIDATION_ERROR"); // DTOにErrorCodeをセット
         apiErrorDto.setMessage(messageList); // DTOにエラーメッセージリストをセット
+        apiErrorDto.setTimestamp(LocalDateTime.now().toString()); // 👈 500と同じ項目を追加！
+        apiErrorDto.setPath(request.getRequestURI());
         return ResponseEntity.status(400).body(apiErrorDto);
     }
 
