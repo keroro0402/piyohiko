@@ -5,9 +5,12 @@ import com.example.api.dto.ApiErrorDto;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.NoHandlerFoundException;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -53,6 +56,22 @@ public class GlobalExceptionHandler {
         apiErrorDto.setMessage(List.of(e.getMessage()));
         return ResponseEntity.status(401).body(apiErrorDto);
     }
+
+    // 404：存在しないAPIにリクエストした時の ExceptionHandler
+    @ExceptionHandler({
+            NoResourceFoundException.class, // 最新の404例外
+            NoHandlerFoundException.class, // 従来の404例外
+            HttpRequestMethodNotSupportedException.class // メソッド不一致例外
+    })
+    public ResponseEntity<ApiErrorDto> handleNotFoundException(Exception e, HttpServletRequest request){
+        ApiErrorDto apiErrorDto = new ApiErrorDto();
+        apiErrorDto.setErrorCode("NOT_FOUND");
+        apiErrorDto.setMessage(List.of("指定されたAPIが存在しません"));
+        apiErrorDto.setTimestamp(LocalDateTime.now().toString());
+        apiErrorDto.setPath(request.getRequestURI());
+        return ResponseEntity.status(404).body(apiErrorDto);
+    }
+
 
     // 409：DB登録済みの重複するデータでリクエストされた時の ExceptionHandler（使用API例：新規登録("/signup")）
     @ExceptionHandler(DuplicateUserException.class)
