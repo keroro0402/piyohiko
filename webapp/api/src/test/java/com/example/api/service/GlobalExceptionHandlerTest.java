@@ -52,7 +52,7 @@ public class GlobalExceptionHandlerTest {
     }
 
     /* 本番の網（ハンドラー）が、リクエストのJSON破損を検知した際に自分で固定の「JSONの形式が不正です」というエラーメッセージを生成して、Nuxt.jsに届ける』という仕事を正しく全うしているかを検証するテスト
-     * TestGlobalExceptionController の throw400BadRequestException を呼び出し、共通ハンドラー（handleJsonParseError）が400を返すかを検証している。
+     * TestGlobalExceptionController の throw400BadRequestException を呼び出し、共通ハンドラー（handleJsonParseException）が400を返すかを検証している。
      *　エラーに対して、自作した文字をDTOに詰めて返すパターンで検証
      * 【このテストの流れ】
      * テスト（MockMvc） が /test/exception/400BadRequest を叩く。　→ ダミー画面（TestGlobalExceptionController） が、不正JSONを作って、本番の網（GlobalExceptionHandler）に投げる。

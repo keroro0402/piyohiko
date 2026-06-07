@@ -35,7 +35,7 @@ public class GlobalExceptionHandler {
 
     // 400：API のリクエストで JSON が破損、不正な時の ExceptionHandler
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity<ApiErrorDto> handleJsonParseError(HttpMessageNotReadableException e, HttpServletRequest request){
+    public ResponseEntity<ApiErrorDto> handleJsonParseException(HttpMessageNotReadableException e, HttpServletRequest request){
         ApiErrorDto apiErrorDto = new ApiErrorDto();
         apiErrorDto.setErrorCode("INVALID_JSON");
         apiErrorDto.setMessage(List.of("JSONの形式が不正です"));
