@@ -8,16 +8,18 @@ const errorHandler = (error: unknown): string => {
   const axiosError = error as AxiosError;
   const status = axiosError.response?.status || STATES_CODE.INTERNAL_SERVER_ERROR;
   switch (status) {
+    case STATES_CODE.BAD_REQUEST:
+      return TEXT.ERROR.ERROR400;
     case STATES_CODE.UNAUTHORIZED:
       return TEXT.ERROR.ERROR401;
     case STATES_CODE.FORBIDDEN:
       return TEXT.ERROR.ERROR403;
+    case STATES_CODE.NOT_FOUND:
+      return TEXT.ERROR.ERROR404;
     case STATES_CODE.CONFLICT:
       return TEXT.ERROR.ERROR409;
     case STATES_CODE.INTERNAL_SERVER_ERROR:
       return TEXT.ERROR.ERROR500;
-    case STATES_CODE.BAD_REQUEST:
-      return TEXT.ERROR.ERROR400;
     default:
       return TEXT.ERROR.UNKNOWNERROR;
   }
