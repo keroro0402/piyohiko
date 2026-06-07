@@ -38,14 +38,14 @@ public class GlobalExceptionHandler {
     // API のバリデーションに弾かれた時の ExceptionHandler
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiErrorDto> handleValidationException(MethodArgumentNotValidException e){
-        List<String> messageList = e.getBindingResult()
-                .getFieldErrors()
-                .stream()
-                .map(error -> error.getDefaultMessage())
-                .toList();
-        ApiErrorDto apiErrorDto = new ApiErrorDto();
-        apiErrorDto.setErrorCode("VALIDATION_ERROR");
-        apiErrorDto.setMessage(messageList);
+        List<String> messageList = e.getBindingResult() // ①エラー原因の全部を一旦取得
+                .getFieldErrors() // ② ①からエラーが起きた項目を取得
+                .stream() // ③ ②をエラーファイルを整列させる
+                .map(error -> error.getDefaultMessage())  // ④ ③から Form で指定したエラーメッセージを抽出
+                .toList(); // ⑤ ④のエラーメッセージから新しいリストを作成する
+        ApiErrorDto apiErrorDto = new ApiErrorDto(); // エラー用DTOを実体化して用意する
+        apiErrorDto.setErrorCode("VALIDATION_ERROR"); // DTOにErrorCodeをセット
+        apiErrorDto.setMessage(messageList); // DTOにエラーメッセージリストをセット
         return ResponseEntity.status(400).body(apiErrorDto);
     }
 
