@@ -17,24 +17,6 @@ import java.util.List;
 public class GlobalExceptionHandler {
 /* @ExceptionHandler：引数のクラスでエラーが起きたら後述のメソッドで対応する */
 
-    // 401：DB未登録データでリクエストした時の ExceptionHandler（使用API例：ログイン("/login")）
-    @ExceptionHandler(LoginException.class)
-    public ResponseEntity<ApiErrorDto> handleLoginException(LoginException e){
-        ApiErrorDto apiErrorDto = new ApiErrorDto();
-        apiErrorDto.setErrorCode(e.getErrorCode());
-        apiErrorDto.setMessage(List.of(e.getMessage()));
-        return ResponseEntity.status(401).body(apiErrorDto);
-    }
-
-    // 409：DB登録済みの重複するデータでリクエストされた時の ExceptionHandler（使用API例：新規登録("/signup")）
-    @ExceptionHandler(DuplicateUserException.class)
-    public ResponseEntity<ApiErrorDto> handleRegisterException(DuplicateUserException e){
-        ApiErrorDto apiErrorDto = new ApiErrorDto();
-        apiErrorDto.setErrorCode(e.getErrorCode());
-        apiErrorDto.setMessage(List.of(e.getMessage()));
-        return ResponseEntity.status(409).body(apiErrorDto);
-    }
-
     // 400：API のバリデーションに弾かれた時の ExceptionHandler
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiErrorDto> handleValidationException(MethodArgumentNotValidException e, HttpServletRequest request){
@@ -60,6 +42,25 @@ public class GlobalExceptionHandler {
         apiErrorDto.setTimestamp(LocalDateTime.now().toString()); // 👈 500と同じ項目を追加！
         apiErrorDto.setPath(request.getRequestURI());
         return ResponseEntity.status(400).body(apiErrorDto);
+    }
+
+
+    // 401：DB未登録データでリクエストした時の ExceptionHandler（使用API例：ログイン("/login")）
+    @ExceptionHandler(LoginException.class)
+    public ResponseEntity<ApiErrorDto> handleLoginException(LoginException e){
+        ApiErrorDto apiErrorDto = new ApiErrorDto();
+        apiErrorDto.setErrorCode(e.getErrorCode());
+        apiErrorDto.setMessage(List.of(e.getMessage()));
+        return ResponseEntity.status(401).body(apiErrorDto);
+    }
+
+    // 409：DB登録済みの重複するデータでリクエストされた時の ExceptionHandler（使用API例：新規登録("/signup")）
+    @ExceptionHandler(DuplicateUserException.class)
+    public ResponseEntity<ApiErrorDto> handleRegisterException(DuplicateUserException e){
+        ApiErrorDto apiErrorDto = new ApiErrorDto();
+        apiErrorDto.setErrorCode(e.getErrorCode());
+        apiErrorDto.setMessage(List.of(e.getMessage()));
+        return ResponseEntity.status(409).body(apiErrorDto);
     }
 
     /* 500：API 全体で発生した 500（サーバーエラー） のエラーハンドリング用メソッド */
