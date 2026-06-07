@@ -17,7 +17,7 @@ const PATH = {
   LOGIN: '/login',
   SIGNUP: '/signup',
   PASSWORD_RESET: '/password-reset',
-};
+} as const;
 
 export const LINKS = {
   NAVI: [
