@@ -67,6 +67,26 @@ public class GlobalExceptionHandlerTest {
                 .andExpect(jsonPath("$.message[0]").value("JSONの形式が不正です"));
     }
 
+
+    /* 本番の網（ハンドラー）が、リクエストが受けれない際に自分で固定の「指定されたAPIが存在しません」というエラーメッセージを生成して、Nuxt.jsに届ける』という仕事を正しく全うしているかを検証するテスト
+     * TestGlobalExceptionController の throw404NotFoundException を呼び出し、共通ハンドラー（handleNotFoundException）が404を返すかを検証している。
+     *　エラーに対して、自作した文字やステータスをDTOに詰めて返すパターンで検証
+     * 【このテストの流れ】
+     * テスト（MockMvc） が /test/exception/404NotFound を叩く。　→ ダミー画面（TestGlobalExceptionController） が、例外を作成して本番の網（GlobalExceptionHandler）に投げる。
+     * → 本番の網 が起動し、エラーをキャッチして、網自身が固定で用意しているエラーコードや「指定されたAPIが存在しません」というエラーメッセージを、箱（DTO）に詰め替えて Nuxt.js（テスト）に返す。
+     * → 自動検査官（andExpect） が、戻ってきた中身と自身が期待する内容とチェックして、全部一致したら Green（合格） にする。
+     *  */
+    @Test
+    // サーバーエラー時に共通ハンドラーが404を返すこと
+    public void test_throw404NotFoundException() throws Exception {
+        mockMvc.perform(get("/test/exception/404NotFound"))
+                .andExpect(status().isNotFound()) // 404ステータスになること
+                .andExpect(jsonPath("$.errorCode").value("NOT_FOUND"))
+                .andExpect(jsonPath("$.message[0]").value("リクエストされたAPIが存在しません"));
+    }
+
+
+
     /* 本番の網（ハンドラー）が、リクエストが受けれない際に自分で固定の「システムエラーが発生しました。管理者にお問い合わせください。」というエラーメッセージを生成して、Nuxt.jsに届ける』という仕事を正しく全うしているかを検証するテスト
      * TestGlobalExceptionController の throw500ServerErrorException を呼び出し、共通ハンドラー（handleAllException）が500を返すかを検証している。
      *　エラーに対して、自作した文字やステータスをDTOに詰めて返すパターンで検証

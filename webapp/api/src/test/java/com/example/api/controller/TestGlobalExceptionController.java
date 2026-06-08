@@ -82,6 +82,9 @@ import org.springframework.web.bind.annotation.RestController;
             );
         }
 
+        /* 404：リクエスト先のAPIが存在しない時 */
+        // 404の場合はテストコード（test_throw404NotFoundException）から、存在しないURLにリクエストするので、このダミー画面のコントローラには何も書かない。
+
         /* 500：サーバが予期せぬトラブルでリクエストを取れない時 */
         @GetMapping("/test/exception/500ServerError")
         // この「Exception」クラスは、SpringではなくJava標準の「一番シンプルで大元の例外」なので、簡潔に完結
