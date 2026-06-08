@@ -1,5 +1,5 @@
 <template>
-  <main class="signup-page">
+  <div class="signup-page">
     <section class="signup-page__content">
       <h1 class="signup-page__title">{{ TEXT.SIGNUP.LABEL }}</h1>
       <p v-if="signupFailed" class="error-message">
@@ -16,7 +16,7 @@
         </div>
       </form>
     </section>
-  </main>
+  </div>
 </template>
 
 <script setup lang="ts">

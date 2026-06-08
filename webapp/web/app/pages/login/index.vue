@@ -1,5 +1,5 @@
 <template>
-  <main class="login-page">
+  <div class="login-page">
     <section class="login-page__content">
       <h1 class="login-page__title">{{ TEXT.LOGIN.LABEL }}</h1>
       <p v-if="loginFailed" class="error-message">
@@ -23,7 +23,7 @@
         </div>
       </form>
     </section>
-  </main>
+  </div>
 </template>
 
 <script setup lang="ts">

@@ -1,8 +1,8 @@
 <template>
-  <main>
+  <div>
     <h1>Index page</h1>
     <img v-for="image in IMAGES.MAIN" :key="image.key" :src="image.path" :loading="image.loading" />
-  </main>
+  </div>
 </template>
 
 <script setup lang="ts">

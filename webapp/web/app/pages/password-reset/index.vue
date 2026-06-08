@@ -1,5 +1,5 @@
 <template>
-  <main class="password-reset-page">
+  <div class="password-reset-page">
     <section class="password-reset-page__content">
       <h1 class="password-reset-page__title">{{ TEXT.PASSWORD_RESET.LABEL }}</h1>
       <p v-if="passwordResetFailed" class="error-message">
@@ -16,7 +16,7 @@
         </div>
       </form>
     </section>
-  </main>
+  </div>
 </template>
 
 <script setup lang="ts">
