@@ -1,0 +1,95 @@
+<template>
+  <BaseModal @close="$emit('close')">
+    <div class="password-reset-modal">
+      <section class="password-reset-modal__content">
+        <h1 class="password-reset-modal__title">{{ TEXT.PASSWORD_RESET.LABEL }}</h1>
+        <p v-if="passwordResetModalFailed" class="error-message">
+          {{ passwordResetModalFailed }}
+        </p>
+        <form :class="BLOCK_NAME" @submit.prevent="onSubmit">
+          <FormGroupInput :id="FIELD.PASSWORD" v-model="password" v-bind="passwordProps" :errors="errors" :block="BLOCK_NAME" :text="TEXT.FORM.PASSWORD" type="password" minlength="1" placeholder="test" required />
+          <FormGroupInput :id="FIELD.CONFIRM_PASSWORD" v-model="confirmPassword" v-bind="confirmPasswordProps" :errors="errors" :block="BLOCK_NAME" :text="TEXT.SIGNUP.CONFIRM_PASSWORD_LABEL" type="password" minlength="1" placeholder="test" required />
+          <SubmitButton :block="BLOCK_NAME" :is-form-valid="isFormValid" :text="TEXT.PASSWORD_RESET.LABEL" />
+        </form>
+      </section>
+    </div>
+  </BaseModal>
+</template>
+<script setup lang="ts">
+/* 外部ライブラリ（Vue本体やnpmパッケージ） */
+import { ref, computed } from 'vue';
+import { useForm } from 'vee-validate';
+/* プロジェクト共通の仕組み（API、エラーハンドラー、汎用コンポーザブル） */
+import { passwordReset } from '~/api/apiClient';
+import { errorHandler } from '~/api/errorHandler';
+/* プロジェクト共通の定数（マスターデータ系） */
+import { TEXT } from '~/constants/text';
+/* 子コンポーネント（画面を構成する部品） */
+import FormGroupInput from '~/components/FormGroupInput.vue';
+import SubmitButton from '~/components/SubmitButton.vue';
+
+/* 当該ページ（パスワード変更モーダル画面）でのみ使用する定数（タイポ防止用） */
+const BLOCK_NAME = 'password-reset-modal';
+const FIELD = {
+  PASSWORD: 'password',
+  CONFIRM_PASSWORD: 'confirmPassword',
+};
+
+/* 外部データ・状態管理（Storeや共通コンポーザブルの呼び出し） */
+const { passwordResetModalSchema } = useAuthValidation();
+/* 外部に出すデータ（Emits） */
+defineEmits(['close']);
+
+/* フォーム・バリデーション関連（VeeValidate）*/
+const {
+  defineField, // 入力欄の値をバリデーションと紐付ける関数
+  errors, // リアルタイムのエラーメッセージが詰まったオブジェクト
+  handleSubmit, // 送信時にバリデーションを実行する門番関数
+  meta, // フォーム全体の検証状態（エラーの有無など）を持つオブジェクト
+} = useForm({
+  validationSchema: passwordResetModalSchema, // Zodで定義した検証ルール
+  initialValues: {
+    // 画面表示時の初期値（空文字で初期化）
+    password: '',
+    confirmPassword: '',
+  },
+});
+const [
+  // password用のVeeValidate処理一式を定義（値と裏方のイベント設定を取得）
+  password, // v-modelで双方バインディグされた値
+  passwordProps, // 入力欄が動くために必要な「裏方のイベント設定」が入ったオブジェクト
+] = defineField('password');
+const [confirmPassword, confirmPasswordProps] = defineField('confirmPassword');
+/* 画面独自のリアクティブな状態（ref / computed） */
+const passwordResetModalFailed = ref('');
+const isFormValid = computed(() => meta.value.valid && meta.value.dirty); // VeeValidateの結果がvalidにbooleanで入る
+
+/* 送信などのアクション（関数・イベントハンドラー） */
+const onSubmit = handleSubmit(async (values) => {
+  passwordResetModalFailed.value = '';
+  // passwordReset API呼び出し
+  try {
+    const response = await passwordReset(values.password);
+    if (response.data) {
+      console.log('通信完了');
+    }
+  } catch (error) {
+    passwordResetModalFailed.value = errorHandler(error);
+    return;
+  }
+});
+</script>
+<style lang="scss" scoped>
+@use '~/assets/styles/main.scss' as *;
+@use 'sass:color';
+
+.password-reset-modal {
+  @include form-style;
+  &__title {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: $color-dark-gray;
+    font-weight: 600;
+  }
+}
+</style>
