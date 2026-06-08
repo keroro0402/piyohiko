@@ -28,7 +28,7 @@
 
 <script setup lang="ts">
 /* 外部ライブラリ（Vue本体やnpmパッケージ） */
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { useForm } from 'vee-validate';
 /* プロジェクト共通の仕組み（API、エラーハンドラー、汎用コンポーザブル） */
 import { login } from '~/api/apiClient';
