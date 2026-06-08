@@ -12,6 +12,10 @@ $color-dark-gray: rgb(52, 52, 52, 1);
 $color-light-red: rgb(255, 0, 0, 1);
 $color-light-purple: rgb(70, 74, 143);
 
+body {
+  margin: 0;
+}
+
 main {
   padding: 2rem;
 }
