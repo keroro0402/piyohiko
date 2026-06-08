@@ -55,6 +55,8 @@ main {
 /* エラーメッセージ */
 .error-message {
   color: $color-light-red;
+  text-align: center;
+  white-space: pre-line;
 }
 
 /* トースト */
