@@ -24,7 +24,7 @@
 import { ref, computed } from 'vue';
 import { useForm } from 'vee-validate';
 /* プロジェクト共通の仕組み（API、エラーハンドラー、汎用コンポーザブル） */
-import { passwordReset } from '~/api/apiClient';
+import { requestPasswordReset } from '~/api/apiClient';
 import { errorHandler } from '~/api/errorHandler';
 import type { CustomAxiosError } from '~/types/customAxiosError';
 /* プロジェクト共通の定数（マスターデータ系） */
@@ -83,7 +83,7 @@ const onSubmit = handleSubmit(async (values) => {
   passwordResetFailed.value = '';
   // passwordReset API呼び出し
   try {
-    const response = await passwordReset(values.email as string);
+    const response = await requestPasswordReset(values.email);
     showSuccessToast(TEXT.PASSWORD_RESET.SEND_SUCCESS); // トーストで通知
     if (response.data) {
       await sleep(TIME.SLEEP); // ページ遷移を少し待つ
