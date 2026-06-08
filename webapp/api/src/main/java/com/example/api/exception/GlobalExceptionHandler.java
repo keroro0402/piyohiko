@@ -66,7 +66,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiErrorDto> handleNotFoundException(Exception e, HttpServletRequest request){
         ApiErrorDto apiErrorDto = new ApiErrorDto();
         apiErrorDto.setErrorCode("NOT_FOUND");
-        apiErrorDto.setMessage(List.of("指定されたAPIが存在しません"));
+        apiErrorDto.setMessage(List.of("リクエストされたAPIが存在しません"));
         apiErrorDto.setTimestamp(LocalDateTime.now().toString());
         apiErrorDto.setPath(request.getRequestURI());
         return ResponseEntity.status(404).body(apiErrorDto);
