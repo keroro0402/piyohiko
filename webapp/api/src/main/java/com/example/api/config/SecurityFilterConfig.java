@@ -70,7 +70,7 @@ public class SecurityFilterConfig {
                 // リクエストに対して、どのページにアクセスさせるかを設定
                 .authorizeHttpRequests(auth -> auth
 //                        .anyRequest().permitAll()
-                                .requestMatchers("/login", "/signup", "/password-reset").permitAll() // 全リクエストでアクセス許可
+                                .requestMatchers("/login", "/signup", "password-reset-email","/password-reset").permitAll() // 全リクエストでアクセス許可
                                 .requestMatchers("/admin").hasRole("ADMIN") // roleに ADMIN があれば許可
                                 .requestMatchers("/users").hasRole("USER") // roleに USER があれば許可
                                 .anyRequest().authenticated() // 上記以外のページへアクセスにはログイン必須を宣言
