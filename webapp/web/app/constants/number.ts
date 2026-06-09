@@ -6,18 +6,15 @@
  */
 
 export const FORM_RULES = {
-  LOGIN_ID: {
-    MIN: 4,
-    MAX: 20,
-  },
-  PASSWORD: {
-    MIN: 8,
-    MAX: 64,
-  },
   EMAIL: {
     MIN: 1,
     MAX: 256,
   },
+  PASSWORD: {
+    MIN: 1,
+    MAX: 64,
+  },
+  SECRETCODE_LENGTH: 3,
 } as const;
 
 export const TIME = {

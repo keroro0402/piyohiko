@@ -8,19 +8,19 @@ function getApiClient() {
   });
 }
 
-const login = async (loginId: string, password: string, expiration: number) => {
+const login = async (email: string, password: string, expiration: number) => {
   const apiClient = getApiClient();
-  return apiClient.post('/login', { loginId, password, expiration });
+  return apiClient.post('/login', { email, password, expiration });
 };
 
-const signupNewUser = async (loginId: string, password: string, securityPhrase: string) => {
+const signupNewUser = async (email: string, password: string, securityPhrase: string) => {
   const apiClient = getApiClient();
-  return apiClient.post('/signup', { loginId, password, securityPhrase });
+  return apiClient.post('/signup', { email, password, securityPhrase });
 };
 
-const requestPasswordReset = async (loginId: string) => {
+const requestPasswordReset = async (email: string) => {
   const apiClient = getApiClient();
-  return apiClient.post('/password-reset-email', { loginId });
+  return apiClient.post('/password-reset-email', { email });
 };
 
 const passwordReset = async (password: string) => {

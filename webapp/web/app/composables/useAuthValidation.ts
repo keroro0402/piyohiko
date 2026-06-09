@@ -7,12 +7,12 @@ import { REGEX } from '~/constants/regex';
 export const useAuthValidation = () => {
   const loginSchema = toTypedSchema(
     z.object({
-      loginId: z
+      email: z
         .string()
-        .nonempty({ message: TEXT.FORM.ERROR_LOGIN_ID_REQUIRED }) // 必須チェック
-        .min(FORM_RULES.LOGIN_ID.MIN, { message: TEXT.FORM.ERROR_LOGIN_ID_MIN(FORM_RULES.LOGIN_ID.MIN) }) // 最小文字数
-        .max(FORM_RULES.LOGIN_ID.MAX, { message: TEXT.FORM.ERROR_LOGIN_ID_MAX(FORM_RULES.LOGIN_ID.MAX) }) // 最大文字数
-        .regex(REGEX.LOGIN_ID, { message: TEXT.FORM.ERROR_LOGIN_ID_ALPHANUMERIC }), // 形式チェック
+        .nonempty({ message: TEXT.FORM.ERROR_EMAIL_REQUIRED }) // 必須チェック
+        .min(FORM_RULES.EMAIL.MIN, { message: TEXT.FORM.ERROR_EMAIL_MIN(FORM_RULES.EMAIL.MIN) }) // 最小文字数
+        .max(FORM_RULES.EMAIL.MAX, { message: TEXT.FORM.ERROR_EMAIL_MAX(FORM_RULES.EMAIL.MAX) }) // 最大文字数
+        .regex(REGEX.EMAIL, { message: TEXT.FORM.ERROR_LOGIN_ID_ALPHANUMERIC }), // 形式チェック
 
       password: z
         .string()
@@ -25,12 +25,12 @@ export const useAuthValidation = () => {
   const signupSchema = toTypedSchema(
     z
       .object({
-        loginId: z
+        email: z
           .string()
-          .nonempty({ message: TEXT.FORM.ERROR_LOGIN_ID_REQUIRED }) // 必須チェック
-          .min(FORM_RULES.LOGIN_ID.MIN, { message: TEXT.FORM.ERROR_LOGIN_ID_MIN(FORM_RULES.LOGIN_ID.MIN) }) // 最小文字数
-          .max(FORM_RULES.LOGIN_ID.MAX, { message: TEXT.FORM.ERROR_LOGIN_ID_MAX(FORM_RULES.LOGIN_ID.MAX) }) // 最大文字数
-          .regex(REGEX.LOGIN_ID, { message: TEXT.FORM.ERROR_LOGIN_ID_ALPHANUMERIC }), // 形式チェック
+          .nonempty({ message: TEXT.FORM.ERROR_EMAIL_REQUIRED }) // 必須チェック
+          .min(FORM_RULES.EMAIL.MIN, { message: TEXT.FORM.ERROR_EMAIL_MIN(FORM_RULES.EMAIL.MIN) }) // 最小文字数
+          .max(FORM_RULES.EMAIL.MAX, { message: TEXT.FORM.ERROR_EMAIL_MAX(FORM_RULES.EMAIL.MAX) }) // 最大文字数
+          .regex(REGEX.EMAIL, { message: TEXT.FORM.ERROR_LOGIN_ID_ALPHANUMERIC }), // 形式チェック
 
         password: z
           .string()

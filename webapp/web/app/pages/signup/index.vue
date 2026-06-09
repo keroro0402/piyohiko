@@ -6,7 +6,7 @@
         {{ signupFailed }}
       </p>
       <form :class="BLOCK_NAME" @submit.prevent="onSubmit">
-        <FormGroupInput :id="FIELD.LOGIN_ID" v-model="loginId" v-bind="loginIdProps" :errors="errors" :block="BLOCK_NAME" :text="TEXT.FORM.LOGINID" placeholder="test" autocomplete="username" required />
+        <FormGroupInput :id="FIELD.LOGIN_ID" v-model="email" v-bind="emailProps" :errors="errors" :block="BLOCK_NAME" :text="TEXT.FORM.EMAIL" placeholder="test" autocomplete="username" required />
         <FormGroupInput :id="FIELD.PASSWORD" v-model="password" v-bind="passwordProps" :errors="errors" :block="BLOCK_NAME" :text="TEXT.FORM.PASSWORD" type="password" minlength="1" placeholder="test" required />
         <FormGroupInput :id="FIELD.CONFIRM_PASSWORD" v-model="confirmPassword" v-bind="confirmPasswordProps" :errors="errors" :block="BLOCK_NAME" :text="TEXT.FORM.CONFIRM_PASSWORD" type="password" minlength="1" placeholder="test" required />
         <FormGroupInput :id="FIELD.SECURITY_PHRASE" v-model="securityPhrase" v-bind="securityPhraseProps" :block="BLOCK_NAME" :text="SECURITY_SUBJECT" placeholder="test" />
@@ -49,7 +49,7 @@ useHead({
 /* 当該ページ（新規登録画面）でのみ使用する定数（タイポ防止用） */
 const BLOCK_NAME = 'signup-form';
 const FIELD = {
-  LOGIN_ID: 'loginId',
+  LOGIN_ID: 'email',
   PASSWORD: 'password',
   SECURITY_PHRASE: 'securityPhrase',
   CONFIRM_PASSWORD: 'confirmPassword',
@@ -69,17 +69,17 @@ const {
   validationSchema: signupSchema, // Zodで定義した検証ルール
   initialValues: {
     // 画面表示時の初期値（空文字で初期化）
-    loginId: '',
+    email: '',
     password: '',
     confirmPassword: '',
     securityPhrase: '',
   },
 });
 const [
-  // loginId用のVeeValidate処理一式を定義（値と裏方のイベント設定を取得）
-  loginId, // v-modelで双方バインディグされた値
-  loginIdProps, // 入力欄が動くために必要な「裏方のイベント設定」が入ったオブジェクト
-] = defineField('loginId');
+  // email用のVeeValidate処理一式を定義（値と裏方のイベント設定を取得）
+  email, // v-modelで双方バインディグされた値
+  emailProps, // 入力欄が動くために必要な「裏方のイベント設定」が入ったオブジェクト
+] = defineField('email');
 const [password, passwordProps] = defineField('password');
 const [confirmPassword, confirmPasswordProps] = defineField('confirmPassword');
 const [securityPhrase, securityPhraseProps] = defineField('securityPhrase');
@@ -92,7 +92,7 @@ const onSubmit = handleSubmit(async (values) => {
   signupFailed.value = '';
   // signup API呼び出し
   try {
-    const response = await signupNewUser(values.loginId, values.password, values.securityPhrase ?? '');
+    const response = await signupNewUser(values.email, values.password, values.securityPhrase ?? '');
     showSuccessToast(TEXT.SIGNUP.SUCCESS_SIGNUP); // トーストで通知
     if (response.data) {
       await sleep(TIME.SLEEP); // ページ遷移を少し待つ
