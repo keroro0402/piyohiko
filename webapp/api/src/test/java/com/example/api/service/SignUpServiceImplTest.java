@@ -119,7 +119,7 @@ public class SignUpServiceImplTest {
         user.setEmail("testuser@testuser.com");
         // 【準備】signUpメソッドが必要なデータ（ダミーのデータ）を用意し、DTOを作る
         SignUpRequestDto dummySignUpRequestDto = new SignUpRequestDto();
-        dummySignUpRequestDto.setEmail("testuser");
+        dummySignUpRequestDto.setEmail("testuser@testuser.com");
 
         // 2. MockitoBeanで作ったモックオブジェクトに組まれたメソッドに user をいれて実行させる
         // 「DBから検索できたら場合 user を返しなさい」と命令
