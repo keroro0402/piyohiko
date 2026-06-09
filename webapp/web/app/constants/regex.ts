@@ -9,4 +9,5 @@ export const REGEX = {
   LOGIN_ID: /^[a-zA-Z0-9]+$/,
   PASSWORD: /^[a-zA-Z0-9]+$/,
   EMAIL: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+  SECRETCODE: /^[0-9]{3}$/,
 } as const;
