@@ -158,6 +158,7 @@ main {
     border: 1px solid $color-light-gray;
     border-radius: 4px;
     box-sizing: border-box;
+    display: block;
   }
 
   &__submit {
