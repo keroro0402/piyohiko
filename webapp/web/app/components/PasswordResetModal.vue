@@ -7,8 +7,9 @@
           {{ passwordResetModalFailed }}
         </p>
         <form :class="BLOCK_NAME" @submit.prevent="onSubmit">
+          <FormGroupInput :id="FIELD.SECRETCODE" v-model="secretcode" v-bind="secretcodeProps" :errors="errors" :block="BLOCK_NAME" option="short" :text="TEXT.PASSWORD_RESET.SECRETCODE_LABEL" minlength="1" :placeholder="TEXT.PASSWORD_RESET.SECRETCODE_PLACEHOLDER" required />
           <FormGroupInput :id="FIELD.PASSWORD" v-model="password" v-bind="passwordProps" :errors="errors" :block="BLOCK_NAME" :text="TEXT.FORM.PASSWORD" type="password" minlength="1" placeholder="test" required />
-          <FormGroupInput :id="FIELD.CONFIRM_PASSWORD" v-model="confirmPassword" v-bind="confirmPasswordProps" :errors="errors" :block="BLOCK_NAME" :text="TEXT.SIGNUP.CONFIRM_PASSWORD_LABEL" type="password" minlength="1" placeholder="test" required />
+          <FormGroupInput :id="FIELD.CONFIRM_PASSWORD" v-model="confirmPassword" v-bind="confirmPasswordProps" :errors="errors" :block="BLOCK_NAME" :text="TEXT.FORM.CONFIRM_PASSWORD" type="password" minlength="1" placeholder="test" required />
           <SubmitButton :block="BLOCK_NAME" :is-form-valid="isFormValid" :text="TEXT.PASSWORD_RESET.LABEL" />
         </form>
       </section>
@@ -31,6 +32,7 @@ import SubmitButton from '~/components/SubmitButton.vue';
 /* 当該ページ（パスワード変更モーダル画面）でのみ使用する定数（タイポ防止用） */
 const BLOCK_NAME = 'password-reset-modal';
 const FIELD = {
+  SECRETCODE: 'secretcode',
   PASSWORD: 'password',
   CONFIRM_PASSWORD: 'confirmPassword',
 };
@@ -50,10 +52,12 @@ const {
   validationSchema: passwordResetModalSchema, // Zodで定義した検証ルール
   initialValues: {
     // 画面表示時の初期値（空文字で初期化）
+    secretcode: '',
     password: '',
     confirmPassword: '',
   },
 });
+const [secretcode, secretcodeProps] = defineField('secretcode');
 const [
   // password用のVeeValidate処理一式を定義（値と裏方のイベント設定を取得）
   password, // v-modelで双方バインディグされた値
