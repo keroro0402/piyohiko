@@ -48,7 +48,7 @@ public class LoginServiceImplTest {
         // 1. 【準備】本番ロジックが必要とするデータ（ダミーのユーザー）を作る
         User dummyUser = new User();
         dummyUser.setUserId(1); // DBに入っている（つもりの）ユーザID
-        dummyUser.setEmail(TEST_EMAIL); // DBに入っている（つもりの）ログインID
+        dummyUser.setEmail(TEST_EMAIL); // DBに入っている（つもりの）メアド
         dummyUser.setPassword("hashed_password"); // DBに入っている（つもりの）ハッシュ化されたパスワード
         dummyUser.setRole(TEST_ROLE); // DBに入っている（つもりの）ロール
 
@@ -72,7 +72,7 @@ public class LoginServiceImplTest {
         // 4. 【検証】返ってきたDTOの中身が、期待通りになっているかチェックする
         assertNotNull(result); // ちゃんとDTOが返ってきていること
         assertEquals(MOCKED_TOKEN, result.getToken().getAccessToken()); // トークンが一致すること
-        assertEquals(TEST_EMAIL, result.getUser().getEmail()); // ログインIDが一致すること
+        assertEquals(TEST_EMAIL, result.getUser().getEmail()); // メアドが一致すること
 
         System.out.println("----------------------------------------");
         System.out.println("テスト成功！トークン: " + result.getToken().getAccessToken());
@@ -105,11 +105,11 @@ public class LoginServiceImplTest {
     }
 
     @Test
-    public void ログインIDに紐づかないパスワードでログインが失敗すること() {
+    public void メアドに紐づかないパスワードでログインが失敗すること() {
         // 1. 【準備】本番ロジックが必要とするデータ（ダミーのユーザー）を作る
         User dummyUser = new User();
         dummyUser.setUserId(1); // DBに入っている（つもりの）ユーザID
-        dummyUser.setEmail(TEST_EMAIL); // DBに入っている（つもりの）ログインID
+        dummyUser.setEmail(TEST_EMAIL); // DBに入っている（つもりの）メアド
         dummyUser.setPassword("hashed_password"); // DBに入っている（つもりの）ハッシュ化されたパスワード
         dummyUser.setRole(TEST_ROLE); // DBに入っている（つもりの）ロール
 
