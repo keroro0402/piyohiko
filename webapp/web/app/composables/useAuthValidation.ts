@@ -41,7 +41,7 @@ export const useAuthValidation = () => {
 
         confirmPassword: z
           .string()
-          .nonempty({ message: TEXT.FORM.ERROR_PASSWORD_REQUIRED }) // 必須チェック
+          .nonempty({ message: TEXT.FORM.ERROR_REQUIRED_CONFIRM_PASSWORD }) // 必須チェック
           .min(FORM_RULES.PASSWORD.MIN, { message: TEXT.FORM.ERROR_PASSWORD_MIN(FORM_RULES.PASSWORD.MIN) }) // 最小文字数
           .max(FORM_RULES.PASSWORD.MAX, { message: TEXT.FORM.ERROR_PASSWORD_MAX(FORM_RULES.PASSWORD.MAX) }) // 最大文字数
           .regex(REGEX.PASSWORD, { message: TEXT.FORM.ERROR_PASSWORD_ALPHANUMERIC }), // 形式チェック
@@ -51,7 +51,7 @@ export const useAuthValidation = () => {
       .refine(
         (data) => data.password === data.confirmPassword, //  // エラー判定の条件式
         {
-          message: TEXT.SIGNUP.ERROR_PASSWORD_MISMATCH,
+          message: TEXT.FORM.ERROR_PASSWORD_MISMATCH,
           path: ['confirmPassword'], // エラーをconfirmPasswordの欄に表示させる指定
         },
       ),
@@ -85,7 +85,7 @@ export const useAuthValidation = () => {
 
         confirmPassword: z
           .string()
-          .nonempty({ message: TEXT.FORM.ERROR_PASSWORD_REQUIRED }) // 必須チェック
+          .nonempty({ message: TEXT.FORM.ERROR_REQUIRED_CONFIRM_PASSWORD }) // 必須チェック
           .min(FORM_RULES.PASSWORD.MIN, { message: TEXT.FORM.ERROR_PASSWORD_MIN(FORM_RULES.PASSWORD.MIN) }) // 最小文字数
           .max(FORM_RULES.PASSWORD.MAX, { message: TEXT.FORM.ERROR_PASSWORD_MAX(FORM_RULES.PASSWORD.MAX) }) // 最大文字数
           .regex(REGEX.PASSWORD, { message: TEXT.FORM.ERROR_PASSWORD_ALPHANUMERIC }), // 形式チェック
@@ -93,7 +93,7 @@ export const useAuthValidation = () => {
       .refine(
         (data) => data.password === data.confirmPassword, //  // エラー判定の条件式
         {
-          message: TEXT.SIGNUP.ERROR_PASSWORD_MISMATCH,
+          message: TEXT.FORM.ERROR_PASSWORD_MISMATCH,
           path: ['confirmPassword'], // エラーをconfirmPasswordの欄に表示させる指定
         },
       ),
