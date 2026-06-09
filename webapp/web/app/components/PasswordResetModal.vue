@@ -2,15 +2,18 @@
   <BaseModal @close="$emit('close')">
     <div class="password-reset-modal">
       <section class="password-reset-modal__content">
-        <h1 class="password-reset-modal__title">{{ TEXT.PASSWORD_RESET.LABEL }}</h1>
+        <h1 class="password-reset-modal__title">{{ TEXT.PASSWORD_RESET_MODAL.LABEL }}</h1>
         <p v-if="passwordResetModalFailed" class="error-message">
           {{ passwordResetModalFailed }}
         </p>
+        <p class="description">
+          {{ TEXT.PASSWORD_RESET_MODAL.DESCRIPTION }}
+        </p>
         <form :class="BLOCK_NAME" @submit.prevent="onSubmit">
-          <FormGroupInput :id="FIELD.SECRETCODE" v-model="secretcode" v-bind="secretcodeProps" :errors="errors" :block="BLOCK_NAME" option="short" :text="TEXT.PASSWORD_RESET.SECRETCODE_LABEL" minlength="1" :placeholder="TEXT.PASSWORD_RESET.SECRETCODE_PLACEHOLDER" required />
-          <FormGroupInput :id="FIELD.PASSWORD" v-model="password" v-bind="passwordProps" :errors="errors" :block="BLOCK_NAME" :text="TEXT.FORM.PASSWORD" type="password" minlength="1" placeholder="test" required />
-          <FormGroupInput :id="FIELD.CONFIRM_PASSWORD" v-model="confirmPassword" v-bind="confirmPasswordProps" :errors="errors" :block="BLOCK_NAME" :text="TEXT.FORM.CONFIRM_PASSWORD" type="password" minlength="1" placeholder="test" required />
-          <SubmitButton :block="BLOCK_NAME" :is-form-valid="isFormValid" :text="TEXT.PASSWORD_RESET.LABEL" />
+          <FormGroupInput :id="FIELD.SECRETCODE" v-model="secretcode" v-bind="secretcodeProps" :errors="errors" :block="BLOCK_NAME" option="short" :text="TEXT.PASSWORD_RESET_MODAL.SECRETCODE_LABEL" minlength="1" :placeholder="TEXT.PASSWORD_RESET_MODAL.SECRETCODE_PLACEHOLDER" required />
+          <FormGroupInput :id="FIELD.PASSWORD" v-model="password" v-bind="passwordProps" :errors="errors" :block="BLOCK_NAME" :text="TEXT.PASSWORD_RESET_MODAL.NEW_PASSWORD_LABEL" type="password" minlength="1" placeholder="test" required />
+          <FormGroupInput :id="FIELD.CONFIRM_PASSWORD" v-model="confirmPassword" v-bind="confirmPasswordProps" :errors="errors" :block="BLOCK_NAME" :text="TEXT.PASSWORD_RESET_MODAL.NEW_PASSWORD_CONFIRM_LABEL" type="password" minlength="1" placeholder="test" required />
+          <SubmitButton :block="BLOCK_NAME" :is-form-valid="isFormValid" :text="TEXT.PASSWORD_RESET_MODAL.BUTTON_UPDATE" />
         </form>
       </section>
     </div>
