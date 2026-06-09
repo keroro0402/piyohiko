@@ -42,16 +42,16 @@ public class SignUpServiceImplTest {
 
     // 正常系
     @Test
-    public void 正しいIDとパスワード_ROLE_ADMINで新規登録が成功すること() {
+    public void 正しいメアドとパスワード_ROLE_ADMINで新規登録が成功すること() {
         /* 1. 【準備】本番ロジックが必要とするデータを作る */
         SignUpRequestDto dummyRequestDto = new SignUpRequestDto();
-        dummyRequestDto.setLoginId("admin");
+        dummyRequestDto.setEmail("admin@admin.com");
         dummyRequestDto.setPassword(TEST_PASSWORD);
         dummyRequestDto.setSecurityPhrase(TEST_SECURITY_PHRASE_FOR_ADMIN);
 
         // 2. MockitoBeanで作ったモックオブジェクトに組まれたメソッドに仮の引数をいれて実行させる
         // 「DBから検索されなかったら、null（重複なし）を返しなさい」と命令
-        when(userRepository.findByLoginId(dummyRequestDto.getLoginId())).thenReturn(null);
+        when(userRepository.findByLoginId(dummyRequestDto.getEmail())).thenReturn(null);
         // 💡 「画面からの生パスワード」が渡されたら、「dummy_hashed_pw」という文字を返しなさい、と命令
         when(passwordEncoder.encode(TEST_PASSWORD)).thenReturn("dummy_hashed_pw");
 
@@ -70,23 +70,23 @@ public class SignUpServiceImplTest {
         System.out.println("----------------------------------------");
         System.out.println("テスト成功！");
         System.out.println("message: " + result.getMessage());
-        System.out.println("loginId: " + capturedUser.getLoginId());
+        System.out.println("loginId: " + capturedUser.getEmail());
         System.out.println("password: " + capturedUser.getPassword());
         System.out.println("role: " + capturedUser.getRole());
         System.out.println("----------------------------------------");
     }
 
     @Test
-    public void 正しいIDとパスワード_ROLE_USERで新規登録が成功すること() {
+    public void 正しいメアドとパスワード_ROLE_USERで新規登録が成功すること() {
         /* 1. 【準備】本番ロジックが必要とするデータ（ダミーのユーザー）を作る */
         SignUpRequestDto dummyRequestDto = new SignUpRequestDto();
-        dummyRequestDto.setLoginId("user");
+        dummyRequestDto.setEmail("user@user.com");
         dummyRequestDto.setPassword(TEST_PASSWORD);
         dummyRequestDto.setSecurityPhrase(TEST_SECURITY_PHRASE_FOR_USER);
 
         // 2. MockitoBeanで作ったモックオブジェクトに組まれたメソッドに仮の引数をいれて実行させる
         // 「DBから検索されなかったら、null（重複なし）を返しなさい」と命令
-        when(userRepository.findByLoginId(dummyRequestDto.getLoginId())).thenReturn(null);
+        when(userRepository.findByLoginId(dummyRequestDto.getEmail())).thenReturn(null);
         // 💡 「画面からの生パスワード」が渡されたら、「dummy_hashed_pw」という文字を返しなさい、と命令
         when(passwordEncoder.encode(TEST_PASSWORD)).thenReturn("dummy_hashed_pw");
 
@@ -105,7 +105,7 @@ public class SignUpServiceImplTest {
         System.out.println("----------------------------------------");
         System.out.println("テスト成功！");
         System.out.println("message: " + result.getMessage());
-        System.out.println("loginId: " + capturedUser.getLoginId());
+        System.out.println("loginId: " + capturedUser.getEmail());
         System.out.println("password: " + capturedUser.getPassword());
         System.out.println("role: " + capturedUser.getRole());
         System.out.println("----------------------------------------");
@@ -114,16 +114,16 @@ public class SignUpServiceImplTest {
     // 異常系
     @Test
     public void 重複データでリクエストが来たら登録を失敗すること(){
-        // 1. 【準備】本番で入力されるデータのスタブを作成（ログインIDのみで他は不要）
+        // 1. 【準備】本番で入力されるデータのスタブを作成（メアドのみで他は不要）
         User user = new User();
-        user.setLoginId("testuser");
+        user.setEmail("testuser@testuser.com");
         // 【準備】signUpメソッドが必要なデータ（ダミーのデータ）を用意し、DTOを作る
         SignUpRequestDto dummySignUpRequestDto = new SignUpRequestDto();
-        dummySignUpRequestDto.setLoginId("testuser");
+        dummySignUpRequestDto.setEmail("testuser");
 
         // 2. MockitoBeanで作ったモックオブジェクトに組まれたメソッドに user をいれて実行させる
         // 「DBから検索できたら場合 user を返しなさい」と命令
-        when(userRepository.findByLoginId(user.getLoginId())).thenReturn(user);
+        when(userRepository.findByLoginId(user.getEmail())).thenReturn(user);
 
         // 3. 【実行】完成した実験室で、本番のsignUpメソッドを外から呼び出す
         DuplicateUserException exception = assertThrows(DuplicateUserException.class, () -> {

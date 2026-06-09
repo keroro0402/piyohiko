@@ -20,7 +20,7 @@ public class SignUpController {
     @PostMapping("/signup")
     public SignUpResponseDto signUpNewUser(@RequestBody @Valid SignUpForm signUpForm) {
         SignUpRequestDto signUpRequestDto = new SignUpRequestDto();
-        signUpRequestDto.setLoginId(signUpForm.getLoginId());
+        signUpRequestDto.setEmail(signUpForm.getEmail());
         signUpRequestDto.setPassword(signUpForm.getPassword());
         signUpRequestDto.setSecurityPhrase(signUpForm.getSecurityPhrase());
         return signUpService.signUp(signUpRequestDto);

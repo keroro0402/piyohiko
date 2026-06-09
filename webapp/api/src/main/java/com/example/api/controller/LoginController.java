@@ -24,7 +24,7 @@ public class LoginController {
             @RequestBody @Valid LoginForm loginForm
             ){
         LoginRequestDto loginRequestDto = new LoginRequestDto();
-        loginRequestDto.setLoginId(loginForm.getLoginId());
+        loginRequestDto.setEmail(loginForm.getEmail());
         loginRequestDto.setPassword( loginForm.getPassword());
         loginRequestDto.setExpiration(loginForm.getExpiration());
         return loginService.login(loginRequestDto);

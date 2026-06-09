@@ -14,19 +14,19 @@ public class UserRepositoryImpl implements UserRepository{
     }
 
     @Override
-    public User findByLoginId(String loginId) {
+    public User findByLoginId(String email) {
 
-        String sql = "SELECT user_id, login_id, password, role FROM t_user WHERE login_id = ?";
+        String sql = "SELECT user_id, email, password, role FROM t_user WHERE email = ?";
 
         try {
             return jdbcTemplate.queryForObject(sql,(rs, rowNum) -> {
                 User user = new User();
                 user.setUserId(rs.getInt("user_id"));
-                user.setLoginId(rs.getString("login_id"));
+                user.setEmail(rs.getString("email"));
                 user.setPassword(rs.getString("password"));
                 user.setRole(rs.getString("role"));
                 return user;
-            }, loginId);
+            }, email);
         } catch (EmptyResultDataAccessException e){
             return null;
         }
@@ -35,9 +35,9 @@ public class UserRepositoryImpl implements UserRepository{
 /* 新規ユーザー登録用のメソッド */
     @Override
     public void createUser(User user){
-        String sql = "INSERT INTO `api_db`.`t_user` (login_id, password, role) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO `api_db`.`t_user` (email, password, role) VALUES (?, ?, ?)";
         jdbcTemplate.update(sql,
-                user.getLoginId(),
+                user.getEmail(),
                 user.getPassword(),
                 user.getRole()
                 );
@@ -51,7 +51,7 @@ public class UserRepositoryImpl implements UserRepository{
     public void save(User user) {
         String sql = "INSERT INTO `api_db`.`t_user` (login_id, password) VALUES (?,?)";
          jdbcTemplate.update(sql,
-                 user.getLoginId(),
+                 user.getEmail(),
                  user.getPassword()
                  );
     }

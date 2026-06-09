@@ -20,10 +20,10 @@ public class SignUpServiceImpl implements SignUpService{
     @Override
     public SignUpResponseDto signUp(SignUpRequestDto signUpRequestDto){
 
-        User registeredUser = userRepository.findByLoginId(signUpRequestDto.getLoginId());
-        // 重複するログインID がリクエストされたなら GlobalExceptionHandler の handleRegisterException に入る
+        User registeredUser = userRepository.findByLoginId(signUpRequestDto.getEmail());
+        // 重複するメールアドレス がリクエストされたなら GlobalExceptionHandler の handleRegisterException に入る
         if(registeredUser != null){
-            throw new DuplicateUserException("SIGNUP_FAILED", "登録済みのログインIDでリクエストされました");
+            throw new DuplicateUserException("SIGNUP_FAILED", "登録済みのメールアドレスでリクエストされました");
         }
 
         String securityPhrase = signUpRequestDto.getSecurityPhrase();
@@ -34,7 +34,7 @@ public class SignUpServiceImpl implements SignUpService{
             newUser.setRole("ROLE_ADMIN");
         }
         String encodedPassword = passwordEncoder.encode(signUpRequestDto.getPassword());
-        newUser.setLoginId(signUpRequestDto.getLoginId());
+        newUser.setEmail(signUpRequestDto.getEmail());
         newUser.setPassword(encodedPassword);
         userRepository.createUser(newUser);
         SignUpResponseDto signUpResponseDto = new SignUpResponseDto();

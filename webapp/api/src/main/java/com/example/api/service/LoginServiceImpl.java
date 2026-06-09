@@ -32,7 +32,7 @@ public class LoginServiceImpl implements LoginService{
     @Override
     public LoginResponseDto login(LoginRequestDto loginRequestDto) {
 
-        User user = userRepository.findByLoginId(loginRequestDto.getLoginId());
+        User user = userRepository.findByLoginId(loginRequestDto.getEmail());
 
         /*
         * passwordEncoder は入力された平文 password を Bcryptアルゴリズムでハッシュ化
@@ -40,14 +40,14 @@ public class LoginServiceImpl implements LoginService{
         * 一致すれば true、一致しなければ false を返す
         * */
         if(user == null || !passwordEncoder.matches(loginRequestDto.getPassword(), user.getPassword()) ){
-            throw new LoginException("LOGIN_FAILED", "ログインidまたはパスワードが不正です");
+            throw new LoginException("LOGIN_FAILED", "メールアドレスまたはパスワードが不正です");
         }
-        String token = jwtUtil.generateToken(user.getLoginId(), user.getRole(), loginRequestDto.getExpiration());
+        String token = jwtUtil.generateToken(user.getEmail(), user.getRole(), loginRequestDto.getExpiration());
 
         // レスポンスDTOのユーザ情報用フィールドに値をセットする
         UserDto userDto = new UserDto();
         userDto.setUserId(user.getUserId());
-        userDto.setLoginId(user.getLoginId());
+        userDto.setEmail(user.getEmail());
         userDto.setRole(user.getRole());
         // レスポンスDTOのトークン用フィールドに値をセットする
         TokenDto tokenDto = new TokenDto();

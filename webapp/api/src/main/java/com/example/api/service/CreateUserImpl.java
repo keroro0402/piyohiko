@@ -20,7 +20,7 @@ public class CreateUserImpl implements CreateUserService{
         String encodedPassword =  passwordEncoder.encode(dto.getPassword());
 
         User user = new User();
-        user.setLoginId(dto.getLoginId());
+        user.setEmail(dto.getEmail());
         user.setPassword(encodedPassword);
 
         userRepository.save(user);

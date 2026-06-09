@@ -31,7 +31,7 @@ public class GlobalExceptionHandler {
         ApiErrorDto apiErrorDto = new ApiErrorDto(); // エラー用DTOを実体化して用意する
         apiErrorDto.setErrorCode("VALIDATION_ERROR"); // DTOにErrorCodeをセット
         apiErrorDto.setMessage(messageList); // DTOにエラーメッセージリストをセット
-        apiErrorDto.setTimestamp(LocalDateTime.now().toString()); // 👈 500と同じ項目を追加！
+        apiErrorDto.setTimestamp(LocalDateTime.now().toString());
         apiErrorDto.setPath(request.getRequestURI());
         return ResponseEntity.status(400).body(apiErrorDto);
     }
@@ -42,7 +42,7 @@ public class GlobalExceptionHandler {
         ApiErrorDto apiErrorDto = new ApiErrorDto();
         apiErrorDto.setErrorCode("INVALID_JSON");
         apiErrorDto.setMessage(List.of("JSONの形式が不正です"));
-        apiErrorDto.setTimestamp(LocalDateTime.now().toString()); // 👈 500と同じ項目を追加！
+        apiErrorDto.setTimestamp(LocalDateTime.now().toString());
         apiErrorDto.setPath(request.getRequestURI());
         return ResponseEntity.status(400).body(apiErrorDto);
     }

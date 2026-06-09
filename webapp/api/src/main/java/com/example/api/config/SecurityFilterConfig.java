@@ -77,7 +77,7 @@ public class SecurityFilterConfig {
                 )
                 .cors(Customizer.withDefaults()) // CORSの設定を反映
                 // JWT認証フィルターを、標準のユーザー名/パスワード認証の前に実行するよう設定（普段のAPI通信時は、先にJWTで認証を完了させて標準のチェックをパスさせたいため）
-                // UsernamePasswordAuthenticationFilterは、ログイン時の「ID/パスワード認証」を処理開始のトリガー用クラス
+                // UsernamePasswordAuthenticationFilterは、ログイン時の「メアド/パスワード認証」を処理開始のトリガー用クラス
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         // これまでの設定をすべて統合して、SecurityFilterChainの実体を作成して返却する
         return http.build();

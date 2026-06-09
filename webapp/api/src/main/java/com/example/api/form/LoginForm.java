@@ -7,8 +7,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class LoginForm {
-    @NotBlank(message = "ログインIDは必須です")
-    private String loginId;
+    @NotBlank(message = "メールアドレスは必須です")
+    private String email;
     @NotBlank(message = "パスワードは必須です")
     private String password;
     private long expiration;
