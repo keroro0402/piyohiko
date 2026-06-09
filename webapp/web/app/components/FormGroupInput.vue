@@ -58,6 +58,7 @@ const updateValue = (event: Event) => {
 .password-reset-modal {
   @include form-style;
 }
+
 .error-message {
   margin: 0;
 }
