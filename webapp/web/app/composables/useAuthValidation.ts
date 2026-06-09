@@ -12,7 +12,7 @@ export const useAuthValidation = () => {
         .nonempty({ message: TEXT.FORM.ERROR_EMAIL_REQUIRED }) // 必須チェック
         .min(FORM_RULES.EMAIL.MIN, { message: TEXT.FORM.ERROR_EMAIL_MIN(FORM_RULES.EMAIL.MIN) }) // 最小文字数
         .max(FORM_RULES.EMAIL.MAX, { message: TEXT.FORM.ERROR_EMAIL_MAX(FORM_RULES.EMAIL.MAX) }) // 最大文字数
-        .regex(REGEX.EMAIL, { message: TEXT.FORM.ERROR_LOGIN_ID_ALPHANUMERIC }), // 形式チェック
+        .regex(REGEX.EMAIL, { message: TEXT.FORM.ERROR_EMAIL_FORMAT }), // 形式チェック
 
       password: z
         .string()
@@ -30,7 +30,7 @@ export const useAuthValidation = () => {
           .nonempty({ message: TEXT.FORM.ERROR_EMAIL_REQUIRED }) // 必須チェック
           .min(FORM_RULES.EMAIL.MIN, { message: TEXT.FORM.ERROR_EMAIL_MIN(FORM_RULES.EMAIL.MIN) }) // 最小文字数
           .max(FORM_RULES.EMAIL.MAX, { message: TEXT.FORM.ERROR_EMAIL_MAX(FORM_RULES.EMAIL.MAX) }) // 最大文字数
-          .regex(REGEX.EMAIL, { message: TEXT.FORM.ERROR_LOGIN_ID_ALPHANUMERIC }), // 形式チェック
+          .regex(REGEX.EMAIL, { message: TEXT.FORM.ERROR_EMAIL_FORMAT }), // 形式チェック
 
         password: z
           .string()
