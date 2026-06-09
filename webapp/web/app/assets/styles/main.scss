@@ -174,6 +174,14 @@ main {
     &:hover {
       background-color: color.adjust($color-warm-orange, $lightness: -10%);
     }
+    &.disabled {
+      background-color: color.adjust($color-warm-orange, $lightness: 30%, $saturation: -40%);
+      cursor: not-allowed;
+    }
+  }
+  &__forgot-password {
+    text-align: center;
+    margin-top: 1rem;
   }
   &__required {
     color: $color-light-red;
