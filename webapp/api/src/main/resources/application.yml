@@ -16,3 +16,8 @@ spring:
 jwt:
   # `.env` ファイルに定義した JWT_SECRET_KEY の設定を充てる
   secret: ${JWT_SECRET_KEY}
+
+#「UUID」の設定
+uuid:
+  # `.env` ファイルに定義した UUID_EXPIRATION_TIME_MIN の設定を充てる
+  expiration-time: ${UUID_EXPIRATION_TIME_MIN}
