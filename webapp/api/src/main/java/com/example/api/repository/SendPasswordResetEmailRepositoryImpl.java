@@ -14,11 +14,11 @@ public class SendPasswordResetEmailRepositoryImpl implements SendPasswordResetEm
     /* PWリセットメール送信レコード登録用のメソッド */
     @Override
     public void createPasswordResetRequest(PasswordResetRequest passwordResetRequest) {
-        String sql = "INSERT INTO `api_db`.`t_password_reset_request` (user_id, token, expiry_date) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO `api_db`.`t_password_reset_request` (user_id, secret_code, expiry_date) VALUES (?, ?, ?)";
         jdbcTemplate.update(sql,
-                // passwordResetToken はレコードクラスで設計してあるので、メソッド名からgetが消えている
+                // passwordResetRequest はレコードクラスで設計してあるので、メソッド名にgetは付かない
                 passwordResetRequest.userId(),
-                passwordResetRequest.token(),
+                passwordResetRequest.secretCode(),
                 passwordResetRequest.expiryDate()
                 // テーブル作成時に DEFAULT で指定済みなのでis_used、created_atは省略
         );
