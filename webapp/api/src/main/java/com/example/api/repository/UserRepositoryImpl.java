@@ -44,19 +44,6 @@ public class UserRepositoryImpl implements UserRepository{
                 );
     }
 
-/* PWリセットメール送信レコード登録用のメソッド */
-    @Override
-    public void createPasswordResetRequest(PasswordResetRequest passwordResetRequest) {
-        String sql = "INSERT INTO `api_db`.`t_password_reset_token` (user_id, token, expiry_date) VALUES (?, ?, ?)";
-        jdbcTemplate.update(sql,
-                // passwordResetToken はレコードクラスで設計してあるので、メソッド名からgetが消えている
-                passwordResetRequest.userId(),
-                passwordResetRequest.token(),
-                passwordResetRequest.expiryDate()
-                // テーブル作成時に DEFAULT で指定済みなのでis_used、created_atは省略
-                );
-    }
-
 
     @Override
     public void save(User user) {
