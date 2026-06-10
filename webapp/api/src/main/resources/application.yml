@@ -12,12 +12,25 @@ spring:
     password: ${DB_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+  mail:
+    host: ${MAIL_HOST}
+    port: ${MAIL_PORT}
+    properties:
+      mail:
+        smtp:
+          auth: ${MAIL_AUTH}
+          starttls:
+            enable: ${MAIL_ENABLE}
+app:
+  reset-url: ${RESET_URL}
+  secret-code-expiration-time-min: ${SECRET_CODE_EXPIRATION_TIME_MIN}
+
 #「JWT」の設定
 jwt:
   # `.env` ファイルに定義した JWT_SECRET_KEY の設定を充てる
   secret: ${JWT_SECRET_KEY}
 
-#「UUID」の設定
-uuid:
-  # `.env` ファイルに定義した UUID_EXPIRATION_TIME_MIN の設定を充てる
-  expiration-time: ${UUID_EXPIRATION_TIME_MIN}
+#「シークレットコード」の設定
+secret-code:
+  # `.env` ファイルに定義した SECRET_CODE_EXPIRATION_TIME_MIN の設定を充てる
+  expiration-time: ${SECRET_CODE_EXPIRATION_TIME_MIN}
