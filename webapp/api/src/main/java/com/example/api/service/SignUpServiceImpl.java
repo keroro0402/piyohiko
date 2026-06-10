@@ -20,7 +20,7 @@ public class SignUpServiceImpl implements SignUpService{
     @Override
     public SignUpResponseDto signUp(SignUpRequestDto signUpRequestDto){
 
-        User registeredUser = userRepository.findByLoginId(signUpRequestDto.getEmail());
+        User registeredUser = userRepository.findByEmail(signUpRequestDto.getEmail());
         // 重複するメールアドレス がリクエストされたなら GlobalExceptionHandler の handleRegisterException に入る
         if(registeredUser != null){
             throw new DuplicateUserException("SIGNUP_FAILED", "登録済みのメールアドレスでリクエストされました");

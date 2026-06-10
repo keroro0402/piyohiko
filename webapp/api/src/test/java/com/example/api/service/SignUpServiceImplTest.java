@@ -51,7 +51,7 @@ public class SignUpServiceImplTest {
 
         // 2. MockitoBeanで作ったモックオブジェクトに組まれたメソッドに仮の引数をいれて実行させる
         // 「DBから検索されなかったら、null（重複なし）を返しなさい」と命令
-        when(userRepository.findByLoginId(dummyRequestDto.getEmail())).thenReturn(null);
+        when(userRepository.findByEmail(dummyRequestDto.getEmail())).thenReturn(null);
         // 💡 「画面からの生パスワード」が渡されたら、「dummy_hashed_pw」という文字を返しなさい、と命令
         when(passwordEncoder.encode(TEST_PASSWORD)).thenReturn("dummy_hashed_pw");
 
@@ -86,7 +86,7 @@ public class SignUpServiceImplTest {
 
         // 2. MockitoBeanで作ったモックオブジェクトに組まれたメソッドに仮の引数をいれて実行させる
         // 「DBから検索されなかったら、null（重複なし）を返しなさい」と命令
-        when(userRepository.findByLoginId(dummyRequestDto.getEmail())).thenReturn(null);
+        when(userRepository.findByEmail(dummyRequestDto.getEmail())).thenReturn(null);
         // 💡 「画面からの生パスワード」が渡されたら、「dummy_hashed_pw」という文字を返しなさい、と命令
         when(passwordEncoder.encode(TEST_PASSWORD)).thenReturn("dummy_hashed_pw");
 
@@ -123,7 +123,7 @@ public class SignUpServiceImplTest {
 
         // 2. MockitoBeanで作ったモックオブジェクトに組まれたメソッドに user をいれて実行させる
         // 「DBから検索できたら場合 user を返しなさい」と命令
-        when(userRepository.findByLoginId(user.getEmail())).thenReturn(user);
+        when(userRepository.findByEmail(user.getEmail())).thenReturn(user);
 
         // 3. 【実行】完成した実験室で、本番のsignUpメソッドを外から呼び出す
         DuplicateUserException exception = assertThrows(DuplicateUserException.class, () -> {

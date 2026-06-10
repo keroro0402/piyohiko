@@ -54,7 +54,7 @@ public class JwtFilter extends OncePerRequestFilter {
             String token = authHeader.substring(7);
             try {
                 String email = jwtUtil.getLoginIdFromToken(token); // トークンを使用して メアド を取り出す
-                User user = userRepository.findByLoginId(email); // メアドに合致するユーザを取得
+                User user = userRepository.findByEmail(email); // メアドに合致するユーザを取得
                 List<SimpleGrantedAuthority> authorities  = List.of(new SimpleGrantedAuthority(user.getRole())); // 権限の認可チェック（hasRoleなど）ができるように、権限チェック専用のクラスに入れ、リストに格納する　
                 System.out.println("認証OK:" + email);
                 System.out.println("認証OK:" + authorities);

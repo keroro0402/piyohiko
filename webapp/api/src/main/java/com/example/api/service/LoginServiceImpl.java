@@ -32,7 +32,7 @@ public class LoginServiceImpl implements LoginService{
     @Override
     public LoginResponseDto login(LoginRequestDto loginRequestDto) {
 
-        User user = userRepository.findByLoginId(loginRequestDto.getEmail());
+        User user = userRepository.findByEmail(loginRequestDto.getEmail());
 
         /*
         * passwordEncoder は入力された平文 password を Bcryptアルゴリズムでハッシュ化

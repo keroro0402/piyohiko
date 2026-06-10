@@ -60,7 +60,7 @@ public class LoginServiceImplTest {
 
         // 2. MockitoBeanで作ったモックオブジェクトに組まれたメソッドに仮の引数をいれて実行させる
         // 「DBから検索されたら、1. で作った dummyUser を返しなさい」と命令
-        when(userRepository.findByLoginId(TEST_EMAIL)).thenReturn(dummyUser);
+        when(userRepository.findByEmail(TEST_EMAIL)).thenReturn(dummyUser);
         // 「パスワード照合されたら、一致した（true）と返しなさい」と命令
         when(passwordEncoder.matches("raw_password", "hashed_password")).thenReturn(true);
         // 「トークン生成を頼まれたら、MOCKED_TOKEN（mocked_jwt_token という文字）を返しなさい」と命令
@@ -93,7 +93,7 @@ public class LoginServiceImplTest {
 
         // 2. MockitoBeanで作ったモックオブジェクトに組まれたメソッドに null をいれて実行させる
         // 「DBから検索できない場合 null を返しなさい」と命令
-        when(userRepository.findByLoginId(TEST_EMAIL)).thenReturn(null);
+        when(userRepository.findByEmail(TEST_EMAIL)).thenReturn(null);
 
         // 3. 【実行】完成した実験室で、本番のloginメソッドを外から呼び出す！
         LoginException exception = assertThrows(LoginException.class, () -> {
@@ -121,7 +121,7 @@ public class LoginServiceImplTest {
 
         // 2. MockitoBeanで作ったモックオブジェクトに組まれたメソッドに仮の引数をいれて実行させる
         // 「DBから検索されたら、1. で作った dummyUser を返しなさい」と命令
-        when(userRepository.findByLoginId(TEST_EMAIL)).thenReturn(dummyUser);
+        when(userRepository.findByEmail(TEST_EMAIL)).thenReturn(dummyUser);
         // 「パスワード照合されたら、一致しない（false）と返しなさい」と命令
         when(passwordEncoder.matches("raw_password", "hashed_password")).thenReturn(false);
 

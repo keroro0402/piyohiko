@@ -3,7 +3,7 @@ package com.example.api.repository;
 import com.example.api.entity.User;
 
 public interface UserRepository {
-    User findByLoginId(String email);
+    User findByEmail(String email);
     void createUser(User user);
     void save(User user);
 }

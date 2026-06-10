@@ -14,7 +14,7 @@ public class UserRepositoryImpl implements UserRepository{
     }
 
     @Override
-    public User findByLoginId(String email) {
+    public User findByEmail(String email) {
 
         String sql = "SELECT user_id, email, password, role FROM t_user WHERE email = ?";
 
@@ -49,7 +49,7 @@ public class UserRepositoryImpl implements UserRepository{
 
     @Override
     public void save(User user) {
-        String sql = "INSERT INTO `api_db`.`t_user` (login_id, password) VALUES (?,?)";
+        String sql = "INSERT INTO `api_db`.`t_user` (email, password) VALUES (?,?)";
          jdbcTemplate.update(sql,
                  user.getEmail(),
                  user.getPassword()
