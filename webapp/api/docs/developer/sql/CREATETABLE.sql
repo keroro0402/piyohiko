@@ -6,7 +6,7 @@ CREATE TABLE `api_db`.`t_user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
-CREATE TABLE `api_db`.`t_password_reset_token` (
+CREATE TABLE `api_db`.`t_password_reset_request` (
     user_id INT NOT NULL,
     token VARCHAR(36) NOT NULL,
     expiry_date DATETIME NOT NULL,
