@@ -53,14 +53,14 @@ public class JwtFilter extends OncePerRequestFilter {
             // Authorization の先頭7文字(Bearer )を削除してトークンを取り出す
             String token = authHeader.substring(7);
             try {
-                String loginId = jwtUtil.getLoginIdFromToken(token); // トークンを使用して loginId を取り出す
-                User user = userRepository.findByLoginId(loginId); // ログインIDに合致するユーザを取得
+                String email = jwtUtil.getLoginIdFromToken(token); // トークンを使用して メアド を取り出す
+                User user = userRepository.findByEmail(email); // メアドに合致するユーザを取得
                 List<SimpleGrantedAuthority> authorities  = List.of(new SimpleGrantedAuthority(user.getRole())); // 権限の認可チェック（hasRoleなど）ができるように、権限チェック専用のクラスに入れ、リストに格納する　
-                System.out.println("認証OK:" + loginId);
+                System.out.println("認証OK:" + email);
                 System.out.println("認証OK:" + authorities);
                 // ユーザ情報を確定させる
                 UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
-                        loginId, // 1. 「誰が」アクセスしてきたか（Principal）
+                        email, // 1. 「誰が」アクセスしてきたか（Principal）
                         null, // 2. 「どんな証拠（パスワード）」で認証したか（Credentials）
                         authorities // 3. 「どんな権限」を持っているか（Authorities）
                 );

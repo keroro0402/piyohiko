@@ -17,52 +17,10 @@ const { block, text, isFormValid } = defineProps<{
 @use '~/assets/styles/main.scss' as *;
 @use 'sass:color';
 
-.login-form {
-  &__submit {
-    width: 100%;
-    padding: 0.75rem;
-    background-color: $color-warm-orange;
-    color: $color-white;
-    border: none;
-    border-radius: 4px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    &:hover {
-      background-color: color.adjust($color-warm-orange, $lightness: -10%);
-    }
-    &.disabled {
-      background-color: color.adjust($color-warm-orange, $lightness: 30%, $saturation: -40%);
-      cursor: not-allowed;
-    }
-  }
-  &__forgot-password {
-    text-align: center;
-    margin-top: 1rem;
-  }
-}
-.register-form {
-  &__submit {
-    width: 100%;
-    padding: 0.75rem;
-    background-color: $color-warm-orange;
-    color: $color-white;
-    border: none;
-    border-radius: 4px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    &:hover {
-      background-color: color.adjust($color-warm-orange, $lightness: -10%);
-    }
-    &.disabled {
-      background-color: color.adjust($color-warm-orange, $lightness: 30%, $saturation: -40%);
-      cursor: not-allowed;
-    }
-  }
-  &__forgot-password {
-    text-align: center;
-    margin-top: 1rem;
-  }
+.login-form,
+.signup-form,
+.password-reset-form,
+.password-reset-modal {
+  @include form-style;
 }
 </style>

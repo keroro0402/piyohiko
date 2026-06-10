@@ -4,7 +4,7 @@
       {{ text }}
     </label>
     <span v-if="props.required" :class="`${block}__required`">{{ TEXT.FORM.REQUIRED }}</span>
-    <input :id="props.id" :value="props.modelValue" :class="`${props.block}__input`" :required="props.required" :placeholder="props.placeholder" :autocomplete="props.autocomplete" v-bind="$attrs" @input="updateValue" />
+    <input :id="props.id" :value="props.modelValue" :class="`${props.block}__input ${props.option}`" :required="props.required" :placeholder="props.placeholder" :autocomplete="props.autocomplete" v-bind="$attrs" @input="updateValue" />
     <p v-if="errors[id]" class="error-message">{{ errors[id] }}</p>
   </div>
 </template>
@@ -27,12 +27,14 @@ const props = withDefaults(
     autocomplete?: string;
     required?: boolean;
     modelValue: string | undefined;
+    option?: string;
     errors?: Record<string, string | undefined>;
   }>(),
   {
     placeholder: '',
     autocomplete: 'off',
     required: false,
+    option: '',
     errors: () => ({}),
   },
 );
@@ -50,11 +52,18 @@ const updateValue = (event: Event) => {
 <style lang="scss" scoped>
 @use '~/assets/styles/main.scss' as *;
 
-.register-form,
-.login-form {
+.signup-form,
+.login-form,
+.password-reset-form,
+.password-reset-modal {
   @include form-style;
 }
+
 .error-message {
   margin: 0;
+}
+
+.short {
+  width: 100px;
 }
 </style>

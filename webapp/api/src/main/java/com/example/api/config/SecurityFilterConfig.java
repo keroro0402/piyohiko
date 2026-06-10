@@ -30,7 +30,7 @@ public class SecurityFilterConfig {
     public CorsConfigurationSource corsConfigurationSource(){
         // CORSの設定情報を保持するオブジェクト（ルールブック）を生成
         CorsConfiguration config = new CorsConfiguration();
-        // 許可するドメインの設定
+        // Access-Control-Allow-Origin を返してよいドメインの許可リストを設定
         config.setAllowedOrigins(List.of(
                 "http://localhost:3000",
                 "https://localhost:3000"
@@ -70,15 +70,14 @@ public class SecurityFilterConfig {
                 // リクエストに対して、どのページにアクセスさせるかを設定
                 .authorizeHttpRequests(auth -> auth
 //                        .anyRequest().permitAll()
-                                .requestMatchers("/login").permitAll() // 全リクエストでアクセス許可
-                                .requestMatchers("/register").permitAll() // 全リクエストでアクセス許可
+                                .requestMatchers("/login", "/signup", "password-reset-email","/password-reset").permitAll() // 全リクエストでアクセス許可
                                 .requestMatchers("/admin").hasRole("ADMIN") // roleに ADMIN があれば許可
                                 .requestMatchers("/users").hasRole("USER") // roleに USER があれば許可
                                 .anyRequest().authenticated() // 上記以外のページへアクセスにはログイン必須を宣言
                 )
                 .cors(Customizer.withDefaults()) // CORSの設定を反映
                 // JWT認証フィルターを、標準のユーザー名/パスワード認証の前に実行するよう設定（普段のAPI通信時は、先にJWTで認証を完了させて標準のチェックをパスさせたいため）
-                // UsernamePasswordAuthenticationFilterは、ログイン時の「ID/パスワード認証」を処理開始のトリガー用クラス
+                // UsernamePasswordAuthenticationFilterは、ログイン時の「メアド/パスワード認証」を処理開始のトリガー用クラス
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         // これまでの設定をすべて統合して、SecurityFilterChainの実体を作成して返却する
         return http.build();

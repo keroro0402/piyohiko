@@ -2,6 +2,7 @@ package com.example.api.controller;
 
 import com.example.api.dto.LoginRequestDto;
 import com.example.api.dto.LoginResponseDto;
+import com.example.api.form.LoginForm;
 import com.example.api.service.LoginService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,9 +21,13 @@ public class LoginController {
 
     @PostMapping("/login")
     public LoginResponseDto login(
-            @RequestBody @Valid LoginRequestDto loginRequestDto
+            @RequestBody @Valid LoginForm loginForm
             ){
-        return loginService.login(loginRequestDto.getLoginId(), loginRequestDto.getPassword(), loginRequestDto.getExpiration());
+        LoginRequestDto loginRequestDto = new LoginRequestDto();
+        loginRequestDto.setEmail(loginForm.getEmail());
+        loginRequestDto.setPassword( loginForm.getPassword());
+        loginRequestDto.setExpiration(loginForm.getExpiration());
+        return loginService.login(loginRequestDto);
     }
 
     @GetMapping("/admin")

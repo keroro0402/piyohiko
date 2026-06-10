@@ -1,12 +1,12 @@
 <template>
-  <main class="login-page">
+  <div class="login-page">
     <section class="login-page__content">
       <h1 class="login-page__title">{{ TEXT.LOGIN.LABEL }}</h1>
       <p v-if="loginFailed" class="error-message">
         {{ loginFailed }}
       </p>
       <form :class="BLOCK_NAME" @submit.prevent="onSubmit">
-        <FormGroupInput :id="FIELD.LOGIN_ID" v-model="loginId" v-bind="loginIdProps" :errors="errors" :block="BLOCK_NAME" :text="TEXT.FORM.LOGINID" placeholder="test" autocomplete="username" required />
+        <FormGroupInput :id="FIELD.EMAIL" v-model="email" v-bind="emailProps" :errors="errors" :block="BLOCK_NAME" :text="TEXT.FORM.EMAIL" placeholder="test" autocomplete="username" required />
         <FormGroupInput :id="FIELD.PASSWORD" v-model="password" v-bind="passwordProps" :errors="errors" :block="BLOCK_NAME" :text="TEXT.FORM.PASSWORD" type="password" minlength="1" placeholder="test" required />
         <div :class="`${BLOCK_NAME}__check`">
           <input :id="FIELD.REMEMBER_ME" v-model="rememberMe" :class="`${BLOCK_NAME}__checkbox`" type="checkbox" />
@@ -16,19 +16,19 @@
         </div>
         <SubmitButton :block="BLOCK_NAME" :is-form-valid="isFormValid" :text="TEXT.LOGIN.LABEL" />
         <div :class="`${BLOCK_NAME}__forgot-password`">
-          <NuxtLink :class="`${BLOCK_NAME}__forgot-link`" to="/">{{ TEXT.LOGIN.FORGOT_PASSWORD }}</NuxtLink>
+          <NuxtLink :class="`${BLOCK_NAME}__forgot-link`" :to="LINKS.TEXT.PASSWORD_RESET">{{ TEXT.LOGIN.FORGOT_PASSWORD }}</NuxtLink>
         </div>
         <div :class="`${BLOCK_NAME}__switch-page`">
-          <NuxtLink :class="`${BLOCK_NAME}__switch-link`" :to="LINKS.TEXT.REGISTER">{{ TEXT.LOGIN.NEW_USER }}</NuxtLink>
+          <NuxtLink :class="`${BLOCK_NAME}__switch-link`" :to="LINKS.TEXT.SIGNUP">{{ TEXT.LOGIN.NEW_USER }}</NuxtLink>
         </div>
       </form>
     </section>
-  </main>
+  </div>
 </template>
 
 <script setup lang="ts">
 /* 外部ライブラリ（Vue本体やnpmパッケージ） */
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { useForm } from 'vee-validate';
 /* プロジェクト共通の仕組み（API、エラーハンドラー、汎用コンポーザブル） */
 import { login } from '~/api/apiClient';
@@ -56,7 +56,7 @@ useHead({
 /* 当該ページ（ログイン画面）でのみ使用する定数（タイポ防止用） */
 const BLOCK_NAME = 'login-form';
 const FIELD = {
-  LOGIN_ID: 'loginId',
+  EMAIL: 'email',
   PASSWORD: 'password',
   REMEMBER_ME: 'rememberMe',
 };
@@ -76,15 +76,15 @@ const {
   validationSchema: loginSchema, // Zodで定義した検証ルール
   initialValues: {
     // 画面表示時の初期値（空文字で初期化）
-    loginId: '',
+    email: '',
     password: '',
   },
 });
 const [
-  // loginId用のVeeValidate処理一式を定義（値と裏方のイベント設定を取得）
-  loginId, // v-modelで双方バインディグされた値
-  loginIdProps, // 入力欄が動くために必要な「裏方のイベント設定」が入ったオブジェクト
-] = defineField('loginId');
+  // email用のVeeValidate処理一式を定義（値と裏方のイベント設定を取得）
+  email, // v-modelで双方バインディグされた値
+  emailProps, // 入力欄が動くために必要な「裏方のイベント設定」が入ったオブジェクト
+] = defineField('email');
 const [password, passwordProps] = defineField('password');
 
 /* 画面独自のリアクティブな状態（ref / computed） */
@@ -97,7 +97,7 @@ const onSubmit = handleSubmit(async (values) => {
   loginFailed.value = '';
   // login API呼び出し
   try {
-    const response = await login(values.loginId, values.password, rememberMe.value ? COOKIE_EXPIRATION.REMEMBER_ME : COOKIE_EXPIRATION.DEFAULT);
+    const response = await login(values.email, values.password, rememberMe.value ? COOKIE_EXPIRATION.REMEMBER_ME : COOKIE_EXPIRATION.DEFAULT);
     if (response.data) {
       // Cookieにアクセストークンを保存
       setCookies(response.data.token.accessToken, {
@@ -106,7 +106,7 @@ const onSubmit = handleSubmit(async (values) => {
         secure: true,
       });
       // ストアにユーザー情報を保存
-      userInfoStore.setUserName(response.data.user.loginId);
+      userInfoStore.setUserName(response.data.user.email);
       userInfoStore.setUserRole(response.data.user.role);
       await navigateTo('/'); // TOPページへ遷移
     }

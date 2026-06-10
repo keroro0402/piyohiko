@@ -1,34 +1,36 @@
 <template>
-  <main class="register-page">
-    <section class="register-page__content">
-      <h1 class="register-page__title">{{ TEXT.REGISTER.LABEL }}</h1>
-      <p v-if="registerFailed" class="error-message">
-        {{ registerFailed }}
+  <div class="signup-page">
+    <section class="signup-page__content">
+      <h1 class="signup-page__title">{{ TEXT.SIGNUP.LABEL }}</h1>
+      <p v-if="signupFailed" class="error-message">
+        {{ signupFailed }}
       </p>
       <form :class="BLOCK_NAME" @submit.prevent="onSubmit">
-        <FormGroupInput :id="FIELD.LOGIN_ID" v-model="loginId" v-bind="loginIdProps" :errors="errors" :block="BLOCK_NAME" :text="TEXT.FORM.LOGINID" placeholder="test" autocomplete="username" required />
+        <FormGroupInput :id="FIELD.LOGIN_ID" v-model="email" v-bind="emailProps" :errors="errors" :block="BLOCK_NAME" :text="TEXT.FORM.EMAIL" placeholder="test" autocomplete="username" required />
         <FormGroupInput :id="FIELD.PASSWORD" v-model="password" v-bind="passwordProps" :errors="errors" :block="BLOCK_NAME" :text="TEXT.FORM.PASSWORD" type="password" minlength="1" placeholder="test" required />
-        <FormGroupInput :id="FIELD.CONFIRM_PASSWORD" v-model="confirmPassword" v-bind="confirmPasswordProps" :errors="errors" :block="BLOCK_NAME" :text="TEXT.REGISTER.CONFIRM_PASSWORD_LABEL" type="password" minlength="1" placeholder="test" required />
+        <FormGroupInput :id="FIELD.CONFIRM_PASSWORD" v-model="confirmPassword" v-bind="confirmPasswordProps" :errors="errors" :block="BLOCK_NAME" :text="TEXT.FORM.CONFIRM_PASSWORD" type="password" minlength="1" placeholder="test" required />
         <FormGroupInput :id="FIELD.SECURITY_PHRASE" v-model="securityPhrase" v-bind="securityPhraseProps" :block="BLOCK_NAME" :text="SECURITY_SUBJECT" placeholder="test" />
-        <SubmitButton :block="BLOCK_NAME" :is-form-valid="isFormValid" :text="TEXT.REGISTER.LABEL" />
+        <SubmitButton :block="BLOCK_NAME" :is-form-valid="isFormValid" :text="TEXT.SIGNUP.LABEL" />
         <div :class="`${BLOCK_NAME}__switch-page`">
-          <NuxtLink :class="`${BLOCK_NAME}__switch-link`" :to="LINKS.TEXT.LOGIN">{{ TEXT.REGISTER.EXISTING_USER }}</NuxtLink>
+          <NuxtLink :class="`${BLOCK_NAME}__switch-link`" :to="LINKS.TEXT.LOGIN">{{ TEXT.SIGNUP.EXISTING_USER }}</NuxtLink>
         </div>
       </form>
     </section>
-  </main>
+  </div>
 </template>
 
 <script setup lang="ts">
 /* 外部ライブラリ（Vue本体やnpmパッケージ） */
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { useForm } from 'vee-validate';
 /* プロジェクト共通の仕組み（API、エラーハンドラー、汎用コンポーザブル） */
-import { registerNewUser } from '~/api/apiClient';
+import { signupNewUser } from '~/api/apiClient';
 import { errorHandler } from '~/api/errorHandler';
+import type { CustomAxiosError } from '~/types/customAxiosError';
 /* プロジェクト共通の定数（マスターデータ系） */
 import { PAGE_TITLES, LINKS } from '~/constants/pages';
 import { TEXT, SECURITY_SUBJECT } from '~/constants/text';
+import { TIME } from '~/constants/number';
 /* 子コンポーネント（画面を構成する部品） */
 import FormGroupInput from '~/components/FormGroupInput.vue';
 import SubmitButton from '~/components/SubmitButton.vue';
@@ -45,16 +47,17 @@ useHead({
 });
 
 /* 当該ページ（新規登録画面）でのみ使用する定数（タイポ防止用） */
-const BLOCK_NAME = 'register-form';
+const BLOCK_NAME = 'signup-form';
 const FIELD = {
-  LOGIN_ID: 'loginId',
+  LOGIN_ID: 'email',
   PASSWORD: 'password',
   SECURITY_PHRASE: 'securityPhrase',
   CONFIRM_PASSWORD: 'confirmPassword',
 };
 
 /* 外部データ・状態管理（Storeや共通コンポーザブルの呼び出し） */
-const { registerSchema } = useAuthValidation();
+const { signupSchema } = useAuthValidation();
+const { showSuccessToast, showApiErrorToast } = useToast();
 
 /* フォーム・バリデーション関連（VeeValidate）*/
 const {
@@ -63,38 +66,41 @@ const {
   handleSubmit, // 送信時にバリデーションを実行する門番関数
   meta, // フォーム全体の検証状態（エラーの有無など）を持つオブジェクト
 } = useForm({
-  validationSchema: registerSchema, // Zodで定義した検証ルール
+  validationSchema: signupSchema, // Zodで定義した検証ルール
   initialValues: {
     // 画面表示時の初期値（空文字で初期化）
-    loginId: '',
+    email: '',
     password: '',
     confirmPassword: '',
     securityPhrase: '',
   },
 });
 const [
-  // loginId用のVeeValidate処理一式を定義（値と裏方のイベント設定を取得）
-  loginId, // v-modelで双方バインディグされた値
-  loginIdProps, // 入力欄が動くために必要な「裏方のイベント設定」が入ったオブジェクト
-] = defineField('loginId');
+  // email用のVeeValidate処理一式を定義（値と裏方のイベント設定を取得）
+  email, // v-modelで双方バインディグされた値
+  emailProps, // 入力欄が動くために必要な「裏方のイベント設定」が入ったオブジェクト
+] = defineField('email');
 const [password, passwordProps] = defineField('password');
 const [confirmPassword, confirmPasswordProps] = defineField('confirmPassword');
 const [securityPhrase, securityPhraseProps] = defineField('securityPhrase');
 /* 画面独自のリアクティブな状態（ref / computed） */
-const registerFailed = ref('');
+const signupFailed = ref('');
 const isFormValid = computed(() => meta.value.valid && meta.value.dirty); // VeeValidateの結果がvalidにbooleanで入る
 
 /* 送信などのアクション（関数・イベントハンドラー） */
 const onSubmit = handleSubmit(async (values) => {
-  registerFailed.value = '';
-  // register API呼び出し
+  signupFailed.value = '';
+  // signup API呼び出し
   try {
-    const response = await registerNewUser(values.loginId, values.password, values.securityPhrase ?? '');
+    const response = await signupNewUser(values.email, values.password, values.securityPhrase ?? '');
+    showSuccessToast(TEXT.SIGNUP.SUCCESS_SIGNUP); // トーストで通知
     if (response.data) {
-      await navigateTo('/'); // TOPページへ遷移
+      await sleep(TIME.SLEEP); // ページ遷移を少し待つ
+      await navigateTo('/login'); // ログインページへ遷移
     }
   } catch (error) {
-    registerFailed.value = errorHandler(error);
+    showApiErrorToast(error as CustomAxiosError);
+    signupFailed.value = errorHandler(error);
     return;
   }
 });
@@ -104,10 +110,10 @@ const onSubmit = handleSubmit(async (values) => {
 @use '~/assets/styles/main.scss' as *;
 @use 'sass:color';
 
-.register-page {
+.signup-page {
   @include auth-page-layout($color-dark-green);
 }
-.register-form {
+.signup-form {
   &__switch-page {
     text-align: center;
     margin-top: 1rem;
