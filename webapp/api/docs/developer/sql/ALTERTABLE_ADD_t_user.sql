@@ -1,1 +1,2 @@
 ALTER TABLE `api_db`.`t_user` ADD COLUMN role VARCHAR(20) NOT NULL ;
+ALTER TABLE `api_db`.`t_user` ADD COLUMN email VARCHAR(256) NOT NULL UNIQUE ;
