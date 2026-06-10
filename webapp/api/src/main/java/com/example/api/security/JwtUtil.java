@@ -14,12 +14,12 @@ import java.util.Date;
 public class JwtUtil {
     // application.ymlから秘密鍵を注入
     @Value("${jwt.secret}")
-    private String SECRET_KEY;
+    private String secretKey;
     private SecretKey key;
 
     @PostConstruct
     public void init(){
-        this.key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes(StandardCharsets.UTF_8)); // 文字列の秘密鍵を署名用のSecretKeyに変換
+        this.key = Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8)); // 文字列の秘密鍵を署名用のSecretKeyに変換
     }
 
     public String generateToken(String email, String role, long expiration){
