@@ -8,6 +8,5 @@ import java.time.LocalDateTime;
 * Lombok（@Data や @Getter）不要で同様の操作が保証される
 * 自動的にすべて final になる
 * */
-public record PasswordResetToken(Integer userId, String token, LocalDateTime expiryDate, Boolean isUsed,
-                                 LocalDateTime createdAt) {
+public record PasswordResetRequest(Integer userId, String token, LocalDateTime expiryDate) {
 }

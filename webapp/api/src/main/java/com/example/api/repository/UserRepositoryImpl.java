@@ -1,6 +1,6 @@
 package com.example.api.repository;
 
-import com.example.api.entity.PasswordResetToken;
+import com.example.api.entity.PasswordResetRequest;
 import com.example.api.entity.User;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -44,14 +44,15 @@ public class UserRepositoryImpl implements UserRepository{
                 );
     }
 
+/* PWリセットメール送信レコード登録用のメソッド */
     @Override
-    public void insertPasswordResetToken(PasswordResetToken passwordResetToken) {
+    public void createPasswordResetRequest(PasswordResetRequest passwordResetRequest) {
         String sql = "INSERT INTO `api_db`.`t_password_reset_token` (user_id, token, expiry_date) VALUES (?, ?, ?)";
         jdbcTemplate.update(sql,
                 // passwordResetToken はレコードクラスで設計してあるので、メソッド名からgetが消えている
-                passwordResetToken.userId(),
-                passwordResetToken.token(),
-                passwordResetToken.expiryDate()
+                passwordResetRequest.userId(),
+                passwordResetRequest.token(),
+                passwordResetRequest.expiryDate()
                 // テーブル作成時に DEFAULT で指定済みなのでis_used、created_atは省略
                 );
     }
