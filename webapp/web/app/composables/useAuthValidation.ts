@@ -71,7 +71,7 @@ export const useAuthValidation = () => {
   const passwordResetModalSchema = toTypedSchema(
     z
       .object({
-        secretcode: z
+        secretCode: z
           .string()
           .nonempty({ message: TEXT.PASSWORD_RESET_MODAL.ERROR_SECRETCODE_REQUIRED }) // 必須チェック
           .regex(REGEX.SECRETCODE, { message: TEXT.PASSWORD_RESET_MODAL.ERROR_SECRETCODE(FORM_RULES.SECRETCODE_LENGTH) }), // 形式チェック

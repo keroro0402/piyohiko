@@ -64,7 +64,7 @@ export const TEXT = {
     SECRETCODE_LABEL: 'シークレットコード',
     SECRETCODE_PLACEHOLDER: '999',
     ERROR_SECRETCODE_REQUIRED: 'シークレットコードを入力してください',
-    ERROR_SECRETCODE: (secretcode_length: number) => `${secretcode_length}桁の半角数字を入力してください`,
+    ERROR_SECRETCODE: (secretCode_length: number) => `${secretCode_length}桁の半角数字を入力してください`,
     NEW_PASSWORD_LABEL: '新しいパスワード',
     NEW_PASSWORD_CONFIRM_LABEL: '新しいパスワード（確認）',
     BUTTON_UPDATE: 'パスワードを更新',
