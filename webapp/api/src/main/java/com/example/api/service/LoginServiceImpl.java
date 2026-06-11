@@ -5,7 +5,7 @@ import com.example.api.dto.LoginResponseDto;
 import com.example.api.dto.TokenDto;
 import com.example.api.dto.UserDto;
 import com.example.api.entity.User;
-import com.example.api.exception.LoginException;
+import com.example.api.exception.BusinessException;
 import com.example.api.repository.UserRepository;
 import com.example.api.security.JwtUtil;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -40,7 +40,7 @@ public class LoginServiceImpl implements LoginService{
         * 一致すれば true、一致しなければ false を返す
         * */
         if(user == null || !passwordEncoder.matches(loginRequestDto.getPassword(), user.getPassword()) ){
-            throw new LoginException("LOGIN_FAILED", "メールアドレスまたはパスワードが不正です");
+            throw new BusinessException(401, "LOGIN_FAILED", "メールアドレスまたはパスワードが不正です");
         }
         String token = jwtUtil.generateToken(user.getEmail(), user.getRole(), loginRequestDto.getExpiration());
 

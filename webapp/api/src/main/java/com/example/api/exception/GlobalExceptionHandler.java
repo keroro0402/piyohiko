@@ -49,8 +49,8 @@ public class GlobalExceptionHandler {
 
 
     // 401：DB未登録データでリクエストした時の ExceptionHandler（使用API例：ログイン("/login")）
-    @ExceptionHandler(LoginException.class)
-    public ResponseEntity<ApiErrorDto> handleLoginException(LoginException e){
+    @ExceptionHandler(BusinessException.class)
+    public ResponseEntity<ApiErrorDto> handleUnauthorizedException(BusinessException e){
         ApiErrorDto apiErrorDto = new ApiErrorDto();
         apiErrorDto.setErrorCode(e.getErrorCode());
         apiErrorDto.setMessage(List.of(e.getMessage()));

@@ -3,7 +3,7 @@ package com.example.api.service;
 import com.example.api.dto.LoginRequestDto;
 import com.example.api.dto.LoginResponseDto;
 import com.example.api.entity.User;
-import com.example.api.exception.LoginException;
+import com.example.api.exception.BusinessException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -96,7 +96,7 @@ public class LoginServiceImplTest {
         when(userRepository.findByEmail(TEST_EMAIL)).thenReturn(null);
 
         // 3. 【実行】完成した実験室で、本番のloginメソッドを外から呼び出す！
-        LoginException exception = assertThrows(LoginException.class, () -> {
+        BusinessException exception = assertThrows(BusinessException.class, () -> {
             loginService.login(dummyRequestDto);
         });
         // 4. 【検証】エラーの中身（エラーコード）が「LOGIN_FAILED」と一致することを確認する
@@ -126,7 +126,7 @@ public class LoginServiceImplTest {
         when(passwordEncoder.matches("raw_password", "hashed_password")).thenReturn(false);
 
         // 3. 【実行】完成した実験室で、本番のloginメソッドを外から呼び出す
-        LoginException exception = assertThrows(LoginException.class, () -> {
+        BusinessException exception = assertThrows(BusinessException.class, () -> {
             loginService.login(dummyRequestDto);
         });
 
