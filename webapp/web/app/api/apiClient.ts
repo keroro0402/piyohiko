@@ -23,9 +23,9 @@ const requestPasswordReset = async (email: string) => {
   return apiClient.post('/password-reset-email', { email });
 };
 
-const passwordReset = async (secretCode: string, password: string) => {
+const passwordReset = async (email: string, secretCode: string, password: string) => {
   const apiClient = getApiClient();
-  return apiClient.post('/password-reset', { secretCode, password });
+  return apiClient.post('/password-reset', { email, secretCode, password });
 };
 
 export { login, signupNewUser, requestPasswordReset, passwordReset };
