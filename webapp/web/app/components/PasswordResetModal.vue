@@ -42,6 +42,12 @@ const FIELD = {
 
 /* 外部データ・状態管理（Storeや共通コンポーザブルの呼び出し） */
 const { passwordResetModalSchema } = useAuthValidation();
+
+/* 外部から受け取るデータ（Props） */
+const props = defineProps<{
+  email: string;
+}>();
+
 /* 外部に出すデータ（Emits） */
 defineEmits(['close']);
 
@@ -73,10 +79,11 @@ const isFormValid = computed(() => meta.value.valid && meta.value.dirty); // Vee
 
 /* 送信などのアクション（関数・イベントハンドラー） */
 const onSubmit = handleSubmit(async (values) => {
+  console.log(values, 'values');
   passwordResetModalFailed.value = '';
   // passwordReset API呼び出し
   try {
-    const response = await passwordReset(values.secretCode, values.password);
+    const response = await passwordReset(props.email, values.secretCode, values.password);
     if (response.data) {
       console.log('通信完了');
     }

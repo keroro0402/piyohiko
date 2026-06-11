@@ -15,7 +15,7 @@
           <NuxtLink :class="`${BLOCK_NAME}__switch-link`" :to="LINKS.TEXT.LOGIN">{{ TEXT.SIGNUP.EXISTING_USER }}</NuxtLink>
         </div>
       </form>
-      <PasswordResetModal v-if="isModalOpen" @close="isModalOpen = false" />
+      <PasswordResetModal v-if="isModalOpen" :email="email!" @close="isModalOpen = false" />
     </section>
   </div>
 </template>
