@@ -74,8 +74,8 @@ public class GlobalExceptionHandler {
 
 
     // 409：DB登録済みの重複するデータでリクエストされた時の ExceptionHandler（使用API例：新規登録("/signup")）
-    @ExceptionHandler(DuplicateUserException.class)
-    public ResponseEntity<ApiErrorDto> handleRegisterException(DuplicateUserException e){
+    @ExceptionHandler(BusinessException.class)
+    public ResponseEntity<ApiErrorDto> handleRegisterException(BusinessException e){
         ApiErrorDto apiErrorDto = new ApiErrorDto();
         apiErrorDto.setErrorCode(e.getErrorCode());
         apiErrorDto.setMessage(List.of(e.getMessage()));

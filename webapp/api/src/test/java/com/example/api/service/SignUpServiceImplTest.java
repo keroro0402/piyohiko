@@ -4,7 +4,7 @@ import com.example.api.dto.LoginResponseDto;
 import com.example.api.dto.SignUpRequestDto;
 import com.example.api.dto.SignUpResponseDto;
 import com.example.api.entity.User;
-import com.example.api.exception.DuplicateUserException;
+import com.example.api.exception.BusinessException;
 import com.example.api.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -126,7 +126,7 @@ public class SignUpServiceImplTest {
         when(userRepository.findByEmail(user.getEmail())).thenReturn(user);
 
         // 3. 【実行】完成した実験室で、本番のsignUpメソッドを外から呼び出す
-        DuplicateUserException exception = assertThrows(DuplicateUserException.class, () -> {
+        BusinessException exception = assertThrows(BusinessException.class, () -> {
             signUpService.signUp(dummySignUpRequestDto);
         });
 

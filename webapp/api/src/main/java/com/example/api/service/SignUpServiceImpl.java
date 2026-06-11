@@ -3,7 +3,7 @@ package com.example.api.service;
 import com.example.api.dto.SignUpRequestDto;
 import com.example.api.dto.SignUpResponseDto;
 import com.example.api.entity.User;
-import com.example.api.exception.DuplicateUserException;
+import com.example.api.exception.BusinessException;
 import com.example.api.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,7 +23,7 @@ public class SignUpServiceImpl implements SignUpService{
         User registeredUser = userRepository.findByEmail(signUpRequestDto.getEmail());
         // 重複するメールアドレス がリクエストされたなら GlobalExceptionHandler の handleRegisterException に入る
         if(registeredUser != null){
-            throw new DuplicateUserException("SIGNUP_FAILED", "登録済みのメールアドレスでリクエストされました");
+            throw new BusinessException(409, "SIGNUP_FAILED", "登録済みのメールアドレスでリクエストされました");
         }
 
         String securityPhrase = signUpRequestDto.getSecurityPhrase();
