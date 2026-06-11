@@ -1,6 +1,5 @@
 package com.example.api.repository;
 
-import com.example.api.entity.PasswordResetRequest;
 import com.example.api.entity.User;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;

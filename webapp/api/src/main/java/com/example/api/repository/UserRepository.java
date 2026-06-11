@@ -1,6 +1,5 @@
 package com.example.api.repository;
 
-import com.example.api.entity.PasswordResetRequest;
 import com.example.api.entity.User;
 
 public interface UserRepository {
