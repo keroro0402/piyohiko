@@ -2,7 +2,7 @@ package com.example.api.service;
 
 import com.example.api.dto.SendPasswordResetEmailRequestDto;
 import com.example.api.dto.SendPasswordResetEmailResponseDto;
-import com.example.api.entity.PasswordResetRequest;
+import com.example.api.entity.SendPasswordResetEmail;
 import com.example.api.entity.User;
 import com.example.api.repository.SendPasswordResetEmailRepository;
 import com.example.api.repository.UserRepository;
@@ -58,13 +58,13 @@ public class SendPasswordResetEmailServiceImpl implements SendPasswordResetEmail
         // シークレットコードの有効期限を設定（引数の単位はmin）
         LocalDateTime expiryDate = LocalDateTime.now().plusMinutes(secretCodeExpirationTimeMin);
 
-        PasswordResetRequest passwordResetRequest = new PasswordResetRequest(
+        SendPasswordResetEmail sendPasswordResetEmail = new SendPasswordResetEmail(
                 user.getUserId(),
                 secretCode,
                 expiryDate
         );
         // ユーザ情報をDBに登録する
-        sendPasswordResetEmailRepository.createPasswordResetRequest(passwordResetRequest);
+        sendPasswordResetEmailRepository.createPasswordResetRequest(sendPasswordResetEmail);
 
 
         SimpleMailMessage message = new SimpleMailMessage();
