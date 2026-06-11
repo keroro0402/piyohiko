@@ -8,6 +8,10 @@ import lombok.NonNull;
 
 @Data
 public class ResetPasswordForm {
+    @NotBlank(message = "メールアドレスを入力してください")
+    @Size(min = 1, max = 256, message = "メールアドレスは1~256文字で入力してください")
+    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", message = "メールアドレスの形式が不正です")
+    private String email;
     @NotBlank(message = "シークレットコードを入力してください")
     @Pattern(regexp = "^[0-9]{3}$", message = "シークレットコードは3桁半角数字で入力してください")
     private String secretCode;
