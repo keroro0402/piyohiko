@@ -12,6 +12,7 @@ public class ResetPasswordForm {
     @Pattern(regexp = "^[0-9]{3}$", message = "シークレットコードは3桁半角数字で入力してください")
     private String secretCode;
     @NotBlank(message = "パスワードを入力してください")
+    @Size(min = 8, max = 64, message = "パスワードは8~64文字で入力してください")
     @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "パスワードは半角英数字のみで入力してください")
     private String password;
 }
