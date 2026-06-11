@@ -9,12 +9,13 @@
         {{ TEXT.PASSWORD_RESET.DESCRIPTION }}
       </p>
       <form :class="BLOCK_NAME" @submit.prevent="onSubmit">
-        <FormGroupInput :id="FIELD.EMAIL" v-model="email" v-bind="emailProps" :errors="errors" :block="BLOCK_NAME" :text="TEXT.PASSWORD_RESET.EMAIL_LABEL" :placeholder="TEXT.PASSWORD_RESET.EMAIL_PLACEHOLDER" autocomplete="username" required />
+        <FormGroupInput :id="FIELD.EMAIL" v-model="email" v-bind="emailProps" :errors="errors" :block="BLOCK_NAME" :text="TEXT.FORM.EMAIL" :placeholder="TEXT.FORM.EMAIL_PLACEHOLDER" autocomplete="username" required />
         <SubmitButton :block="BLOCK_NAME" :is-form-valid="isFormValid" :text="TEXT.PASSWORD_RESET.BUTTON_SEND" />
         <div :class="`${BLOCK_NAME}__switch-page`">
           <NuxtLink :class="`${BLOCK_NAME}__switch-link`" :to="LINKS.TEXT.LOGIN">{{ TEXT.SIGNUP.EXISTING_USER }}</NuxtLink>
         </div>
       </form>
+      <PasswordResetModal v-if="isModalOpen" @close="isModalOpen = false" />
     </section>
   </div>
 </template>
@@ -30,10 +31,10 @@ import type { CustomAxiosError } from '~/types/customAxiosError';
 /* プロジェクト共通の定数（マスターデータ系） */
 import { PAGE_TITLES, LINKS } from '~/constants/pages';
 import { TEXT } from '~/constants/text';
-import { TIME } from '~/constants/number';
 /* 子コンポーネント（画面を構成する部品） */
 import FormGroupInput from '~/components/FormGroupInput.vue';
 import SubmitButton from '~/components/SubmitButton.vue';
+import PasswordResetModal from '~/components/PasswordResetModal.vue';
 
 /* 画面のメタ情報（Nuxt/Vueのシステム設定） */
 definePageMeta({
@@ -76,6 +77,7 @@ const [
 ] = defineField('email');
 /* 画面独自のリアクティブな状態（ref / computed） */
 const passwordResetFailed = ref('');
+const isModalOpen = ref(false);
 const isFormValid = computed(() => meta.value.valid && meta.value.dirty); // VeeValidateの結果がvalidにbooleanで入る
 
 /* 送信などのアクション（関数・イベントハンドラー） */
@@ -84,10 +86,9 @@ const onSubmit = handleSubmit(async (values) => {
   // passwordReset API呼び出し
   try {
     const response = await requestPasswordReset(values.email);
-    showSuccessToast(TEXT.PASSWORD_RESET.SEND_SUCCESS); // トーストで通知
     if (response.data) {
-      await sleep(TIME.SLEEP); // ページ遷移を少し待つ
-      await navigateTo('/login'); // ログインページへ遷移
+      showSuccessToast(TEXT.PASSWORD_RESET.SEND_SUCCESS); // トーストで通知
+      isModalOpen.value = true;
     }
   } catch (error) {
     showApiErrorToast(error as CustomAxiosError);
