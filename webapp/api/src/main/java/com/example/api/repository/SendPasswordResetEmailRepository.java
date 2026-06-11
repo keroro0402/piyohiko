@@ -1,7 +1,7 @@
 package com.example.api.repository;
 
-import com.example.api.entity.PasswordResetRequest;
+import com.example.api.entity.SendPasswordResetEmail;
 
 public interface SendPasswordResetEmailRepository{
-    void createPasswordResetRequest(PasswordResetRequest passwordResetRequest);
+    void createPasswordResetRequest(SendPasswordResetEmail sendPasswordResetEmail);
 }
