@@ -47,16 +47,6 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(400).body(apiErrorDto);
     }
 
-
-    // 401：DB未登録データでリクエストした時の ExceptionHandler（使用API例：ログイン("/login")）
-    @ExceptionHandler(BusinessException.class)
-    public ResponseEntity<ApiErrorDto> handleUnauthorizedException(BusinessException e){
-        ApiErrorDto apiErrorDto = new ApiErrorDto();
-        apiErrorDto.setErrorCode(e.getErrorCode());
-        apiErrorDto.setMessage(List.of(e.getMessage()));
-        return ResponseEntity.status(401).body(apiErrorDto);
-    }
-
     // 404：存在しないAPIにリクエストした時の ExceptionHandler
     @ExceptionHandler({
             NoResourceFoundException.class, // 最新の404例外
@@ -72,14 +62,14 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(404).body(apiErrorDto);
     }
 
-
+    // 401：DB未登録データでリクエストした時の ExceptionHandler（使用API例：ログイン("/login")）
     // 409：DB登録済みの重複するデータでリクエストされた時の ExceptionHandler（使用API例：新規登録("/signup")）
     @ExceptionHandler(BusinessException.class)
-    public ResponseEntity<ApiErrorDto> handleRegisterException(BusinessException e){
+    public ResponseEntity<ApiErrorDto> handleBusinessException(BusinessException e){
         ApiErrorDto apiErrorDto = new ApiErrorDto();
         apiErrorDto.setErrorCode(e.getErrorCode());
         apiErrorDto.setMessage(List.of(e.getMessage()));
-        return ResponseEntity.status(409).body(apiErrorDto);
+        return ResponseEntity.status(e.getStatusCode()).body(apiErrorDto);
     }
 
     /* 500：API 全体で発生した 500（サーバーエラー） のエラーハンドリング用メソッド */
@@ -92,6 +82,5 @@ public class GlobalExceptionHandler {
         apiErrorDto.setPath(request.getRequestURI());
         return ResponseEntity.status(500).body(apiErrorDto);
     }
-
 
 }
