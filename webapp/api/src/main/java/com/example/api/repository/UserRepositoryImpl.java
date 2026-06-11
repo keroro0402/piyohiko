@@ -35,7 +35,7 @@ public class UserRepositoryImpl implements UserRepository{
 /* 新規ユーザー登録用のメソッド */
     @Override
     public void createUser(User user){
-        String sql = "INSERT INTO `api_db`.`t_user` (email, password, role) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO t_user (email, password, role) VALUES (?, ?, ?)";
         jdbcTemplate.update(sql,
                 user.getEmail(),
                 user.getPassword(),
@@ -46,7 +46,7 @@ public class UserRepositoryImpl implements UserRepository{
 
     @Override
     public void save(User user) {
-        String sql = "INSERT INTO `api_db`.`t_user` (email, password) VALUES (?,?)";
+        String sql = "INSERT INTO t_user (email, password) VALUES (?,?)";
          jdbcTemplate.update(sql,
                  user.getEmail(),
                  user.getPassword()

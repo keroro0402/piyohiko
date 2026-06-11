@@ -14,7 +14,7 @@ public class SendPasswordResetEmailRepositoryImpl implements SendPasswordResetEm
     /* PWリセットメール送信レコード登録用のメソッド */
     @Override
     public void createPasswordResetRequest(SendPasswordResetEmail sendPasswordResetEmail) {
-        String sql = "INSERT INTO `api_db`.`t_password_reset_request` (user_id, secret_code, expiry_date) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO t_password_reset_request (user_id, secret_code, expiry_date) VALUES (?, ?, ?)";
         jdbcTemplate.update(sql,
                 // sendPasswordResetEmail はレコードクラスで設計してあるので、メソッド名にgetは付かない
                 sendPasswordResetEmail.userId(),
