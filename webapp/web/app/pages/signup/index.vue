@@ -93,8 +93,8 @@ const onSubmit = handleSubmit(async (values) => {
   // signup API呼び出し
   try {
     const response = await signupNewUser(values.email, values.password, values.securityPhrase ?? '');
-    showSuccessToast(TEXT.SIGNUP.SUCCESS_SIGNUP); // トーストで通知
     if (response.data) {
+      showSuccessToast(TEXT.SIGNUP.SUCCESS_SIGNUP); // トーストで通知
       await sleep(TIME.SLEEP); // ページ遷移を少し待つ
       await navigateTo('/login'); // ログインページへ遷移
     }
