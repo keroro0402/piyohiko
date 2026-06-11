@@ -1,6 +1,7 @@
 package com.example.api.controller;
 
 import com.example.api.dto.SendPasswordResetEmailRequestDto;
+import com.example.api.dto.SendPasswordResetEmailResponseDto;
 import com.example.api.form.SendPasswordResetEmailForm;
 import com.example.api.service.SendPasswordResetEmailService;
 import lombok.RequiredArgsConstructor;
@@ -17,14 +18,14 @@ public class SendPasswordResetEmailController {
     private final SendPasswordResetEmailService sendPasswordResetEmailService;
 
     @PostMapping("/password-reset-email")
-    public void sendPasswordResetEmail(
+    public SendPasswordResetEmailResponseDto sendPasswordResetEmail(
             @RequestBody
             @Validated
             SendPasswordResetEmailForm sendPasswordResetEmailForm
     ){
         SendPasswordResetEmailRequestDto sendPasswordResetEmailRequestDto = new SendPasswordResetEmailRequestDto();
         sendPasswordResetEmailRequestDto.setEmail(sendPasswordResetEmailForm.getEmail());
-        sendPasswordResetEmailService.sendPasswordResetEmail(sendPasswordResetEmailRequestDto);
+        return sendPasswordResetEmailService.sendPasswordResetEmail(sendPasswordResetEmailRequestDto);
     };
 
 }

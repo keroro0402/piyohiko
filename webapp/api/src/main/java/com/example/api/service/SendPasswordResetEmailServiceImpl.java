@@ -1,12 +1,14 @@
 package com.example.api.service;
 
 import com.example.api.dto.SendPasswordResetEmailRequestDto;
+import com.example.api.dto.SendPasswordResetEmailResponseDto;
 import com.example.api.entity.PasswordResetRequest;
 import com.example.api.entity.User;
 import com.example.api.repository.SendPasswordResetEmailRepository;
 import com.example.api.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 
 import org.springframework.mail.SimpleMailMessage;
@@ -19,6 +21,7 @@ import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class SendPasswordResetEmailServiceImpl implements SendPasswordResetEmailService{
 
     private final UserRepository userRepository;
@@ -33,13 +36,18 @@ public class SendPasswordResetEmailServiceImpl implements SendPasswordResetEmail
 
 
     @Override
-    public void sendPasswordResetEmail(SendPasswordResetEmailRequestDto sendPasswordResetEmailRequestDto) {
-        /*  */
+    public SendPasswordResetEmailResponseDto sendPasswordResetEmail(SendPasswordResetEmailRequestDto sendPasswordResetEmailRequestDto) {
+
+        // レスポンス用メッセージを一括で作成
+        SendPasswordResetEmailResponseDto sendPasswordResetEmailResponseDto = new SendPasswordResetEmailResponseDto();
+        sendPasswordResetEmailResponseDto.setMessage("メールアドレスを設定いただいている場合は、そちらへパスワード変更案内メールを送信しました");
+
         User user = userRepository.findByEmail(sendPasswordResetEmailRequestDto.getEmail());
         // user が null（メアドが登録されていない）なら即終了
         if(user == null ){
+            log.warn("パスワード再設定要求：指定されたメールアドレスは存在しません。Email: {}", sendPasswordResetEmailRequestDto.getEmail());
 //       throw new UserNotFoundException(404);
-            return;
+            return sendPasswordResetEmailResponseDto;
         }
 
         // シークレットコード用に整数（乱数）を作成する
@@ -75,8 +83,7 @@ public class SendPasswordResetEmailServiceImpl implements SendPasswordResetEmail
                         "3 : パスワードを更新 ボタンを押す\n\n" +
                         "※シークレットコードの有効期限はメール着後、30分間です。\n時間を過ぎた場合はお手数ですが、 パスワードの再設定 画面から再操作をお願いいたします。"
         );
-
         mailSender.send(message);
-
+        return sendPasswordResetEmailResponseDto;
     }
 }
