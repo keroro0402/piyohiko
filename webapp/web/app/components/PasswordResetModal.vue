@@ -26,8 +26,10 @@ import { useForm } from 'vee-validate';
 /* プロジェクト共通の仕組み（API、エラーハンドラー、汎用コンポーザブル） */
 import { passwordReset } from '~/api/apiClient';
 import { errorHandler } from '~/api/errorHandler';
+import type { CustomAxiosError } from '~/types/customAxiosError';
 /* プロジェクト共通の定数（マスターデータ系） */
 import { TEXT } from '~/constants/text';
+import { TIME } from '~/constants/number';
 /* 子コンポーネント（画面を構成する部品） */
 import FormGroupInput from '~/components/FormGroupInput.vue';
 import SubmitButton from '~/components/SubmitButton.vue';
@@ -42,6 +44,7 @@ const FIELD = {
 
 /* 外部データ・状態管理（Storeや共通コンポーザブルの呼び出し） */
 const { passwordResetModalSchema } = useAuthValidation();
+const { showSuccessToast, showApiErrorToast } = useToast();
 
 /* 外部から受け取るデータ（Props） */
 const props = defineProps<{
@@ -79,16 +82,18 @@ const isFormValid = computed(() => meta.value.valid && meta.value.dirty); // Vee
 
 /* 送信などのアクション（関数・イベントハンドラー） */
 const onSubmit = handleSubmit(async (values) => {
-  console.log(values, 'values');
   passwordResetModalFailed.value = '';
   // passwordReset API呼び出し
   try {
     const response = await passwordReset(props.email, values.secretCode, values.password);
     if (response.data) {
-      console.log('通信完了');
+      showSuccessToast(TEXT.PASSWORD_RESET_MODAL.UPDATE_SUCCESS); // トーストで通知
+      await sleep(TIME.SLEEP); // ページ遷移を少し待つ
+      await navigateTo('/login'); // ログインページへ遷移
     }
   } catch (error) {
     passwordResetModalFailed.value = errorHandler(error);
+    showApiErrorToast(error as CustomAxiosError);
     return;
   }
 });
