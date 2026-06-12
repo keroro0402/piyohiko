@@ -11,6 +11,5 @@ public interface ResetPasswordRepository {
             String secretCode,
             LocalDateTime now
     );
-    void passwordUpdate(Integer userId, String password);
     void updateIsUsedToTrue(Long id);
 }

@@ -61,13 +61,6 @@ public class ResetPasswordRepositoryImpl implements ResetPasswordRepository{
 
     }
 
-    // t_user の password を更新する
-    @Override
-    public void passwordUpdate(Integer userId, String password) {
-        String sql = "UPDATE t_user SET password = ? WHERE user_id = ?";
-        jdbcTemplate.update(sql,password, userId);
-    }
-
     // t_password_reset_request の is_used を更新する
     @Override
     public void updateIsUsedToTrue(Long id) {

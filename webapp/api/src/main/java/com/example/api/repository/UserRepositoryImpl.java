@@ -43,6 +43,13 @@ public class UserRepositoryImpl implements UserRepository{
                 );
     }
 
+    // t_user の password を更新する
+    @Override
+    public void passwordUpdate(Integer userId, String password) {
+        String sql = "UPDATE t_user SET password = ? WHERE user_id = ?";
+        jdbcTemplate.update(sql,password, userId);
+    }
+
 
     @Override
     public void save(User user) {
