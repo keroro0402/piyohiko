@@ -6,8 +6,8 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 public interface ResetPasswordRepository {
-    Optional<ResetPassword> findByEmailAndSecretCodeAndIsUsedFalseAndExpiryDateAfter(
-            String email,
+    Optional<ResetPassword> findByUserIdAndSecretCodeAndIsUsedFalseAndExpiryDateAfter(
+            Integer userId,
             String secretCode,
             LocalDateTime now
     );

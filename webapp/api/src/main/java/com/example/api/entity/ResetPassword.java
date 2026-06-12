@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 
 public record ResetPassword(
         Long id,
-        String email,
+        Integer userId,
         String secretCode,
         LocalDateTime expiryDate,
         Boolean isUsed
