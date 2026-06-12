@@ -7,20 +7,40 @@ import type { ImageItem } from '~/types/image';
  * - key は一意、alt は画像の内容を説明するテキスト、path は画像のパス、loading は画像の読み込み方法（eager または lazy）
  * - 並び順 = 表示順
  */
+
+const imageInfo = {
+  image1: 'image1',
+  image2: 'image2',
+  image3: 'image3',
+  image4: 'image4',
+} as const;
+
 export const IMAGES: {
   MAIN: readonly ImageItem[];
 } = {
   MAIN: [
     {
-      key: 'image1',
+      key: imageInfo.image1,
       alt: 'ルフィ',
-      path: '/images/image1.png',
+      path: `/images/${imageInfo.image1}.png`,
       loading: 'eager', // 画像読み込みは標準
     },
     {
-      key: 'image2',
+      key: imageInfo.image2,
       alt: 'ゾロ',
-      path: '/images/image2.png',
+      path: `/images/${imageInfo.image2}.png`,
+      loading: 'eager', // 画像読み込みは標準
+    },
+    {
+      key: imageInfo.image3,
+      alt: 'クロコダイル',
+      path: `/images/${imageInfo.image3}.png`,
+      loading: 'eager', // 画像読み込みは標準
+    },
+    {
+      key: imageInfo.image4,
+      alt: 'ナミ',
+      path: `/images/${imageInfo.image4}.png`,
       loading: 'eager', // 画像読み込みは標準
     },
   ],
