@@ -1,5 +1,5 @@
 <template>
-  <BaseModal @close="$emit('close')">
+  <BaseModal :disable-overlay-click="true" @close="$emit('close')">
     <div class="password-reset-modal">
       <section class="password-reset-modal__content">
         <h1 class="password-reset-modal__title">{{ TEXT.PASSWORD_RESET_MODAL.LABEL }}</h1>
