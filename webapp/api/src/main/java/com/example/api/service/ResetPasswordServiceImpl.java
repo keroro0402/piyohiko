@@ -38,9 +38,10 @@ public class ResetPasswordServiceImpl implements ResetPasswordService{
                         user.getUserId(),
                         secretCode,
                         LocalDateTime.now()
-                ).orElseThrow(() -> new BusinessException(400, "INVALID_CODE", "コードが無効または期限切れです"));
-
-
+                ).orElseThrow(() -> new BusinessException(400,
+                        "INVALID_CODE", "パスワードを変更できませんでした\nメールアドレスが未登録か、" +
+                        "シークレットコードが無効（期限切れなど）の可能性があります"));
+        
         String encodedPassword = passwordEncoder.encode(resetPasswordRequestDto.getPassword()); // 新パスワードをエンコード
         userRepository.passwordUpdate( user.getUserId(), encodedPassword); // t_user の password を更新
         resetPasswordRepository.updateIsUsedToTrue(resetPassword.id());  // t_password_reset_request の is_used を更新
