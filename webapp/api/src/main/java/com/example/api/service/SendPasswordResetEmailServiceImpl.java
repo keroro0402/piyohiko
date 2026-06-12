@@ -81,7 +81,7 @@ public class SendPasswordResetEmailServiceImpl implements SendPasswordResetEmail
                         "を入力する\n" +
                         "2 : 新しいパスワード と 新しいパスワード（確認）を入力する\n" +
                         "3 : パスワードを更新 ボタンを押す\n\n" +
-                        "※シークレットコードの有効期限はメール着後、30分間です。\n時間を過ぎた場合はお手数ですが、 パスワードの再設定 画面から再操作をお願いいたします。"
+                        "※シークレットコードの有効期限はメール着後、" + " " + secretCodeExpirationTimeMin + " " + "分間です。\n時間を過ぎた場合はお手数ですが、 パスワードの再設定 画面から再操作をお願いいたします。"
         );
         mailSender.send(message);
         return sendPasswordResetEmailResponseDto;
