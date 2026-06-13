@@ -10,6 +10,7 @@ import 'swiper/css/pagination';
 export const useSwiper = (options: SwiperOptions = {}) => {
   const swiperRef = ref<HTMLElement | null>(null);
   const swiperInstance = ref<Swiper | null>(null);
+  const currentIndex = ref(1);
 
   onMounted(() => {
     if (swiperRef.value) {
@@ -38,8 +39,17 @@ export const useSwiper = (options: SwiperOptions = {}) => {
       });
     }
   });
+
+  watch(swiperInstance, (newSwiper) => {
+    if (!newSwiper) return;
+    newSwiper.on('slideChange', () => {
+      currentIndex.value = newSwiper.realIndex;
+    });
+  });
+
   return {
     swiperRef,
+    currentIndex,
     swiper: swiperInstance,
   };
 };
