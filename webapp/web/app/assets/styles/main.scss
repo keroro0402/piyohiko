@@ -15,6 +15,7 @@ $color-light-purple: rgb(70, 74, 143);
 body {
   margin: 0;
   color: $color-dark-gray;
+  user-select: none;
 }
 
 main {
