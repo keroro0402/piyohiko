@@ -5,7 +5,7 @@ import type { ImageItem } from '~/types/image';
  *
  * @rules
  * - key は一意で使用ページ名、alt は画像の内容を説明するテキスト、path は画像のパス、loading は画像の読み込み方法（eager または lazy）
- * - INDEX : 表示順 = 配列順、最低5枚を指定
+ * - INDEX : 表示順 = 配列順
  */
 
 const imageInfo = {
