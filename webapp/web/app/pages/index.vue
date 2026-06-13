@@ -1,13 +1,10 @@
 <template>
-  <div>
-    <h1>Index page</h1>
-    <img v-for="image in IMAGES.MAIN" :key="image.key" :src="image.path" :loading="image.loading" />
-  </div>
+  <HomeSwiper />
 </template>
 
 <script setup lang="ts">
-import { IMAGES } from '~/constants/images';
 import { PAGE_TITLES } from '~/constants/pages';
+import HomeSwiper from '~/components/HomeSwiper.vue';
 
 definePageMeta({
   middleware: 'auth', // middleware/auth.ts で遷移を操作
@@ -15,7 +12,6 @@ definePageMeta({
 
 const route = useRoute();
 const pageKey = route.name?.toString() || '';
-
 useHead({
   title: PAGE_TITLES[pageKey as keyof typeof PAGE_TITLES] ?? '',
 });
