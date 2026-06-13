@@ -12,7 +12,7 @@ import { TEXT } from './text';
  */
 
 const PATH = {
-  TOP: '/',
+  HOME: '/',
   ABOUT: '/about',
   LOGIN: '/login',
   SIGNUP: '/signup',
@@ -21,7 +21,7 @@ const PATH = {
 
 export const LINKS = {
   NAVI: [
-    { key: 'home', label: TEXT.COMMON.HOME, to: PATH.TOP },
+    { key: 'home', label: TEXT.COMMON.HOME, to: PATH.HOME },
     { key: 'about', label: TEXT.COMMON.ABOUT, to: PATH.ABOUT },
     { key: 'login', label: TEXT.COMMON.LOGIN, to: PATH.LOGIN },
     { key: 'signup', label: TEXT.COMMON.SIGNUP, to: PATH.SIGNUP },
