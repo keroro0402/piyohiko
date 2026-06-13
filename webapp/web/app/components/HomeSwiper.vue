@@ -2,7 +2,7 @@
   <div ref="swiperRef" class="swiper">
     <div class="swiper-wrapper">
       <div v-for="image in IMAGES.INDEX" :key="image.key" class="swiper-slide">
-        <img class="slide-img" :src="image.path" :alt="image.alt" :loading="image.loading" />
+        <img class="slide-img" :src="image.path" :alt="image.alt" :loading="image.loading" @dblclick="handleImageClick" />
       </div>
     </div>
     <div class="swiper-pagination" />
@@ -13,7 +13,15 @@
 </template>
 <script setup lang="ts">
 import { IMAGES } from '~/constants/images';
-const { swiperRef } = useSwiper();
+const { swiperRef, currentIndex } = useSwiper();
+
+const handleImageClick = () => {
+  const targetIndex = currentIndex.value;
+  // ここに画像をclickしたらおきるイベントを書く
+  // ここに画像をclickしたらおきるイベントを書く
+  // ここに画像をclickしたらおきるイベントを書く
+  console.log(targetIndex);
+};
 </script>
 <style lang="scss" scoped>
 .swiper {
