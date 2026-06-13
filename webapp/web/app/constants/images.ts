@@ -4,8 +4,8 @@ import type { ImageItem } from '~/types/image';
  * イメージ定義
  *
  * @rules
- * - key は一意、alt は画像の内容を説明するテキスト、path は画像のパス、loading は画像の読み込み方法（eager または lazy）
- * - 並び順 = 表示順
+ * - key は一意で使用ページ名、alt は画像の内容を説明するテキスト、path は画像のパス、loading は画像の読み込み方法（eager または lazy）
+ * - INDEX : 表示順 = 配列順、最低5枚を指定
  */
 
 const imageInfo = {
@@ -13,12 +13,13 @@ const imageInfo = {
   image2: 'image2',
   image3: 'image3',
   image4: 'image4',
+  image5: 'image5',
 } as const;
 
 export const IMAGES: {
-  MAIN: readonly ImageItem[];
+  INDEX: readonly ImageItem[];
 } = {
-  MAIN: [
+  INDEX: [
     {
       key: imageInfo.image1,
       alt: 'ルフィ',
@@ -41,6 +42,12 @@ export const IMAGES: {
       key: imageInfo.image4,
       alt: 'ナミ',
       path: `/images/${imageInfo.image4}.png`,
+      loading: 'eager', // 画像読み込みは標準
+    },
+    {
+      key: imageInfo.image5,
+      alt: 'ティーチ',
+      path: `/images/${imageInfo.image5}.png`,
       loading: 'eager', // 画像読み込みは標準
     },
   ],
