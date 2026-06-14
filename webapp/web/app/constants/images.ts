@@ -97,6 +97,5 @@ export const IMAGES = {
     },
   ],
 } as const satisfies {
-  HOME: readonly ImageItem[];
-  PAGE_DISCRIPTION: readonly ImageItem[];
+  [key: string]: readonly ImageItem[];
 };
