@@ -81,9 +81,14 @@ export const TEXT = {
     ERROR500: 'サーバーエラーが発生しました\nしばらくしてから再度お試しください',
     UNKNOWNERROR: '不明なエラーが発生しました\nしばらくしてから再度お試しください',
   },
-  SWIPER_CONTENTS: {
+  SPRING_CONTENTS: {
     TITLE: 'Spring Boot',
     CATEGORY: 'Java',
     DESCRIPTION: 'JavaによるWebアプリケーション開発のデファクトスタンダード。強力な依存関係管理と自動設定機能により、最小限の設定で堅牢かつスケーラブルなAPIやサーバーサイド開発を迅速に実現できる標準技術を学びます。',
+  },
+  NUXT_CONTENTS: {
+    TITLE: 'Nuxt.js',
+    CATEGORY: 'JavaScript',
+    DESCRIPTION: '面倒な設定なしで、Vue.jsでの本格的なWebサイト開発をスタートできるフレームワークです。表示速度が速く、検索エンジン（SEO）にも評価されやすい最先端のページ作成技術を直感的に学びます。',
   },
 } as const;
