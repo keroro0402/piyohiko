@@ -12,8 +12,20 @@
   </div>
 </template>
 <script setup lang="ts">
+import { watch } from 'vue';
 import { IMAGES } from '~/constants/images';
+
+/* 外部データ・状態管理（Storeや共通コンポーザブルの呼び出し） */
 const { swiperRef, currentIndex } = useSwiper();
+
+/* Emits でcurrentIndex を親に伝搬 */
+const emit = defineEmits<{
+  (e: 'currentIndex', index: number): void;
+}>();
+
+watch(currentIndex, (newIndex) => {
+  emit('currentIndex', newIndex);
+});
 
 const handleImageClick = () => {
   const targetIndex = currentIndex.value;
