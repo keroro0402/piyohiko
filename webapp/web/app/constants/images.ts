@@ -9,45 +9,91 @@ import type { ImageItem } from '~/types/image';
  */
 
 const imageInfo = {
-  image1: 'image1',
-  image2: 'image2',
-  image3: 'image3',
-  image4: 'image4',
-  image5: 'image5',
+  INDEX: {
+    swipe1: 'image1',
+    swipe2: 'image2',
+    swipe3: 'image3',
+    swipe4: 'image4',
+    swipe5: 'image5',
+  },
+  INDEX_DISCRIPTION: {
+    level0: 'star0',
+    level1: 'star1',
+    level2: 'star2',
+    level3: 'star3',
+    level4: 'star4',
+    level5: 'star5',
+  },
 } as const;
 
-export const IMAGES: {
-  INDEX: readonly ImageItem[];
-} = {
+export const IMAGES = {
   INDEX: [
     {
-      key: imageInfo.image1,
+      key: imageInfo.INDEX.swipe1,
       alt: 'ルフィ',
-      path: `/images/${imageInfo.image1}.png`,
+      path: `/images/${imageInfo.INDEX.swipe1}.png`,
       loading: 'eager', // 画像読み込みは標準
     },
     {
-      key: imageInfo.image2,
+      key: imageInfo.INDEX.swipe2,
       alt: 'ゾロ',
-      path: `/images/${imageInfo.image2}.png`,
+      path: `/images/${imageInfo.INDEX.swipe2}.png`,
       loading: 'eager', // 画像読み込みは標準
     },
     {
-      key: imageInfo.image3,
+      key: imageInfo.INDEX.swipe3,
       alt: 'クロコダイル',
-      path: `/images/${imageInfo.image3}.png`,
+      path: `/images/${imageInfo.INDEX.swipe3}.png`,
       loading: 'eager', // 画像読み込みは標準
     },
     {
-      key: imageInfo.image4,
+      key: imageInfo.INDEX.swipe4,
       alt: 'ナミ',
-      path: `/images/${imageInfo.image4}.png`,
+      path: `/images/${imageInfo.INDEX.swipe4}.png`,
       loading: 'eager', // 画像読み込みは標準
     },
     {
-      key: imageInfo.image5,
+      key: imageInfo.INDEX.swipe5,
       alt: 'ティーチ',
-      path: `/images/${imageInfo.image5}.png`,
+      path: `/images/${imageInfo.INDEX.swipe5}.png`,
+      loading: 'eager', // 画像読み込みは標準
+    },
+  ],
+  INDEX_DISCRIPTION: [
+    {
+      key: imageInfo.INDEX_DISCRIPTION.level0,
+      alt: '星0',
+      path: `/images/${imageInfo.INDEX_DISCRIPTION.level0}.png`,
+      loading: 'eager', // 画像読み込みは標準
+    },
+    {
+      key: imageInfo.INDEX_DISCRIPTION.level1,
+      alt: '星1',
+      path: `/images/${imageInfo.INDEX_DISCRIPTION.level1}.png`,
+      loading: 'eager', // 画像読み込みは標準
+    },
+    {
+      key: imageInfo.INDEX_DISCRIPTION.level2,
+      alt: '星2',
+      path: `/images/${imageInfo.INDEX_DISCRIPTION.level2}.png`,
+      loading: 'eager', // 画像読み込みは標準
+    },
+    {
+      key: imageInfo.INDEX_DISCRIPTION.level3,
+      alt: '星3',
+      path: `/images/${imageInfo.INDEX_DISCRIPTION.level3}.png`,
+      loading: 'eager', // 画像読み込みは標準
+    },
+    {
+      key: imageInfo.INDEX_DISCRIPTION.level4,
+      alt: '星4',
+      path: `/images/${imageInfo.INDEX_DISCRIPTION.level4}.png`,
+      loading: 'eager', // 画像読み込みは標準
+    },
+    {
+      key: imageInfo.INDEX_DISCRIPTION.level5,
+      alt: '星5',
+      path: `/images/${imageInfo.INDEX_DISCRIPTION.level5}.png`,
       loading: 'eager', // 画像読み込みは標準
     },
   ],
