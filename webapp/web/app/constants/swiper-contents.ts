@@ -8,15 +8,15 @@ import { IMAGES } from '~/constants/images';
  * - key は大文字
  */
 export const SWIPER_CONTENTS: {
-  INDEX: readonly ContentItem[];
+  HOME: readonly ContentItem[];
 } = {
-  INDEX: [
+  HOME: [
     {
       id: 0,
       title: TEXT.SWIPER_CONTENTS.TITLE,
       category: TEXT.SWIPER_CONTENTS.CATEGORY,
       image: {
-        level: IMAGES.INDEX_DISCRIPTION[3],
+        level: IMAGES.HOME_DISCRIPTION[3],
       },
       description: TEXT.SWIPER_CONTENTS.DESCRIPTION,
     },
