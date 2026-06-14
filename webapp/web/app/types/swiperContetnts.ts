@@ -5,9 +5,6 @@ import type { ImageItem } from './image';
  * 型エイリアスで定義
  */
 export type ContentItem = {
-  /** キー用（半角数字・変更不可） */
-  id: number;
-
   /** title用（文字列・変更不可） */
   title: string;
 
