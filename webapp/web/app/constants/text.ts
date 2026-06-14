@@ -81,6 +81,12 @@ export const TEXT = {
     ERROR500: 'サーバーエラーが発生しました\nしばらくしてから再度お試しください',
     UNKNOWNERROR: '不明なエラーが発生しました\nしばらくしてから再度お試しください',
   },
+  DESCRIPTION: {
+    TITLE: 'タイトル',
+    CATEGORY: 'カテゴリ',
+    LEVEL: '難易度',
+    DESCRIPTION: '説明',
+  },
   SPRING_CONTENTS: {
     TITLE: 'Spring Boot',
     CATEGORY: 'Java',

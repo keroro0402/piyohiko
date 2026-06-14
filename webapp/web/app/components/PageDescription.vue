@@ -1,21 +1,21 @@
 <template>
   <div class="page-description">
     <div class="page-description__header">
-      <span class="page-description__label">タイトル</span>
+      <span class="page-description__label">{{ TEXT.DESCRIPTION.TITLE }}</span>
       <h3 class="page-description__title">{{ activeContent.title }}</h3>
     </div>
     <div class="page-description__content">
-      <span class="page-description__label">カテゴリ</span>
+      <span class="page-description__label">{{ TEXT.DESCRIPTION.CATEGORY }}</span>
       <p class="page-description__category">{{ activeContent.category }}</p>
     </div>
     <div class="page-description__content">
-      <span class="page-description__label">難易度</span>
+      <span class="page-description__label">{{ TEXT.DESCRIPTION.LEVEL }}</span>
       <p class="page-description__level">
         <img :src="activeContent.image.level.path" :alt="activeContent.image.level.alt" :loading="activeContent.image.level.loading" />
       </p>
     </div>
     <div class="page-description__content">
-      <span class="page-description__label">コメント</span>
+      <span class="page-description__label">{{ TEXT.DESCRIPTION.DESCRIPTION }}</span>
       <p class="page-description__description">{{ activeContent.description }}</p>
     </div>
   </div>
@@ -23,6 +23,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { DESCRIPTION_CONTENTS } from '~/constants/descreption-contents';
+import { TEXT } from '~/constants/text';
 
 /* 外部から受け取るデータ（Props） */
 const props = defineProps<{
@@ -71,7 +72,7 @@ const activeContent = computed(() => {
     font-size: 0.875rem;
     font-weight: bold;
     color: $color-dark-gray;
-    width: 100px;
+    width: 80px;
     flex-shrink: 0; // 画面が狭くなってもラベルが潰れないように固定
     padding-top: 0.25rem; // 横のテキストと高さを合わせる微調整
   }
