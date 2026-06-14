@@ -7,18 +7,18 @@ import { IMAGES } from '~/constants/images';
  * @rules
  * - key は大文字
  */
-export const SWIPER_CONTENTS: {
-  HOME: readonly ContentItem[];
-} = {
+export const SWIPER_CONTENTS = {
   HOME: [
     {
       id: 0,
       title: TEXT.SWIPER_CONTENTS.TITLE,
       category: TEXT.SWIPER_CONTENTS.CATEGORY,
       image: {
-        level: IMAGES.HOME_DISCRIPTION[3],
+        level: IMAGES.PAGE_DISCRIPTION[3],
       },
       description: TEXT.SWIPER_CONTENTS.DESCRIPTION,
     },
   ],
-} as const;
+} as const satisfies {
+  HOME: readonly ContentItem[];
+};

@@ -1,3 +1,4 @@
+import type { ImageItem } from '~/types/image';
 /**
  * イメージ定義
  *
@@ -14,7 +15,7 @@ const imageInfo = {
     swipe4: 'image4',
     swipe5: 'image5',
   },
-  HOME_DISCRIPTION: {
+  PAGE_DISCRIPTION: {
     level0: 'star0',
     level1: 'star1',
     level2: 'star2',
@@ -57,42 +58,45 @@ export const IMAGES = {
       loading: 'eager', // 画像読み込みは標準
     },
   ],
-  HOME_DISCRIPTION: [
+  PAGE_DISCRIPTION: [
     {
-      key: imageInfo.HOME_DISCRIPTION.level0,
+      key: imageInfo.PAGE_DISCRIPTION.level0,
       alt: '星0',
-      path: `/images/${imageInfo.HOME_DISCRIPTION.level0}.png`,
+      path: `/images/${imageInfo.PAGE_DISCRIPTION.level0}.png`,
       loading: 'eager', // 画像読み込みは標準
     },
     {
-      key: imageInfo.HOME_DISCRIPTION.level1,
+      key: imageInfo.PAGE_DISCRIPTION.level1,
       alt: '星1',
-      path: `/images/${imageInfo.HOME_DISCRIPTION.level1}.png`,
+      path: `/images/${imageInfo.PAGE_DISCRIPTION.level1}.png`,
       loading: 'eager', // 画像読み込みは標準
     },
     {
-      key: imageInfo.HOME_DISCRIPTION.level2,
+      key: imageInfo.PAGE_DISCRIPTION.level2,
       alt: '星2',
-      path: `/images/${imageInfo.HOME_DISCRIPTION.level2}.png`,
+      path: `/images/${imageInfo.PAGE_DISCRIPTION.level2}.png`,
       loading: 'eager', // 画像読み込みは標準
     },
     {
-      key: imageInfo.HOME_DISCRIPTION.level3,
+      key: imageInfo.PAGE_DISCRIPTION.level3,
       alt: '星3',
-      path: `/images/${imageInfo.HOME_DISCRIPTION.level3}.png`,
+      path: `/images/${imageInfo.PAGE_DISCRIPTION.level3}.png`,
       loading: 'eager', // 画像読み込みは標準
     },
     {
-      key: imageInfo.HOME_DISCRIPTION.level4,
+      key: imageInfo.PAGE_DISCRIPTION.level4,
       alt: '星4',
-      path: `/images/${imageInfo.HOME_DISCRIPTION.level4}.png`,
+      path: `/images/${imageInfo.PAGE_DISCRIPTION.level4}.png`,
       loading: 'eager', // 画像読み込みは標準
     },
     {
-      key: imageInfo.HOME_DISCRIPTION.level5,
+      key: imageInfo.PAGE_DISCRIPTION.level5,
       alt: '星5',
-      path: `/images/${imageInfo.HOME_DISCRIPTION.level5}.png`,
+      path: `/images/${imageInfo.PAGE_DISCRIPTION.level5}.png`,
       loading: 'eager', // 画像読み込みは標準
     },
   ],
-} as const;
+} as const satisfies {
+  HOME: readonly ImageItem[];
+  PAGE_DISCRIPTION: readonly ImageItem[];
+};
