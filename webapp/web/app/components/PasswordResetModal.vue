@@ -100,7 +100,6 @@ const onSubmit = handleSubmit(async (values) => {
 </script>
 <style lang="scss" scoped>
 @use '~/assets/styles/main.scss' as *;
-@use 'sass:color';
 
 .password-reset-modal {
   @include form-style;

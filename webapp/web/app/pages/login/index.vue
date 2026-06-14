@@ -119,7 +119,6 @@ const onSubmit = handleSubmit(async (values) => {
 
 <style lang="scss" scoped>
 @use '~/assets/styles/main.scss' as *;
-@use 'sass:color';
 
 .login-page {
   @include auth-page-layout($color-dark-brown);

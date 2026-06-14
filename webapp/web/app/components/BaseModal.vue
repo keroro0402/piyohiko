@@ -22,7 +22,6 @@ defineEmits(['close']);
 
 <style lang="scss" scoped>
 @use '~/assets/styles/main.scss' as *;
-@use 'sass:color';
 
 .base-modal {
   @include modal-layout($color-white);

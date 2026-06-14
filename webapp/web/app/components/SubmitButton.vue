@@ -15,7 +15,6 @@ const { block, text, isFormValid } = defineProps<{
 
 <style lang="scss" scoped>
 @use '~/assets/styles/main.scss' as *;
-@use 'sass:color';
 
 .login-form,
 .signup-form,
