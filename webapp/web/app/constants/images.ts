@@ -1,5 +1,3 @@
-import type { ImageItem } from '~/types/image';
-
 /**
  * イメージ定義
  *
@@ -97,5 +95,4 @@ export const IMAGES = {
       loading: 'eager', // 画像読み込みは標準
     },
   ],
-  // 型アサーションで定数と明示する
 } as const;
